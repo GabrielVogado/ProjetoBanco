@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Caixa</title>
+</h:head>
+<h:body>
+	<h:form>
+
+		<h:outputLabel value="Depositar" />
+		<h:inputText value="#{contaController.conta.saldo}" />
+
+		<h:commandButton action="Depositar"
+			value="#{contaController.atividadeConta()}" />
+
+	</h:form>
+
+
+</h:body>
+</html>
