@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>AppBanco</title>
+</h:head>
+<h:body style="display:flex;">
+	<h:form style=" margin:auto;">
+
+		<p:growl id="growl-mensagem" showDetail="true" sticky="true" />
+		<h:panelGrid columns="2" cellpadding="10">
+			<p:graphicImage url="/image/locked.png" />
+			<p:panel id="panel-login-principal" header="Login">
+				<h:outputText value="Login:" />
+				<p:inputText value="#{loginController.login}" />
+				<br />
+				<h:outputText value="Senha" />
+				<p:password value="#{loginController.senha}" />
+				<br />
+				&nbsp;
+				<p:commandButton value="Logar"
+					action="#{loginController.realizarLogin}" icon="ui-icon-gear" />
+				<br />
+			</p:panel>
+		</h:panelGrid>
+		<center>
+			<p:link outcome="/cadastro.xhtml"
+				value="Não é cadastrado? Cadastre-se Aqui!" />
+		</center>
+	</h:form>
+</h:body>
+</html>

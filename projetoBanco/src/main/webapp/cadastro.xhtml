@@ -11,30 +11,45 @@
 
 <h:body>
 	<h:form>
+		<p:panel header="Cadastro de Cliente">
+			<p:messages autoUpdate="true" />
+			<h:panelGrid id="grid" columns="1" cellpadding="5">
 
-		<h:outputText value="Nome:" />
-		<h:inputText value="#{cadastroController.cadastro.nome}" />
-		<br />
-		
-		<h:outputText value="Telefone:" />
-		<h:inputText value="#{cadastroController.cadastro.telefone}" />
-		<br />
-
-		<h:outputText value="Endereço:" />
-		<h:inputText value="#{cadastroController.cadastro.endereco}" />
-		<br />
-
-		<h:outputText value="Email" />
-		<h:inputText value="#{cadastroController.cadastro.email}" />
-		<br />
-
-		<h:outputText value="Senha" />
-		<h:inputText value="#{cadastroController.cadastro.senha}" />
+				<h:outputText value="Nome:" />
+				<p:inputText id="nome" value="#{cadastroController.cadastro.nome}"
+					required="true" label="Nome" requiredMessage="'Nome' é Obrigatorio" />
 
 
-		<h:commandButton value="Cadastrar"
-			action="#{cadastroController.gravarUsuario()}" />
 
+				<h:outputText value="Telefone:" />
+				<p:inputText id="telefone"
+					value="#{cadastroController.cadastro.telefone}" required="true"
+					label="Telefone" requiredMessage="'Telefone' é Obrigatorio" />
+
+
+
+				<h:outputText value="Endereço:" />
+				<p:inputText id="endereco"
+					value="#{cadastroController.cadastro.endereco}" required="true"
+					label="Endereco" requiredMessage="'Endereço' é Obrigatorio" />
+
+				<h:outputText value="Email" />
+				<p:inputText id="email" value="#{cadastroController.cadastro.email}"
+					required="true" label="Email"
+					requiredMessage="'Email' é Obrigatorio" />
+
+				<h:outputText value="Senha" />
+				<p:password id="feedback"
+					value="#{cadastroController.cadastro.senha}" feedback="true"
+					required="true" label="Senha"
+					requiredMessage="'Senha' é Obrigatorio" />
+				<br />
+
+			</h:panelGrid>
+			<p:commandButton value="Cadastrar"
+				action="#{cadastroController.gravarUsuario()}"  />
+				
+		</p:panel>
 	</h:form>
 </h:body>
 

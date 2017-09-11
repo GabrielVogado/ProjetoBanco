@@ -4,6 +4,7 @@ package br.com.brb.controller;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import br.com.brb.entity.Usuario;
 import br.com.brb.service.ILoginService;
@@ -15,24 +16,38 @@ public class LoginController {
 	@EJB
 	private ILoginService loginService;
 
-	private Usuario usuario = new Usuario();
-
+	private String Login="";
+	private String Senha="";
+	
 	public String realizarLogin() {
 
-		Boolean isUsuarioLogado = loginService.verificarUsuarioLogado(getUsuario());
+		Usuario usuario = new Usuario();
+		usuario.setEmail(this.Login);
+		usuario.setSenha(this.Senha);
+		
+		Usuario isUsuarioLogado = loginService.verificarUsuarioLogado( usuario );
 
-		if (isUsuarioLogado) {
+		if (isUsuarioLogado != null) {
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado", isUsuarioLogado);
 			return "home";
 		}
 
 		return "erroLogin";
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public String getLogin() {
+		return Login;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setLogin(String login) {
+		Login = login;
+	}
+
+	public String getSenha() {
+		return Senha;
+	}
+
+	public void setSenha(String senha) {
+		Senha = senha;
 	}
 }

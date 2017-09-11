@@ -15,7 +15,6 @@ public class CadastroService implements ICadastroService {
 	@Inject
 	CadastroDao cdao;
 
-	@Override
 	public boolean gravarUsuario(Cadastro cadastro) {
 		return cdao.insertCadastro(cadastro);
 	}

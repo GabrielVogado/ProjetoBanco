@@ -7,6 +7,6 @@ import br.com.brb.entity.Usuario;
 @Local
 public interface ILoginService {
 
-	public Boolean verificarUsuarioLogado(Usuario usuario);
+	public Usuario verificarUsuarioLogado(Usuario usuario);
 
 }

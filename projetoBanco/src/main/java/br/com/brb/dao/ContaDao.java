@@ -11,16 +11,14 @@ public class ContaDao extends AbstractDAO {
 
 		try {
 
-			getEm().persist(conta);
+			conta = getEm().merge(conta);
 			getEm().flush();
 
 		} catch (Exception e) {
-
 			e.printStackTrace();
-
 		}
+		
 		return conta;
-
 	}
 
 }

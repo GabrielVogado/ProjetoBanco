@@ -4,20 +4,39 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
-public class Conta implements Serializable{
+@Table(name="conta")
+public class Conta implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	@Column
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="idconta")
+	private int id;
+	
+	
+	@Column(name="saldo")
 	private double saldo;
 
-	@Column
-	private double limite;
+	@OneToOne
+	@JoinColumn(name="idusuario")
+	private Usuario usuario;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public double getSaldo() {
 		return saldo;
@@ -27,12 +46,12 @@ public class Conta implements Serializable{
 		this.saldo = saldo;
 	}
 
-	public double getLimite() {
-		return limite;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setLimite(double limite) {
-		this.limite = limite;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

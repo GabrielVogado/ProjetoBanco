@@ -27,7 +27,7 @@ public class CadastroController {
 			context.addMessage(null, new FacesMessage("Cliente gravado com sucesso"));
 			
 		} else {
-			context.addMessage(null, new FacesMessage("Falha ao gravar cliente!"));
+			context.addMessage(null, new FacesMessage("Não foi possivel realizar seu cadastro.Tente novamente"));
 		}
 	}
 

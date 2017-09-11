@@ -4,7 +4,8 @@
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>Caixa</title>
 </h:head>
@@ -12,13 +13,12 @@
 	<h:form>
 
 		<h:outputLabel value="Depositar" />
-		<h:inputText value="#{contaController.conta.saldo}" />
-
-		<h:commandButton action="Depositar"
-			value="#{contaController.atividadeConta()}" />
+		<h:inputText value="#{contaController.vlrDeposito}" />
+		<h:commandButton action="#{contaController.depositaConta()}"
+			value="Depositar" />
+			
 
 	</h:form>
-
 
 </h:body>
 </html>

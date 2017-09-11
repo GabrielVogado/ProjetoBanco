@@ -13,25 +13,21 @@ public class ContaService implements IContaService {
 	@Inject
 	ContaDao contadao;
 
-	@Override
 	public Conta deposita(Conta valor) {
 		return contadao.inserirSaldo(valor);
 		
 	}
 
-	@Override
 	public void saca(Conta valor) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void transfere(Conta valor) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void consultaExtrato(Conta conta) {
 		// TODO Auto-generated method stub
 		
