@@ -9,15 +9,12 @@ import br.com.brb.entity.Usuario;
 
 public class UsuarioDAO extends AbstractDAO {
 
-	@PersistenceContext(unitName = "AppBanco")
-	private EntityManager entityManager;
-
 	public Usuario consultarUsuarioPorFiltro(Usuario usuario) {
 		try {
 			StringBuilder hql = new StringBuilder();
 			hql.append("SELECT u FROM Usuario u WHERE u.email=:email and u.senha=:senha");
 
-			Query query = entityManager.createQuery(hql.toString());
+			Query query = getEm().createQuery(hql.toString());
 
 			query.setParameter("email", usuario.getEmail());
 			query.setParameter("senha", usuario.getSenha());
@@ -27,5 +24,9 @@ public class UsuarioDAO extends AbstractDAO {
 			nre.printStackTrace();
 			return null;
 		}
+	}
+	
+	public Usuario getUsuarioById( String id ) {
+		return getEm().find(Usuario.class, id);
 	}
 }
