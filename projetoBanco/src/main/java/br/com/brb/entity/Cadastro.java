@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,30 +16,44 @@ public class Cadastro implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	
-	@Column
-	private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
 
-	@Column
+	@Column(name = "nome")
 	private String nome;
 
-	@Column
+	@Column(name = "telefone")
 	private String telefone;
 
-	@Column
+	@Column(name = "endereco")
 	private String endereco;
 
-	@Column
+	@Column(name = "email")
 	private String email;
 
-	@Column
+	@Column(name = "senha")
 	private String senha;
+	
+	public Cadastro() {
+		
+	}
 
-	public int getId() {
+	public Cadastro(Boolean prePreenchido) {
+		if(prePreenchido) {
+			this.nome = "Gabriel";
+			this.telefone = "95384753";
+			this.endereco = "Qd 1 Casa 1";
+			this.email = "abc.def@gmail.com";
+		}
+	}
+
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

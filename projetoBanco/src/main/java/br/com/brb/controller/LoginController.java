@@ -9,7 +9,7 @@ import javax.faces.context.FacesContext;
 import br.com.brb.entity.Usuario;
 import br.com.brb.service.ILoginService;
 
-@ManagedBean
+@ManagedBean(name = "loginController")
 @ViewScoped
 public class LoginController {
 
@@ -29,7 +29,7 @@ public class LoginController {
 
 		if (isUsuarioLogado != null) {
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado", isUsuarioLogado);
-			return "home";
+			return "/caixa.xhtml";
 		}
 
 		return "erroLogin";

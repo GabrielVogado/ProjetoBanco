@@ -12,11 +12,20 @@
 <h:body>
 	<h:form>
 
-		<h:outputLabel value="Depositar" />
-		<h:inputText value="#{contaController.vlrDeposito}" />
-		<h:commandButton action="#{contaController.depositaConta()}"
+		<!-- 		<h:outputLabel value="Depositar" /> -->
+		<p:inputText value="#{contaController.vlrDeposito}" />
+		<p:commandButton action="#{contaController.depositaConta()}"
 			value="Depositar" />
-			
+		<br />
+		<!-- 		<h:outputLabel value="Sacar" /> -->
+		<p:inputText value="#{contaController.vlrSaque}" />
+		<p:commandButton action="#{contaController.saqueConta()}"
+			value="Sacar" />
+		<br />
+		<!-- 		<h:outputLabel value="Transferencia" /> -->
+		<p:inputText value="#{contaController.vlrTransferencia}" />
+		<p:commandButton action="#{contaController.transferenciaConta()}"
+			value="Transferencia" />
 
 	</h:form>
 

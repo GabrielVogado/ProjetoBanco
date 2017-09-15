@@ -18,14 +18,13 @@ public class ContaService implements IContaService {
 		
 	}
 
-	public void saca(Conta valor) {
-		// TODO Auto-generated method stub
+	public Conta saca(Conta valor) {
+		return contadao.inserirSaldo(valor);
 		
 	}
 
-	public void transfere(Conta valor) {
-		// TODO Auto-generated method stub
-		
+	public Conta transfere(Conta valor) {
+		return contadao.inserirSaldo(valor);
 	}
 
 	public void consultaExtrato(Conta conta) {

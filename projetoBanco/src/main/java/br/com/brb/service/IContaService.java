@@ -9,9 +9,9 @@ public interface IContaService {
 
 	public Conta deposita(Conta valor);
 
-	public void saca(Conta valor);
+	public Conta saca(Conta valor);
 
-	public void transfere(Conta valor);
+	public Conta transfere(Conta valor);
 
 	public void consultaExtrato(Conta conta);
 

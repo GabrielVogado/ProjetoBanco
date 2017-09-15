@@ -9,25 +9,26 @@ import javax.faces.context.FacesContext;
 import br.com.brb.entity.Cadastro;
 import br.com.brb.service.ICadastroService;
 
-@ManagedBean
+@ManagedBean(name = "cadastroController")
 @SessionScoped
 public class CadastroController {
 
 	@EJB
 	private ICadastroService cadastroService;
 
-	private Cadastro cadastro = new Cadastro();
+	private Cadastro cadastro = new Cadastro(Boolean.TRUE);
 
 	public void gravarUsuario() {
 		
 		FacesContext context = FacesContext.getCurrentInstance();
+		
 		Boolean isCadastrado = cadastroService.gravarUsuario(cadastro);
 		
 		if (isCadastrado) {
 			context.addMessage(null, new FacesMessage("Cliente gravado com sucesso"));
 			
 		} else {
-			context.addMessage(null, new FacesMessage("Não foi possivel realizar seu cadastro.Tente novamente"));
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Não foi possivel realizar seu cadastro.Tente novamente", null));
 		}
 	}
 
