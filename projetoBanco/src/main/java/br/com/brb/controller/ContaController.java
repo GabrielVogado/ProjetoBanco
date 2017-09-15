@@ -61,32 +61,32 @@ public class ContaController implements Serializable {
 		return true;
 	}
 
-	public boolean transferenciaConta(Conta conta, Double valor) {
-		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-				.get("usuarioLogado");
-		conta = usuario.getConta();
+	public boolean transferenciaConta() {
+		Usuario usuarioOrigem = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+		
+		Conta contaOrigem = usuarioOrigem.getConta();
 			
-			 if (conta.getSaldo()  < this.vlrSaque) {
+		if (contaOrigem.getSaldo()  < this.vlrTransferencia)
 			return false;
-		} else {
 			
-			conta.setSaldo(conta.getSaldo() - this.vlrSaque);
+		Usuario usuarioDestino = usuarioService.getUsuarioById( idUsuarioDestino ); // 1. Tem que criar um service pro usuario.
+																					// 2. Na tela de transferencia tem que ter um campo pra pessoa 
+																					// digitar o Id do Usuario de Destino.
+		if( usuarioDestino == null || usuarioDestino.getConta() == null)
+			return false;
+		
+		Conta contaDestino = usuarioDestino.getConta();
 
-			conta.setUsuario(usuario);
-
-			usuario.setConta(contaService.saca(conta));
-		}
+		contaDestino.setSaldo(contaDestino.getSaldo() + this.vlrTransferencia);
+		contaDestino.setUsuario(usuarioDestino);
+		
+		contaOrigem.setSaldo(contaOrigem.getSaldo() - this.vlrTransferencia);
+		contaOrigem.setUsuario(usuarioOrigem);
+		
+		usuarioOrigem.setConta( contaService.saca(contaOrigem) );
+		usuarioDestino.setConta( contaService.deposita(contaDestino) );
 			
-			 conta.setSaldo(conta.getSaldo() + this.vlrDeposito);
-
-				conta.setUsuario(usuario);
-
-				usuario.setConta(contaService.deposita(conta));
-
-			 
-		this.vlrSaque = this.vlrDeposito + vlrSaque;			
-			
-			return true;
+		return true;
 	}
 
 	public double getVlrDeposito() {
