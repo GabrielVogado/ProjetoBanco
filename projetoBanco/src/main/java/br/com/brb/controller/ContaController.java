@@ -27,6 +27,7 @@ public class ContaController implements Serializable {
 	private double vlrDeposito;
 	private double vlrSaque;
 	private double vlrTransferencia;
+	private String idUsuarioDestino;
 
 	public void depositaConta() {
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
@@ -63,7 +64,7 @@ public class ContaController implements Serializable {
 		return true;
 	}
 
-	public boolean transferenciaConta(String idUsuarioDestino) {
+	public boolean transferenciaConta() {
 		Usuario usuarioOrigem = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuarioLogado");
 
@@ -116,6 +117,14 @@ public class ContaController implements Serializable {
 
 	public void setVlrTransferencia(double vlrTransferencia) {
 		this.vlrTransferencia = vlrTransferencia;
+	}
+
+	public String getIdUsuarioDestino() {
+		return idUsuarioDestino;
+	}
+
+	public void setIdUsuarioDestino(String usuarioId) {
+		this.idUsuarioDestino = usuarioId;
 	}
 
 }
