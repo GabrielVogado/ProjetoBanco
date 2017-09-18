@@ -6,11 +6,11 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.ws.rs.GET;
 
 import br.com.brb.entity.Conta;
 import br.com.brb.entity.Usuario;
 import br.com.brb.service.IContaService;
-import br.com.brb.service.ILoginService;
 import br.com.brb.service.IUsuarioService;
 
 @ManagedBean(name = "contaController")
@@ -63,7 +63,7 @@ public class ContaController implements Serializable {
 		return true;
 	}
 
-	public boolean transferenciaConta(Usuario idUsuarioDestino) {
+	public boolean transferenciaConta(String idUsuarioDestino) {
 		Usuario usuarioOrigem = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuarioLogado");
 

@@ -9,18 +9,13 @@ import br.com.brb.service.IUsuarioService;
 
 @Stateless
 public class UsuarioService implements IUsuarioService {
+
 	@Inject
 	private UsuarioDAO usuarioDAO;
 
-	public String getUsuarioById(String usuarioDestino) {
-		Usuario usuario = usuarioDAO.getUsuarioById(usuarioDestino);
-		return usuarioDestino;
-
-	}
-
 	@Override
-	public Usuario getUsuarioById(Usuario usuarioDestino) {
-		// TODO Auto-generated method stub
-		return null;
+	public Usuario getUsuarioById(String IdUsuarioDestino) {
+		
+		return usuarioDAO.getUsuarioById(IdUsuarioDestino);
 	}
 }
