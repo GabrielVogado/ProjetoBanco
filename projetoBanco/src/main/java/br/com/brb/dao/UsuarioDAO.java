@@ -1,8 +1,6 @@
 package br.com.brb.dao;
 
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import br.com.brb.entity.Usuario;

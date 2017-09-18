@@ -10,8 +10,6 @@ import br.com.brb.service.ICadastroService;
 @Stateless
 public class CadastroService implements ICadastroService {
 
-
-	
 	@Inject
 	CadastroDao cdao;
 

@@ -11,7 +11,6 @@
 </h:head>
 <h:body>
 	<h:form>
-
 		<!-- 		<h:outputLabel value="Depositar" /> -->
 		<p:inputText value="#{contaController.vlrDeposito}" />
 		<p:commandButton action="#{contaController.depositaConta()}"
@@ -23,11 +22,9 @@
 			value="Sacar" />
 		<br />
 		<!-- 		<h:outputLabel value="Transferencia" /> -->
-		<p:inputText value="#{contaController.vlrTransferencia}" />
-		<p:commandButton action="#{contaController.transferenciaConta()}"
-			value="Transferencia" />
-
+				<p:inputText value="#{contaController.vlrTransferencia}" />
+		<p:inputText value="#{cadastroController.cadastro.id}" />
+		<p:commandButton value="#{contaController.transferenciaConta()}" />
 	</h:form>
-
 </h:body>
 </html>

@@ -9,4 +9,7 @@ public interface ILoginService {
 
 	public Usuario verificarUsuarioLogado(Usuario usuario);
 
+	
+	
+	
 }

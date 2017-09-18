@@ -9,15 +9,17 @@ import br.com.brb.service.ILoginService;
 
 @Stateless
 public class LoginService implements ILoginService {
-	
+
 	@Inject
 	private UsuarioDAO usuarioDAO;
 
 	public Usuario verificarUsuarioLogado(Usuario usuario) {
 
 		Usuario user = usuarioDAO.consultarUsuarioPorFiltro(usuario);
-		
+
 		return user;
 	}
+
+
 
 }

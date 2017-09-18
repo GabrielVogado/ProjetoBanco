@@ -6,11 +6,12 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.ws.rs.GET;
 
 import br.com.brb.entity.Conta;
 import br.com.brb.entity.Usuario;
 import br.com.brb.service.IContaService;
+import br.com.brb.service.ILoginService;
+import br.com.brb.service.IUsuarioService;
 
 @ManagedBean(name = "contaController")
 @SessionScoped
@@ -21,6 +22,7 @@ public class ContaController implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@EJB
+	private IUsuarioService usuarioService;
 	private IContaService contaService;
 	private double vlrDeposito;
 	private double vlrSaque;
@@ -61,31 +63,34 @@ public class ContaController implements Serializable {
 		return true;
 	}
 
-	public boolean transferenciaConta() {
-		Usuario usuarioOrigem = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
-		
+	public boolean transferenciaConta(Usuario idUsuarioDestino) {
+		Usuario usuarioOrigem = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.get("usuarioLogado");
+
 		Conta contaOrigem = usuarioOrigem.getConta();
-			
-		if (contaOrigem.getSaldo()  < this.vlrTransferencia)
+
+		if (contaOrigem.getSaldo() < this.vlrTransferencia)
 			return false;
-			
-		Usuario usuarioDestino = usuarioService.getUsuarioById( idUsuarioDestino ); // 1. Tem que criar um service pro usuario.
-																					// 2. Na tela de transferencia tem que ter um campo pra pessoa 
-																					// digitar o Id do Usuario de Destino.
-		if( usuarioDestino == null || usuarioDestino.getConta() == null)
+
+		Usuario usuarioDestino = usuarioService.getUsuarioById(idUsuarioDestino); // 1. Tem que criar um service pro
+																				// usuario.
+																				// 2. Na tela de transferencia tem que
+																				// ter um campo pra pessoa
+																				// digitar o Id do Usuario de Destino.
+		if (usuarioDestino == null || usuarioDestino.getConta() == null)
 			return false;
-		
+
 		Conta contaDestino = usuarioDestino.getConta();
 
 		contaDestino.setSaldo(contaDestino.getSaldo() + this.vlrTransferencia);
 		contaDestino.setUsuario(usuarioDestino);
-		
+
 		contaOrigem.setSaldo(contaOrigem.getSaldo() - this.vlrTransferencia);
 		contaOrigem.setUsuario(usuarioOrigem);
-		
-		usuarioOrigem.setConta( contaService.saca(contaOrigem) );
-		usuarioDestino.setConta( contaService.deposita(contaDestino) );
-			
+
+		usuarioOrigem.setConta(contaService.saca(contaOrigem));
+		usuarioDestino.setConta(contaService.deposita(contaDestino));
+
 		return true;
 	}
 
