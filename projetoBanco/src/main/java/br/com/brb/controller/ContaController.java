@@ -72,7 +72,9 @@ public class ContaController implements Serializable {
 		if (contaOrigem.getSaldo() < this.vlrTransferencia)
 			return false;
 
-		Usuario usuarioDestino = usuarioService.getUsuarioById(idUsuarioDestino); // 1. Tem que criar um service pro
+		Usuario usuarioDestino = usuarioService.getUsuarioById(idUsuarioDestino); //Ele da erro a partir dessa Linha
+		
+																					// 1. Tem que criar um service pro
 																					// usuario.
 																					// 2. Na tela de transferencia tem
 																					// que
