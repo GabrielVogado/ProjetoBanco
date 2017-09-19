@@ -17,9 +17,7 @@ import br.com.brb.service.IUsuarioService;
 @SessionScoped
 public class ContaController implements Serializable {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private IUsuarioService usuarioService;
@@ -27,10 +25,7 @@ public class ContaController implements Serializable {
 	private double vlrDeposito;
 	private double vlrSaque;
 	private double vlrTransferencia;
-<<<<<<< HEAD
-=======
-	
->>>>>>> refs/remotes/origin/master
+
 	private String idUsuarioDestino;
 
 	public void depositaConta() {
@@ -78,10 +73,12 @@ public class ContaController implements Serializable {
 			return false;
 
 		Usuario usuarioDestino = usuarioService.getUsuarioById(idUsuarioDestino); // 1. Tem que criar um service pro
-																				// usuario.
-																				// 2. Na tela de transferencia tem que
-																				// ter um campo pra pessoa
-																				// digitar o Id do Usuario de Destino.
+																					// usuario.
+																					// 2. Na tela de transferencia tem
+																					// que
+																					// ter um campo pra pessoa
+																					// digitar o Id do Usuario de
+																					// Destino.
 		if (usuarioDestino == null || usuarioDestino.getConta() == null)
 			return false;
 
@@ -122,21 +119,12 @@ public class ContaController implements Serializable {
 	public void setVlrTransferencia(double vlrTransferencia) {
 		this.vlrTransferencia = vlrTransferencia;
 	}
-	
+
 	public void setIdUsuarioDestino(String usuarioId){
-		this.idUsuarioDestino = usuario
-	}
-	
-	public String getIdUsuarioDestino(){
-		return this.idUsuarioDestino;
-	}
-
-	public String getIdUsuarioDestino() {
-		return idUsuarioDestino;
-	}
-
-	public void setIdUsuarioDestino(String usuarioId) {
 		this.idUsuarioDestino = usuarioId;
 	}
 
+	public String getIdUsuarioDestino() {
+		return this.idUsuarioDestino;
+	}
 }

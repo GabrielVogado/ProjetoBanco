@@ -14,13 +14,9 @@ public class UsuarioService implements IUsuarioService {
 	private UsuarioDAO usuarioDAO;
 
 	@Override
-<<<<<<< HEAD
-	public Usuario getUsuarioById (String usuarioId) {
-=======
+
 	public Usuario getUsuarioById(String usuarioId) {
->>>>>>> refs/remotes/origin/master
-		
+
 		return usuarioDAO.getUsuarioById(usuarioId);
 	}
 }
- 
