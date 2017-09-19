@@ -4,34 +4,37 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="usuario")
+@Table(name = "usuario")
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 5555727164704640881L;
 
 	@Id
-	@Column(name="id")
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private long id;
 
-	@Column(name="email")
+	@Column(name = "email")
 	private String email;
 
-	@Column(name="senha")
+	@Column(name = "senha")
 	private String senha;
-	
-	@OneToOne(mappedBy="usuario")
+
+	@OneToOne(mappedBy = "usuario")
 	private Conta conta;
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -58,5 +61,5 @@ public class Usuario implements Serializable {
 	public void setConta(Conta conta) {
 		this.conta = conta;
 	}
-	
+
 }
