@@ -12,27 +12,27 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="conta")
+@Table(name = "conta")
 public class Conta implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="idconta")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idconta")
 	private int id;
-	
-	
-	@Column(name="saldo")
+
+	@Column(name = "saldo")
 	private double saldo;
 
 	@OneToOne
-	@JoinColumn(name="idusuario")
+	@JoinColumn(name = "idusuario")
 	private Usuario usuario;
 
 	public int getId() {
 		return id;
 	}
+
 
 	public void setId(int id) {
 		this.id = id;

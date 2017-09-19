@@ -48,7 +48,7 @@ public class Cadastro implements Serializable {
 		}
 	}
 
-
+	
 	public Long getId() {
 		return id;
 	}

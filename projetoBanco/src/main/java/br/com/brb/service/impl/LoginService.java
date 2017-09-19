@@ -20,6 +20,4 @@ public class LoginService implements ILoginService {
 		return user;
 	}
 
-
-
 }
