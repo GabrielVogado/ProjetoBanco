@@ -27,6 +27,10 @@ public class ContaController implements Serializable {
 	private double vlrDeposito;
 	private double vlrSaque;
 	private double vlrTransferencia;
+<<<<<<< HEAD
+=======
+	
+>>>>>>> refs/remotes/origin/master
 	private String idUsuarioDestino;
 
 	public void depositaConta() {
@@ -117,6 +121,14 @@ public class ContaController implements Serializable {
 
 	public void setVlrTransferencia(double vlrTransferencia) {
 		this.vlrTransferencia = vlrTransferencia;
+	}
+	
+	public void setIdUsuarioDestino(String usuarioId){
+		this.idUsuarioDestino = usuario
+	}
+	
+	public String getIdUsuarioDestino(){
+		return this.idUsuarioDestino;
 	}
 
 	public String getIdUsuarioDestino() {
