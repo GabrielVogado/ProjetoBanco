@@ -17,7 +17,6 @@ import br.com.brb.service.IUsuarioService;
 @SessionScoped
 public class ContaController implements Serializable {
 
-	
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private IUsuarioService usuarioService;
@@ -63,7 +62,7 @@ public class ContaController implements Serializable {
 		return true;
 	}
 
-	public boolean transferenciaConta() {
+	public boolean transferenciaConta(String idUsuarioDestino) {
 		Usuario usuarioOrigem = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuarioLogado");
 
@@ -72,15 +71,15 @@ public class ContaController implements Serializable {
 		if (contaOrigem.getSaldo() < this.vlrTransferencia)
 			return false;
 
-		Usuario usuarioDestino = usuarioService.getUsuarioById(idUsuarioDestino); //Ele da erro a partir dessa Linha
-		
-																					// 1. Tem que criar um service pro
-																					// usuario.
-																					// 2. Na tela de transferencia tem
-																					// que
-																					// ter um campo pra pessoa
-																					// digitar o Id do Usuario de
-																					// Destino.
+		// 1. Tem que criar um service pro
+		// usuario.
+		// 2. Na tela de transferencia tem
+		// que
+		// ter um campo pra pessoa
+		// digitar o Id do Usuario de
+		// Destino.
+		Usuario usuarioDestino = usuarioService.getUsuarioById(idUsuarioDestino); // Ele da erro a partir dessa Linha
+
 		if (usuarioDestino == null || usuarioDestino.getConta() == null)
 			return false;
 
@@ -122,7 +121,7 @@ public class ContaController implements Serializable {
 		this.vlrTransferencia = vlrTransferencia;
 	}
 
-	public void setIdUsuarioDestino(String usuarioId){
+	public void setIdUsuarioDestino(String usuarioId) {
 		this.idUsuarioDestino = usuarioId;
 	}
 
