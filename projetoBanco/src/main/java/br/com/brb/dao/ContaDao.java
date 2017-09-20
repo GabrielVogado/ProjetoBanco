@@ -6,7 +6,7 @@ import br.com.brb.entity.Conta;
 
 @Stateless
 public class ContaDao extends AbstractDAO {
-	
+	 
 	public Conta inserirSaldo(Conta conta) {
 
 		try {
@@ -17,7 +17,7 @@ public class ContaDao extends AbstractDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return conta;
 	}
 

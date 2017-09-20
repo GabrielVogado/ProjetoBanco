@@ -1,10 +1,12 @@
 package br.com.brb.dao;
 
+import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import br.com.brb.entity.Usuario;
 
+@Stateless
 public class UsuarioDAO extends AbstractDAO {
 
 	public Usuario consultarUsuarioPorFiltro(Usuario usuario) {
@@ -23,8 +25,8 @@ public class UsuarioDAO extends AbstractDAO {
 			return null;
 		}
 	}
-	
-	public Usuario getUsuarioById( String id ) {
+
+	public Usuario getUsuarioById(String id) {
 		return getEm().find(Usuario.class, id);
 	}
 }

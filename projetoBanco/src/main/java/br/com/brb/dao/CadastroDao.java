@@ -6,7 +6,7 @@ import br.com.brb.entity.Cadastro;
 
 @Stateless
 public class CadastroDao extends AbstractDAO {
-
+	
 	public boolean insertCadastro(Cadastro cadastro) {
 
 		try {

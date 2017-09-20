@@ -3,8 +3,9 @@ package br.com.brb.controller;
 import java.io.Serializable;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.ws.rs.GET;
 
@@ -35,7 +36,7 @@ public class ContaController implements Serializable {
 		if (conta == null) {
 			conta = new Conta();// Essa Linha Não É Executada
 		}
-
+		/* CONTASERVICE ESTA NULA!!!!! */
 		conta.setSaldo(conta.getSaldo() + this.vlrDeposito);
 
 		conta.setUsuario(usuario);
