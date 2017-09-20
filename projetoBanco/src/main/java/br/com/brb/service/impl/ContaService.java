@@ -9,18 +9,18 @@ import br.com.brb.service.IContaService;
 
 @Stateless
 public class ContaService implements IContaService {
-	
+
 	@Inject
 	ContaDao contadao;
 
 	public Conta deposita(Conta valor) {
 		return contadao.inserirSaldo(valor);
-		
+
 	}
 
 	public Conta saca(Conta valor) {
 		return contadao.inserirSaldo(valor);
-		
+
 	}
 
 	public Conta transfere(Conta valor) {
@@ -29,8 +29,7 @@ public class ContaService implements IContaService {
 
 	public void consultaExtrato(Conta conta) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	
 }

@@ -32,15 +32,15 @@ public class ContaController implements Serializable {
 				.get("usuarioLogado");
 		Conta conta = usuario.getConta();
 
-//		if (conta == null) {
-//			conta = new Conta();
-//		}
+		if (conta == null) {
+			conta = new Conta();// Essa Linha Não É Executada
+		}
 
 		conta.setSaldo(conta.getSaldo() + this.vlrDeposito);
 
 		conta.setUsuario(usuario);
 
-		usuario.setConta(contaService.deposita(conta));
+		usuario.setConta(contaService.deposita(conta));// Erro de NullPointer: contaService = null;
 
 	}
 
@@ -57,7 +57,7 @@ public class ContaController implements Serializable {
 
 		conta.setUsuario(usuario);
 
-		usuario.setConta(contaService.saca(conta));
+		usuario.setConta(contaService.saca(conta));// Erro de NullPointer: contaService = null;
 
 		return true;
 	}
