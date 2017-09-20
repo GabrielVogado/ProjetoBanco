@@ -32,9 +32,9 @@ public class ContaController implements Serializable {
 				.get("usuarioLogado");
 		Conta conta = usuario.getConta();
 
-		if (conta == null) {
-			conta = new Conta();
-		}
+//		if (conta == null) {
+//			conta = new Conta();
+//		}
 
 		conta.setSaldo(conta.getSaldo() + this.vlrDeposito);
 

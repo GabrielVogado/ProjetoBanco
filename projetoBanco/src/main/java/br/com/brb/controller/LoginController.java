@@ -16,19 +16,20 @@ public class LoginController {
 	@EJB
 	private ILoginService loginService;
 
-	private String Login="";
-	private String Senha="";
-	
+	private String Login = "";
+	private String Senha = "";
+
 	public String realizarLogin() {
 
 		Usuario usuario = new Usuario();
 		usuario.setEmail(this.Login);
 		usuario.setSenha(this.Senha);
-		
-		Usuario isUsuarioLogado = loginService.verificarUsuarioLogado( usuario );
+
+		Usuario isUsuarioLogado = loginService.verificarUsuarioLogado(usuario);
 
 		if (isUsuarioLogado != null) {
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado", isUsuarioLogado);
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado",
+					isUsuarioLogado);
 			return "/caixa.xhtml";
 		}
 

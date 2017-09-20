@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,12 +30,19 @@ public class Usuario implements Serializable {
 
 	@OneToOne(mappedBy = "usuario")
 	private Conta conta;
+	
+	
+	public Usuario() {
+		super();
+		if(conta == null) {
+			conta = new Conta();
+		}
+	}
 
 	public Long getId() {
 		return id;
 	}
 
-	
 	public void setId(Long id) {
 		this.id = id;
 	}

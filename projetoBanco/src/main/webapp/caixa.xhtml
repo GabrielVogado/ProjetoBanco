@@ -11,21 +11,24 @@
 </h:head>
 <h:body>
 	<h:form>
-		<!-- 		<h:outputLabel value="Depositar" /> -->
-		<p:inputText value="#{contaController.vlrDeposito}" />
-		<p:commandButton action="#{contaController.depositaConta()}"
-			value="Depositar" />
-		<br />
-		<!-- 		<h:outputLabel value="Sacar" /> -->
-		<p:inputText value="#{contaController.vlrSaque}" />
-		<p:commandButton action="#{contaController.saqueConta()}"
-			value="Sacar" />
-		<br />
-		<!-- 		<h:outputLabel value="Transferencia" /> -->
-		<p:inputText value="#{contaController.vlrTransferencia}" />
-		<p:inputText value="#{contaController.idUsuarioDestino}" />
-
-		<p:commandButton value="TRANSFERIR" action = "#{contaController.transferenciaConta()}" />
+		<p:panel>
+			<!--Depositar-->
+			<p:inputText value="#{contaController.vlrDeposito}" />
+			<p:commandButton action="#{contaController.depositaConta()}"
+				value="Depositar" icon=" ui-icon-arrowthick-1-n" />
+			<br />
+			<!-- Sacar-->
+			<p:inputText value="#{contaController.vlrSaque}" />
+			<p:commandButton action="#{contaController.saqueConta()}"
+				value="Sacar" icon="ui-icon-arrowthick-1-s" />
+			<br />
+			<!-- Transferencia -->
+			<p:inputText value="#{contaController.vlrTransferencia}" />
+			<p:inputText value="#{contaController.idUsuarioDestino}" />
+			<p:commandButton value="TRANSFERIR"
+				action="#{contaController.transferenciaConta}"
+				icon="ui-icon-transferthick-e-w" />
+		</p:panel>
 	</h:form>
 </h:body>
 </html>
