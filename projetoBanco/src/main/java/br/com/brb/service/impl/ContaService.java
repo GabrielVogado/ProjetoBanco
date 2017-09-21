@@ -10,7 +10,7 @@ import br.com.brb.service.IContaService;
 @Stateless
 public class ContaService implements IContaService {
 
-	@Inject
+	@Inject 
 	ContaDao contadao;
 
 	public Conta deposita(Conta valor) {
