@@ -29,14 +29,13 @@ public class Usuario implements Serializable {
 
 	@OneToOne(mappedBy = "usuario")
 	private Conta conta;
-	
-	
-//	public Usuario() {
-//		super();
-//		if(conta == null) {
-//			conta = new Conta();
-//		}
-//	}
+
+	public Usuario() {
+		super();
+		if (conta == null) {
+			conta = new Conta();
+		}
+	}
 
 	public Long getId() {
 		return id;

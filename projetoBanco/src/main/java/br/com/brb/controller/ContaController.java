@@ -2,22 +2,23 @@ package br.com.brb.controller;
 
 import java.io.Serializable;
 
-import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.brb.entity.Conta;
 import br.com.brb.entity.Usuario;
 import br.com.brb.service.IContaService;
 import br.com.brb.service.IUsuarioService;
 
-@ManagedBean(name = "contaController")
+@Named
 @SessionScoped
 public class ContaController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	@EJB
+
+	@Inject
 	private IUsuarioService usuarioService;
 	private IContaService contaService;
 	private double vlrDeposito;
@@ -40,7 +41,7 @@ public class ContaController implements Serializable {
 		conta.setUsuario(usuario);
 
 		usuario.setConta(contaService.deposita(conta));// Erro de NullPointer: contaService = null;
-
+//		usuario.setConta((Conta) ContaDao.getEm());
 	}
 
 	public boolean saqueConta() {
@@ -56,7 +57,8 @@ public class ContaController implements Serializable {
 
 		conta.setUsuario(usuario);
 
-		usuario.setConta(contaService.saca(conta));// Erro de NullPointer: contaService = null;
+	usuario.setConta(contaService.saca(conta));// Erro de NullPointer: contaService = null;
+		
 
 		return true;
 	}
