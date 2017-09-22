@@ -22,12 +22,14 @@
 			<p:commandButton action="#{contaController.saqueConta()}"
 				value="Sacar" icon="ui-icon-arrowthick-1-s" />
 			<br />
-			<!-- Transferencia -->
-			<p:inputText value="#{contaController.vlrTransferencia}" />
-			<p:inputText value="#{contaController.idUsuarioDestino}" />
+			<!-- 			Transferencia -->
+			<!--  
+			<p:inputText value="#//{contaController.vlrTransferencia}" />
+			<p:inputText value="#//{contaController.idUsuarioDestino}" />
 			<p:commandButton value="TRANSFERIR"
-				action="#{contaController.transferenciaConta}"
+				action="#//{contaController.transferenciaConta}"
 				icon="ui-icon-transferthick-e-w" />
+				-->
 		</p:panel>
 	</h:form>
 </h:body>

@@ -9,10 +9,11 @@ public abstract class AbstractDAO {
 
 	@PersistenceContext(name = "AppBanco")
 	private static EntityManager em;
-	
+
 	public static EntityManager getEm() {
 		return em;
 	}
+
 	public static void setEm(EntityManager em) {
 		AbstractDAO.em = em;
 	}

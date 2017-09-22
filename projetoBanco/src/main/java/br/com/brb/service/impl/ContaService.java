@@ -11,9 +11,9 @@ import br.com.brb.service.IContaService;
 public class ContaService implements IContaService {
 
 	@EJB
-	ContaDao contadao;
+	ContaDao contadao = new ContaDao();
+
 	
-	@Override
 	public Conta deposita(Conta valor) {
 		return contadao.inserirSaldo(valor);
 

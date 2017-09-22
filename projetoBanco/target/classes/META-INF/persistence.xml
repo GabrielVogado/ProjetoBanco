@@ -5,9 +5,6 @@
 
 	<persistence-unit name="AppBanco" transaction-type="JTA">
 		<jta-data-source>java:jboss/datasources/AppBancoDS</jta-data-source>
-		<class>br.com.brb.entity.Conta</class>
-		<class>br.com.brb.entity.Usuario</class>
-		<class>br.com.brb.entity.Cadastro</class>
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
