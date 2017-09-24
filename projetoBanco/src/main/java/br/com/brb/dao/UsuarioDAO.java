@@ -26,7 +26,7 @@ public class UsuarioDAO extends AbstractDAO {
 		}
 	}
 
-	public Usuario getUsuarioById(String id) {
+	public Usuario getUsuarioById(long id) {
 		return getEm().find(Usuario.class, id);
 	}
 }

@@ -19,7 +19,7 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Long id;
+	private long id;
 
 	@Column(name = "email")
 	private String email;
@@ -30,12 +30,12 @@ public class Usuario implements Serializable {
 	@OneToOne(mappedBy = "usuario")
 	private Conta conta;
 
-	public Usuario() {
-		super();
-		if (conta == null) {
-			conta = new Conta();
-		}
-	}
+//	public Usuario() {
+//		super();
+//		if (conta == null) {
+//			conta = new Conta();
+//		}
+//	}
 
 	public Long getId() {
 		return id;

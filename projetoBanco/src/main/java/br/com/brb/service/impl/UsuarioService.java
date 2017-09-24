@@ -15,7 +15,7 @@ public class UsuarioService implements IUsuarioService {
 
 	@Override
 
-	public Usuario getUsuarioById(String usuarioId) {
+	public Usuario getUsuarioById(long usuarioId) {
 
 		return usuarioDAO.getUsuarioById(usuarioId);
 	}

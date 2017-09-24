@@ -17,19 +17,27 @@
 			<p:commandButton action="#{contaController.depositaConta()}"
 				value="Depositar" icon=" ui-icon-arrowthick-1-n" />
 			<br />
+			<br />
+
 			<!-- Sacar-->
 			<p:inputText value="#{contaController.vlrSaque}" />
 			<p:commandButton action="#{contaController.saqueConta()}"
 				value="Sacar" icon="ui-icon-arrowthick-1-s" />
 			<br />
+			<br />
+
 			<!-- 			Transferencia -->
-			<!--  
-			<p:inputText value="#//{contaController.vlrTransferencia}" />
-			<p:inputText value="#//{contaController.idUsuarioDestino}" />
+			<h:outputLabel for="vlrTrans" value="Valor à transferir:" />
+			<p:inputText id="vlrTrans" value="#{contaController.vlrTransferencia}" />
+			
+			<br />
+			<h:outputLabel for="usrDest" value="Id Usuário Destino:" />
+			<p:inputText id="usrDest" value="#{contaController.idUsuarioDestino}" />
+			
+			<br />
 			<p:commandButton value="TRANSFERIR"
-				action="#//{contaController.transferenciaConta}"
+				action="#{contaController.transferenciaConta()}"
 				icon="ui-icon-transferthick-e-w" />
-				-->
 		</p:panel>
 	</h:form>
 </h:body>
