@@ -9,29 +9,6 @@
 <h:head>
 	<title>Caixa</title>
 </h:head>
-<<<<<<< Upstream, based on origin/master
-<h:body>
-	<h:form>
-		<p:panel>
-			<!--Depositar-->
-			<p:inputText value="#{contaController.vlrDeposito}" />
-			<p:commandButton action="#{contaController.depositaConta()}"
-				value="Depositar" icon=" ui-icon-arrowthick-1-n" />
-			<br />
-			<!-- Sacar-->
-			<p:inputText value="#{contaController.vlrSaque}" />
-			<p:commandButton action="#{contaController.saqueConta()}"
-				value="Sacar" icon="ui-icon-arrowthick-1-s" />
-			<br />
-			<!-- 			Transferencia -->
-			<!--  
-			<p:inputText value="#//{contaController.vlrTransferencia}" />
-			<p:inputText value="#//{contaController.idUsuarioDestino}" />
-			<p:commandButton value="TRANSFERIR"
-				action="#//{contaController.transferenciaConta}"
-				icon="ui-icon-transferthick-e-w" />
-				-->
-=======
 <h:body style="display:flex;">
 	<h:form style=" margin:auto;">
 		<p:panel header="Caixa">
@@ -64,7 +41,6 @@
 					icon="ui-icon-transferthick-e-w" />
 			</h:panelGrid>
 
->>>>>>> 9fb577f 
 		</p:panel>
 	</h:form>
 </h:body>

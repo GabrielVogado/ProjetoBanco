@@ -9,5 +9,5 @@ public interface IUsuarioService {
 
 	// Usuario getUsuarioById(Usuario usuarioDestino);
 
-	Usuario getUsuarioById(String usuarioId);
+	Usuario getUsuarioById(long usuarioId);
 }
