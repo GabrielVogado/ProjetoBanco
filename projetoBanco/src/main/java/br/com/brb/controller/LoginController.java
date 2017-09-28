@@ -1,23 +1,23 @@
 
 package br.com.brb.controller;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 
 import br.com.brb.entity.Usuario;
 import br.com.brb.service.ILoginService;
 
-@ManagedBean(name="loginController")
+@ManagedBean(name = "loginController")
 @ViewScoped
 public class LoginController {
 
-	@Inject
+	@EJB
 	private ILoginService loginService;
 
-	private String Login = "gabriel.vogado@gmail.com";
-	private String Senha = "123";
+	private String Login = "";
+	private String Senha = "";
 
 	public String realizarLogin() {
 
