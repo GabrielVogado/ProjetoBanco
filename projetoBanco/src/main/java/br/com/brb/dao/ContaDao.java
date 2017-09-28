@@ -3,13 +3,10 @@ package br.com.brb.dao;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.naming.ldap.ManageReferralControl;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
-import javax.ws.rs.GET;
 
 import br.com.brb.entity.Conta;
-import br.com.brb.entity.Usuario;
 
 @Stateless
 public class ContaDao extends AbstractDAO {

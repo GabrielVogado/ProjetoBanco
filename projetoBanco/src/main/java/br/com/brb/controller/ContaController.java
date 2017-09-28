@@ -1,15 +1,12 @@
 package br.com.brb.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import br.com.brb.dao.ContaDao;
 import br.com.brb.entity.Conta;
 import br.com.brb.entity.Usuario;
 import br.com.brb.service.IContaService;
