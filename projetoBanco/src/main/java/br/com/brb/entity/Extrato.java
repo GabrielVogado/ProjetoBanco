@@ -2,12 +2,25 @@ package br.com.brb.entity;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "extrato")
 public class Extrato {
 
+	@Id
+	@Column(name = "id")
 	private Long id;
+	@Column(name = "conta_id")
 	private Long conta_id;
+	@Column(name = "data_hora")
 	private Date data;
+	@Column(name = "valor")
 	private Double valor;
+	@Column(name = "acao")
 	private char acao;
 
 	public Long getId() {

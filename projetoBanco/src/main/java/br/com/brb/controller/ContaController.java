@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import br.com.brb.entity.Conta;
 import br.com.brb.entity.Usuario;
 import br.com.brb.service.IContaService;
+import br.com.brb.service.IExtrato;
 import br.com.brb.service.IUsuarioService;
 
 @ManagedBean(name = "contaController")
@@ -18,6 +19,9 @@ public class ContaController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Inject
+	private IExtrato extractService;
+	
 	@Inject
 	private IUsuarioService usuarioService;
 

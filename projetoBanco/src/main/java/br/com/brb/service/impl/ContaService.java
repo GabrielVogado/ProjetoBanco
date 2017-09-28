@@ -1,7 +1,5 @@
 package br.com.brb.service.impl;
 
-import java.util.List;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -30,10 +28,5 @@ public class ContaService implements IContaService {
 
 	}
 
-	@Override
-	public List<Conta> consultaExtrato(Conta conta) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

@@ -1,7 +1,9 @@
 package br.com.brb.dao;
 
-import br.com.brb.entity.Extrato;
+import javax.ejb.Stateless;
 
+import br.com.brb.entity.Extrato;
+@Stateless
 public class ExtratoDAO extends AbstractDAO {
 
 	public boolean gravarDados(Extrato extrato) {
