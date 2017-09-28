@@ -1,5 +1,7 @@
 package br.com.brb.service.impl;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -13,7 +15,6 @@ public class ContaService implements IContaService {
 	@EJB
 	ContaDao contadao = new ContaDao();
 
-	
 	public Conta deposita(Conta valor) {
 		return contadao.inserirSaldo(valor);
 
@@ -26,11 +27,13 @@ public class ContaService implements IContaService {
 
 	public Conta transfere(Conta valor) {
 		return contadao.inserirSaldo(valor);
+
 	}
 
-	public void consultaExtrato(Conta conta) {
+	@Override
+	public List<Conta> consultaExtrato(Conta conta) {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 }

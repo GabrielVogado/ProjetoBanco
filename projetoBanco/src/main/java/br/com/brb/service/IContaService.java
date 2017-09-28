@@ -1,5 +1,7 @@
 package br.com.brb.service;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import br.com.brb.entity.Conta;
@@ -13,6 +15,6 @@ public interface IContaService {
 
 	public Conta transfere(Conta valor);
 
-	public void consultaExtrato(Conta conta);
+	public List<Conta> consultaExtrato(Conta conta);
 
 }

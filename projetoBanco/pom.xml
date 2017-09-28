@@ -35,11 +35,10 @@
 			<version>2.2.14</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.jboss.weld.se/weld-se-core -->
 <!-- 		<dependency> -->
-<!-- 			<groupId>org.jboss.weld.se</groupId> -->
-<!-- 			<artifactId>weld-se-core</artifactId> -->
-<!-- 			<version>3.0.1.Final</version> -->
+<!-- 			<groupId>org.primefaces.themes</groupId> -->
+<!-- 			<artifactId>all-themes</artifactId> -->
+<!-- 			<version>1.0.10</version> -->
 <!-- 		</dependency> -->
 
 		<!-- PrimeFaces -->

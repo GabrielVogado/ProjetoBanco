@@ -1,13 +1,19 @@
 package br.com.brb.dao;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
+import javax.naming.ldap.ManageReferralControl;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
+import javax.ws.rs.GET;
 
 import br.com.brb.entity.Conta;
+import br.com.brb.entity.Usuario;
 
 @Stateless
 public class ContaDao extends AbstractDAO {
-	 @Transactional
+	@Transactional
 	public Conta inserirSaldo(Conta conta) {
 
 		try {
@@ -20,6 +26,16 @@ public class ContaDao extends AbstractDAO {
 		}
 
 		return conta;
+	}
+
+	
+
+	@SuppressWarnings("unchecked")
+	public List<Conta> getList() {
+		Query query = getEm().createQuery("Select From c Conta as c");
+		List<Conta>contas = query.getResultList();
+		
+		return contas;
 	}
 
 }
