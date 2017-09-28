@@ -1,11 +1,14 @@
 package br.com.brb.entity;
 
-import java.sql.Date;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "extrato")
@@ -17,7 +20,8 @@ public class Extrato {
 	@Column(name = "conta_id")
 	private Long conta_id;
 	@Column(name = "data_hora")
-	private Date data;
+	@Temporal(TemporalType.DATE)
+	private Calendar data;
 	@Column(name = "valor")
 	private Double valor;
 	@Column(name = "acao")
@@ -39,11 +43,11 @@ public class Extrato {
 		this.conta_id = conta_id;
 	}
 
-	public Date getData() {
+	public Calendar getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(Calendar data) {
 		this.data = data;
 	}
 

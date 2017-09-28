@@ -1,6 +1,7 @@
 package br.com.brb.controller;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -8,9 +9,10 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import br.com.brb.entity.Conta;
+import br.com.brb.entity.Extrato;
 import br.com.brb.entity.Usuario;
 import br.com.brb.service.IContaService;
-import br.com.brb.service.IExtrato;
+import br.com.brb.service.IExtratoService;
 import br.com.brb.service.IUsuarioService;
 
 @ManagedBean(name = "contaController")
@@ -20,8 +22,8 @@ public class ContaController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private IExtrato extractService;
-	
+	private IExtratoService extractService;
+
 	@Inject
 	private IUsuarioService usuarioService;
 
@@ -99,7 +101,14 @@ public class ContaController implements Serializable {
 	}
 
 	public void extratoBancario() {
-
+		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.get("usuarioLogado");
+		Conta conta = usuario.getConta();
+		Extrato extract = new Extrato();
+		
+		extract.setData(Calendar.getInstance());
+		
+		
 	}
 
 	public double getVlrDeposito() {

@@ -4,16 +4,17 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import br.com.brb.dao.ExtratoDAO;
-import br.com.brb.service.IExtrato;
+import br.com.brb.entity.Extrato;
+import br.com.brb.service.IExtratoService;
 
 @Stateless
-public class ExtratoService implements IExtrato {
+public class ExtratoService implements IExtratoService {
 	@EJB
 	ExtratoDAO extractd = new ExtratoDAO();
 
 	@Override
-	public boolean gravarDados() {
-		// TODO Auto-generated method stub
+	public boolean gravarDados(Extrato extrato) {
+		extractd.gravarDados(extrato);
 		return false;
 	}
 

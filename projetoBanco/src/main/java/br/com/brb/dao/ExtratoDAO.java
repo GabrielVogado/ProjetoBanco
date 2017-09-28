@@ -3,6 +3,7 @@ package br.com.brb.dao;
 import javax.ejb.Stateless;
 
 import br.com.brb.entity.Extrato;
+
 @Stateless
 public class ExtratoDAO extends AbstractDAO {
 
