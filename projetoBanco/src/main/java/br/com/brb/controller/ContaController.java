@@ -2,6 +2,7 @@ package br.com.brb.controller;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -35,6 +36,12 @@ public class ContaController implements Serializable {
 	private double vlrTransferencia;
 
 	private String idUsuarioDestino;
+	
+	public List<Extrato> listaExtrato(){
+		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+		
+		return usuario.getConta().getExtratos();
+	}
 
 	public void depositaConta() {
 
