@@ -24,12 +24,12 @@ public class ExtratoDAO extends AbstractDAO {
 
 	}
 	
-	public List<Extrato> getExtrato( String usuarioId ){
+	public List<Extrato> getExtrato( long contaId ){
 	
-		String query = "SELECT e FROM Extrato e WHERE e.usuario.id=:usuarioId";
+		String query = "SELECT e FROM Extrato e WHERE e.conta.id=:contaId";
 		
 		Query query = getEm().createQuery( query );
-		query.setParameter("usuarioId", usuarioId );
+		query.setParameter("contaId", contaId );
 		
 		return query.getResultList();
 	}
