@@ -1,6 +1,7 @@
 package br.com.brb.dao;
 
 import javax.ejb.Stateless;
+import java.util.List;
 
 import br.com.brb.entity.Extrato;
 
@@ -21,6 +22,16 @@ public class ExtratoDAO extends AbstractDAO {
 
 		return true;
 
+	}
+	
+	public List<Extrato> getExtrato( String usuarioId ){
+	
+		String query = "SELECT e FROM Extrato e WHERE e.usuario.id=:usuarioId";
+		
+		Query query = getEm().createQuery( query );
+		query.setParameter("usuarioId", usuarioId );
+		
+		return query.getResultList();
 	}
 
 }
