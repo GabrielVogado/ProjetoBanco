@@ -1,13 +1,17 @@
 package br.com.brb.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -20,7 +24,7 @@ public class Conta implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idconta")
-	private Long id;
+	private long id;
 
 	@Column(name = "saldo")
 	private double saldo;
@@ -28,12 +32,15 @@ public class Conta implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "idusuario")
 	private Usuario usuario;
+	
+	@OneToMany(mappedBy="conta", fetch= FetchType.LAZY, cascade=CascadeType.ALL)
+	private List<Extrato> extratos;
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -51,6 +58,14 @@ public class Conta implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public List<Extrato> getExtratos() {
+		return extratos;
+	}
+
+	public void setExtratos(List<Extrato> extratos) {
+		this.extratos = extratos;
 	}
 
 }

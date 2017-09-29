@@ -1,11 +1,13 @@
 package br.com.brb.entity;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,13 +19,18 @@ public class Extrato {
 	@Id
 	@Column(name = "id")
 	private Long id;
-	@Column(name = "conta_id")
-	private Long conta_id;
+
+	@ManyToOne(fetch= FetchType.LAZY)
+	@JoinColumn(name = "conta_id")
+	private Conta conta;
+	
 	@Column(name = "data_hora")
 	@Temporal(TemporalType.DATE)
 	private Calendar data;
+	
 	@Column(name = "valor")
 	private Double valor;
+	
 	@Column(name = "acao")
 	private char acao;
 
@@ -33,14 +40,6 @@ public class Extrato {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getConta_id() {
-		return conta_id;
-	}
-
-	public void setConta_id(Long conta_id) {
-		this.conta_id = conta_id;
 	}
 
 	public Calendar getData() {
@@ -67,4 +66,12 @@ public class Extrato {
 		this.valor = valor;
 	}
 
+	public Conta getConta() {
+		return conta;
+	}
+	
+	public void setConta(Conta conta) {
+		this.conta = conta;
+	}
 }
+
