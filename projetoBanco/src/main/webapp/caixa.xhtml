@@ -17,6 +17,7 @@
 				<p:inputText value="#{contaController.vlrDeposito}" />
 				<p:commandButton action="#{contaController.depositaConta()}"
 					value="Depositar" icon=" ui-icon-arrowthick-1-n" />
+					
 				<br />
 
 				<!-- Sacar-->
@@ -39,8 +40,12 @@
 				<p:commandButton value="TRANSFERIR"
 					action="#{contaController.transferenciaConta()}"
 					icon="ui-icon-transferthick-e-w" />
-			</h:panelGrid>
 
+			</h:panelGrid>
+			<h:outputText value="Saldo Atual: " />
+			<h:outputText value="#{contaController.mostraSaldo()}" />
+
+			<br />
 		</p:panel>
 	</h:form>
 </h:body>

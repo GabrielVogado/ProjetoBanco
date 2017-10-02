@@ -1,10 +1,10 @@
 package br.com.brb.controller;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -35,28 +35,23 @@ public class ContaController implements Serializable {
 	private double vlrDeposito;
 	private double vlrSaque;
 	private double vlrTransferencia;
-
+	private double saldo;
 	private String idUsuarioDestino;
+	private List<Conta> contas;
 
-	
 	public List<Extrato> listaExtrato() {
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuarioLogado");
 
-		return null;//usuario.getConta().getExtratos();
+		return null;// (List<Extrato>) usuario.getConta().getExtratos();
 	}
 
 	public void depositaConta() {
 
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuarioLogado");
-		
+
 		Conta conta = usuario.getConta();
-
-		// if (conta == null) {
-		// conta = new Conta();
-		// }
-
 
 
 		conta.setSaldo(conta.getSaldo() + this.vlrDeposito);
@@ -64,7 +59,7 @@ public class ContaController implements Serializable {
 		conta.setUsuario(usuario);
 
 		usuario.setConta(contaService.deposita(conta));
-		
+
 		gravaExtrato(conta.getId(), this.vlrDeposito, 'C');
 	}
 
@@ -82,10 +77,19 @@ public class ContaController implements Serializable {
 		conta.setUsuario(usuario);
 
 		usuario.setConta(contaService.saca(conta));
-		
+
 		gravaExtrato(conta.getId(), this.vlrSaque, 'D');
 
 		return true;
+	}
+	
+	public double mostraSaldo() {
+		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.get("usuarioLogado");
+		Conta conta = usuario.getConta();
+		
+		return conta.getSaldo();
+	
 	}
 
 	public boolean transferenciaConta() {
@@ -113,12 +117,10 @@ public class ContaController implements Serializable {
 
 		usuarioOrigem.setConta(contaService.saca(contaOrigem));
 		usuarioDestino.setConta(contaService.deposita(contaDestino));
-		
-		
+
 		gravaExtrato(contaOrigem.getId(), this.vlrTransferencia, 'D');
 		gravaExtrato(contaDestino.getId(), this.vlrTransferencia, 'C');
 
-		
 		return true;
 	}
 
@@ -153,14 +155,23 @@ public class ContaController implements Serializable {
 	public String getIdUsuarioDestino() {
 		return this.idUsuarioDestino;
 	}
-	
-	private void gravaExtrato(long contaId, Double valor, char acao ) {
+
+	private void gravaExtrato(long contaId, Double valor, char acao) {
 		Extrato extrato = new Extrato();
-		extrato.setAcao( acao );
+		extrato.setAcao(acao);
 		extrato.setData(new Date());
 		extrato.setValor(valor);
-		extrato.setContaId( contaId );
-		
+		extrato.setContaId(contaId);
+
 		extractService.gravarDados(extrato);
 	}
+
+	public double getSaldo() {
+		return saldo;
+	}
+
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
+	}
+
 }
