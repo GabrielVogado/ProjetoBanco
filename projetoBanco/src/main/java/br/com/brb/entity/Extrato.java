@@ -1,13 +1,13 @@
 package br.com.brb.entity;
 
-import java.util.Calendar;
+
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,16 +17,16 @@ import javax.persistence.TemporalType;
 public class Extrato {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Long id;
+	private long id;
 
-	@ManyToOne(fetch= FetchType.LAZY)
-	@JoinColumn(name = "conta_id")
-	private Conta conta;
+	@Column(name = "conta_id")
+	private long contaId;
 	
 	@Column(name = "data_hora")
 	@Temporal(TemporalType.DATE)
-	private Calendar data;
+	private Date data;
 	
 	@Column(name = "valor")
 	private Double valor;
@@ -34,19 +34,19 @@ public class Extrato {
 	@Column(name = "acao")
 	private char acao;
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	public Calendar getData() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setData(Calendar data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 
@@ -66,12 +66,13 @@ public class Extrato {
 		this.valor = valor;
 	}
 
-	public Conta getConta() {
-		return conta;
+	public long getContaId() {
+		return contaId;
 	}
-	
-	public void setConta(Conta conta) {
-		this.conta = conta;
+
+	public void setContaId(long contaId) {
+		this.contaId = contaId;
 	}
+
 }
 

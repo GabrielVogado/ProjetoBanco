@@ -17,6 +17,8 @@ public class UsuarioService implements IUsuarioService {
 
 	public Usuario getUsuarioById(long usuarioId) {
 
-		return usuarioDAO.getUsuarioById(usuarioId);
+		Usuario usr =usuarioDAO.getUsuarioById(usuarioId);
+		
+		return usr;
 	}
 }

@@ -2,6 +2,7 @@ package br.com.brb.controller;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -36,28 +37,35 @@ public class ContaController implements Serializable {
 	private double vlrTransferencia;
 
 	private String idUsuarioDestino;
+
 	
-	public List<Extrato> listaExtrato(){
-		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
-		
-		return usuario.getConta().getExtratos();
+	public List<Extrato> listaExtrato() {
+		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.get("usuarioLogado");
+
+		return null;//usuario.getConta().getExtratos();
 	}
 
 	public void depositaConta() {
 
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuarioLogado");
+		
 		Conta conta = usuario.getConta();
 
 		// if (conta == null) {
 		// conta = new Conta();
 		// }
+
+
+
 		conta.setSaldo(conta.getSaldo() + this.vlrDeposito);
 
 		conta.setUsuario(usuario);
 
 		usuario.setConta(contaService.deposita(conta));
-
+		
+		gravaExtrato(conta.getId(), this.vlrDeposito, 'C');
 	}
 
 	public boolean saqueConta() {
@@ -74,6 +82,8 @@ public class ContaController implements Serializable {
 		conta.setUsuario(usuario);
 
 		usuario.setConta(contaService.saca(conta));
+		
+		gravaExtrato(conta.getId(), this.vlrSaque, 'D');
 
 		return true;
 	}
@@ -107,17 +117,6 @@ public class ContaController implements Serializable {
 		return true;
 	}
 
-	public void extratoBancario() {
-		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-				.get("usuarioLogado");
-		Conta conta = usuario.getConta();
-		Extrato extract = new Extrato();
-		
-		extract.setData(Calendar.getInstance());
-		
-		
-	}
-
 	public double getVlrDeposito() {
 		return vlrDeposito;
 	}
@@ -148,5 +147,15 @@ public class ContaController implements Serializable {
 
 	public String getIdUsuarioDestino() {
 		return this.idUsuarioDestino;
+	}
+	
+	private void gravaExtrato(long contaId, Double valor, char acao ) {
+		Extrato extrato = new Extrato();
+		extrato.setAcao( acao );
+		extrato.setData(new Date());
+		extrato.setValor(valor);
+		extrato.setContaId( contaId );
+		
+		extractService.gravarDados(extrato);
 	}
 }

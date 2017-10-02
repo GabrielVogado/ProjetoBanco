@@ -1,7 +1,8 @@
 package br.com.brb.entity;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -32,9 +33,6 @@ public class Conta implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "idusuario")
 	private Usuario usuario;
-	
-	@OneToMany(mappedBy="conta", fetch= FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<Extrato> extratos;
 
 	public long getId() {
 		return id;
@@ -60,12 +58,5 @@ public class Conta implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public List<Extrato> getExtratos() {
-		return extratos;
-	}
-
-	public void setExtratos(List<Extrato> extratos) {
-		this.extratos = extratos;
-	}
 
 }
