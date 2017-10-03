@@ -11,7 +11,7 @@
 <h:body style="display:flex;">
 	<h:form style=" margin:auto;">
 
-		<p:growl id="growl-mensagem" showDetail="true" sticky="true" />
+		<p:growl />
 		<h:panelGrid columns="2" cellpadding="10">
 			<p:graphicImage url="/image/locked.png" />
 			<p:panel id="panel-login-principal" header="Login">
@@ -24,6 +24,7 @@
 				&nbsp;
 				<p:commandButton value="Logar"
 					action="#{loginController.realizarLogin()}" icon=" ui-icon-locked" />
+					<h:message for="loginError"/>
 				<br />
 			</p:panel>
 		</h:panelGrid>

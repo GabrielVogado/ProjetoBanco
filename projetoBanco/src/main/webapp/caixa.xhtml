@@ -11,19 +11,22 @@
 </h:head>
 <h:body style="display:flex;">
 	<h:form style=" margin:auto;">
+		<p:growl/>
 		<p:panel header="Caixa">
 			<h:panelGrid columns="0" cellpadding="1">
+			
 				<!--Depositar-->
 				<p:inputText value="#{contaController.vlrDeposito}" />
 				<p:commandButton action="#{contaController.depositaConta()}"
-					value="Depositar" icon=" ui-icon-arrowthick-1-n" />
+					value="Depositar" icon=" ui-icon-arrowthick-1-n" update="@form"/>
+					<h:message for="msg"/>
 
 				<br />
 
 				<!-- Sacar-->
 				<p:inputText value="#{contaController.vlrSaque}" />
 				<p:commandButton action="#{contaController.saqueConta()}"
-					value="Sacar" icon="ui-icon-arrowthick-1-s" />
+					value="Sacar" icon="ui-icon-arrowthick-1-s" update="@form"/>
 				<br />
 
 				<!-- 			Transferencia -->
@@ -39,7 +42,7 @@
 				<br />
 				<p:commandButton value="TRANSFERIR"
 					action="#{contaController.transferenciaConta()}"
-					icon="ui-icon-transferthick-e-w" />
+					icon="ui-icon-transferthick-e-w" update="@form"/>
 
 			</h:panelGrid>
 			

@@ -1,6 +1,7 @@
 
 package br.com.brb.controller;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -31,9 +32,11 @@ public class LoginController {
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado",
 					isUsuarioLogado);
 			return "/caixa.xhtml";
+		}else {
+			FacesContext.getCurrentInstance().addMessage("loginError",new FacesMessage(FacesMessage.SEVERITY_ERROR,"Conta Invalida ou não existe",null));
 		}
 
-		return "erroLogin";
+		return "/index.xhtml";
 	}
 
 	public String getLogin() {

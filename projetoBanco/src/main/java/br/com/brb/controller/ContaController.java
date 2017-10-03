@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import br.com.brb.dao.ExtratoDAO;
 import br.com.brb.entity.Conta;
 import br.com.brb.entity.Extrato;
 import br.com.brb.entity.Usuario;
@@ -43,7 +43,7 @@ public class ContaController implements Serializable {
 				.get("usuarioLogado");
 		Conta conta = usuario.getConta();
 
-		return extractService.getExtrato( conta.getId() );
+		return extractService.getExtrato(conta.getId());
 
 	}
 
@@ -53,7 +53,14 @@ public class ContaController implements Serializable {
 				.get("usuarioLogado");
 
 		Conta conta = usuario.getConta();
+		FacesContext context = FacesContext.getCurrentInstance();
 
+		if (vlrDeposito != 0) {
+			context.addMessage(null, new FacesMessage("Deposito realizado com sucesso. "));
+		} else {
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+					"Desculpe,falha ao depositar, valor invalido", null));
+		}
 		conta.setSaldo(conta.getSaldo() + this.vlrDeposito);
 
 		conta.setUsuario(usuario);
@@ -61,14 +68,16 @@ public class ContaController implements Serializable {
 		usuario.setConta(contaService.deposita(conta));
 
 		gravaExtrato(conta.getId(), this.vlrDeposito, 'C');
+
 	}
 
 	public boolean saqueConta() {
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuarioLogado");
 		Conta conta = usuario.getConta();
-
+		FacesContext context = FacesContext.getCurrentInstance();
 		if (conta == null || conta.getSaldo() < this.vlrSaque) {
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Impossivel realizar saque.",null));
 			return false;
 		}
 
