@@ -37,14 +37,17 @@ public class ContaController implements Serializable {
 	private double vlrTransferencia;
 	private double saldo;
 	private String idUsuarioDestino;
-
+	
+	private List<Extrato> listExtrato;
 	
 	public List<Extrato> getlistaExtrato() {
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuarioLogado");
 		Conta conta = usuario.getConta();
-
-		return extractService.getExtrato(conta.getId());
+		
+		setListExtrato(extractService.getExtrato(conta.getId()));
+		
+		return getListExtrato();
 
 	}
 
@@ -182,6 +185,14 @@ public class ContaController implements Serializable {
 
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
+	}
+
+	public List<Extrato> getListExtrato() {
+		return listExtrato;
+	}
+
+	public void setListExtrato(List<Extrato> listExtrato) {
+		this.listExtrato = listExtrato;
 	}
 
 }

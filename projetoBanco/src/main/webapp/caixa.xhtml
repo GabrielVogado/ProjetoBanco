@@ -11,6 +11,7 @@
 </h:head>
 <h:body style="display:flex;">
 	<h:form style=" margin:auto;">
+		<p:commandButton oncomplete="#{contaController.listaExtrato}" style="visibility: hidden;"/>
 		<p:growl />
 		<p:panel header="Caixa">
 			<h:panelGrid columns="0" cellpadding="1">
@@ -44,19 +45,24 @@
 					icon="ui-icon-transferthick-e-w" update="@form" />
 
 			</h:panelGrid>
-
 			<p:dataTable id="tbl" var="extrato"
-				value="#{contaController.getlistaExtrato()}"
-				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+				value="#{contaController.listExtrato}"
 				paginator="true" rows="10" style="margin-bottom:20px">
-
+				<f:facet name="footer">
+					<h:commandLink value="link">
+						<p:dataExporter type="pdf" target="tbl" fileName="extrato" />
+					</h:commandLink>
+				</f:facet>
 				<p:column headerText="Data">
 					<h:outputText value="#{extrato.data}" />
 				</p:column>
 				<p:column headerText="Valor" style="text-align: right">
 					<h:outputText value="#{extrato.valor}" />
 				</p:column>
-				<p:column headerText="Ação">
+				<p:column>
+					<f:facet name="header">
+		                <h:outputText value="A&#231;&#227;o" />
+		            </f:facet>
 					<h:outputText value="#{extrato.acao}" />
 				</p:column>
 			</p:dataTable>
