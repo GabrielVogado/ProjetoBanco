@@ -17,7 +17,7 @@
 				<p:inputText value="#{contaController.vlrDeposito}" />
 				<p:commandButton action="#{contaController.depositaConta()}"
 					value="Depositar" icon=" ui-icon-arrowthick-1-n" />
-					
+
 				<br />
 
 				<!-- Sacar-->
@@ -42,9 +42,22 @@
 					icon="ui-icon-transferthick-e-w" />
 
 			</h:panelGrid>
+			
+			<p:dataTable var="extrato" value="#{contaController.getlistaExtrato()}">
+				<p:column headerText="Data">
+				     <h:outputText value="#{extrato.data}" />
+				</p:column>
+				<p:column headerText="Valor" style="text-align: right">
+				     <h:outputText value="#{extrato.valor}" />
+				</p:column>
+				<p:column headerText="Ação">
+				     <h:outputText value="#{extrato.acao}" />
+				</p:column>
+			</p:dataTable>
+			<br />
 			<h:outputText value="Saldo Atual: " />
 			<h:outputText value="#{contaController.mostraSaldo()}" />
-
+			<br />
 			<br />
 		</p:panel>
 	</h:form>

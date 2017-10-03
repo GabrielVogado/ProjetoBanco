@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
+import br.com.brb.dao.ExtratoDAO;
 import br.com.brb.entity.Conta;
 import br.com.brb.entity.Extrato;
 import br.com.brb.entity.Usuario;
@@ -37,13 +37,14 @@ public class ContaController implements Serializable {
 	private double vlrTransferencia;
 	private double saldo;
 	private String idUsuarioDestino;
-	private List<Conta> contas;
 
-	public List<Extrato> listaExtrato() {
+	public List<Extrato> getlistaExtrato() {
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuarioLogado");
+		Conta conta = usuario.getConta();
 
-		return null;// (List<Extrato>) usuario.getConta().getExtratos();
+		return extractService.getExtrato( conta.getId() );
+
 	}
 
 	public void depositaConta() {
@@ -52,7 +53,6 @@ public class ContaController implements Serializable {
 				.get("usuarioLogado");
 
 		Conta conta = usuario.getConta();
-
 
 		conta.setSaldo(conta.getSaldo() + this.vlrDeposito);
 
@@ -78,18 +78,18 @@ public class ContaController implements Serializable {
 
 		usuario.setConta(contaService.saca(conta));
 
-		gravaExtrato(conta.getId(), this.vlrSaque, 'D');
+		gravaExtrato(conta.getId(), this.vlrSaque * (-1), 'D');
 
 		return true;
 	}
-	
+
 	public double mostraSaldo() {
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuarioLogado");
 		Conta conta = usuario.getConta();
-		
+
 		return conta.getSaldo();
-	
+
 	}
 
 	public boolean transferenciaConta() {
@@ -118,7 +118,7 @@ public class ContaController implements Serializable {
 		usuarioOrigem.setConta(contaService.saca(contaOrigem));
 		usuarioDestino.setConta(contaService.deposita(contaDestino));
 
-		gravaExtrato(contaOrigem.getId(), this.vlrTransferencia, 'D');
+		gravaExtrato(contaOrigem.getId(), this.vlrTransferencia * (-1), 'D');
 		gravaExtrato(contaDestino.getId(), this.vlrTransferencia, 'C');
 
 		return true;

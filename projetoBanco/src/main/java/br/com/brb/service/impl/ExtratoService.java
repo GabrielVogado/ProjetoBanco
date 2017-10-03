@@ -1,5 +1,7 @@
 package br.com.brb.service.impl;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -16,6 +18,13 @@ public class ExtratoService implements IExtratoService {
 	public boolean gravarDados(Extrato extrato) {
 		extractd.gravarDados(extrato);
 		return false;
+	}
+
+	@Override
+	public List<Extrato> getExtrato(long id) {
+
+		return extractd.getExtrato(id);
+
 	}
 
 }

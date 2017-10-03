@@ -53,5 +53,4 @@ public class Conta implements Serializable {
 		this.usuario = usuario;
 	}
 
-
 }

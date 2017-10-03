@@ -1,9 +1,9 @@
 package br.com.brb.dao;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.Query;
-
-import java.util.List;
 
 import br.com.brb.entity.Extrato;
 
@@ -28,7 +28,7 @@ public class ExtratoDAO extends AbstractDAO {
 	
 	public List<Extrato> getExtrato( long contaId ){
 	
-		String hql = "SELECT e FROM Extrato e WHERE e.conta.id=:contaId";
+		String hql = "SELECT e FROM Extrato e WHERE e.contaId=:contaId order by e.data";
 		
 		Query query = getEm().createQuery( hql );
 		query.setParameter("contaId", contaId );

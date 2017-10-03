@@ -1,5 +1,7 @@
 package br.com.brb.service;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import br.com.brb.entity.Extrato;
@@ -8,5 +10,7 @@ import br.com.brb.entity.Extrato;
 public interface IExtratoService {
 	
 	public boolean gravarDados(Extrato extrato);
+	
+	public List<Extrato> getExtrato(long id);
 
 }
