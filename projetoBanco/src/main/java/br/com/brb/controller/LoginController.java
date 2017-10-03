@@ -17,7 +17,7 @@ public class LoginController {
 	@Inject
 	private ILoginService loginService;
 
-	private String Login = "gabriel.vogado@gmail.com";
+	private String Login = "gabriel@email.com";
 	private String Senha = "123";
 
 	public String realizarLogin() {

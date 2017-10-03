@@ -38,6 +38,7 @@ public class ContaController implements Serializable {
 	private double saldo;
 	private String idUsuarioDestino;
 
+	
 	public List<Extrato> getlistaExtrato() {
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuarioLogado");
@@ -58,8 +59,8 @@ public class ContaController implements Serializable {
 		if (vlrDeposito != 0) {
 			context.addMessage(null, new FacesMessage("Deposito realizado com sucesso. "));
 		} else {
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"Desculpe,falha ao depositar, valor invalido", null));
+			context.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Desculpe,falha ao depositar, valor invalido", null));
 		}
 		conta.setSaldo(conta.getSaldo() + this.vlrDeposito);
 
@@ -77,7 +78,7 @@ public class ContaController implements Serializable {
 		Conta conta = usuario.getConta();
 		FacesContext context = FacesContext.getCurrentInstance();
 		if (conta == null || conta.getSaldo() < this.vlrSaque) {
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Impossivel realizar saque.",null));
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Impossivel realizar saque.", null));
 			return false;
 		}
 

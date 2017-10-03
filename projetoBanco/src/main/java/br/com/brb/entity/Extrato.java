@@ -24,8 +24,8 @@ public class Extrato {
 	@Column(name = "conta_id")
 	private long contaId;
 	
-	@Column(name = "data_hora")
-	@Temporal(TemporalType.DATE)
+	@Column(name = "data_hora" ,columnDefinition="DATE")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
 	
 	@Column(name = "valor")

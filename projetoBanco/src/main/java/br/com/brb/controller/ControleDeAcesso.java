@@ -15,20 +15,17 @@ import javax.servlet.http.HttpSession;
 
 @WebFilter(servletNames = { "Faces Servlet" })
 public class ControleDeAcesso implements Filter {
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpSession session = req.getSession();
 
-		if ((session.getAttribute("usuarioLogado") != null)
-				|| (req.getRequestURI().endsWith("index.xhtml"))
+		if ((session.getAttribute("usuarioLogado") != null) || (req.getRequestURI().endsWith("index.xhtml"))
 				|| (req.getRequestURI().contains("javax.faces.resource/"))) {
 
-			
+			// redireciona("/Logado.xhtml", response);
 
-				//redireciona("/Logado.xhtml", response);
-			
 			chain.doFilter(request, response);
 		}
 
@@ -44,8 +41,7 @@ public class ControleDeAcesso implements Filter {
 	public void destroy() {
 	}
 
-	private void redireciona(String url, ServletResponse response)
-			throws IOException {
+	private void redireciona(String url, ServletResponse response) throws IOException {
 		HttpServletResponse res = (HttpServletResponse) response;
 		res.sendRedirect(url);
 	}
