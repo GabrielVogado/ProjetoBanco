@@ -11,6 +11,7 @@ public interface IExtratoService {
 	
 	public boolean gravarDados(Extrato extrato);
 	
+	
 	public List<Extrato> getExtrato(long id);
 
 }

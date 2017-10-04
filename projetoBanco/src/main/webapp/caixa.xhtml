@@ -11,18 +11,23 @@
 </h:head>
 <h:body style="display:flex;">
 	<h:form style=" margin:auto;">
-		<p:commandButton oncomplete="#{contaController.listaExtrato}" style="visibility: hidden;"/>
+
+		<!--Logout -->
+		<p:commandButton id="lnkLogout" style="color: black; font-size: 14px"
+			value="Sair" action="#{loginController.logout()}" ajax="false">
+		</p:commandButton>
+
+		<!-- 		<p:commandButton oncomplete="#{contaController.listaExtrato}" -->
+		<!-- 			style="visibility: hidden;" /> -->
+
 		<p:growl />
 		<p:panel header="Caixa">
 			<h:panelGrid columns="0" cellpadding="1">
-
 				<!--Depositar-->
 				<p:inputText value="#{contaController.vlrDeposito}" />
 				<p:commandButton action="#{contaController.depositaConta()}"
 					value="Depositar" icon=" ui-icon-arrowthick-1-n" update="@form" />
-
 				<br />
-
 				<!-- Sacar-->
 				<p:inputText value="#{contaController.vlrSaque}" />
 				<p:commandButton action="#{contaController.saqueConta()}"
@@ -46,11 +51,12 @@
 
 			</h:panelGrid>
 			<p:dataTable id="tbl" var="extrato"
-				value="#{contaController.listExtrato}"
-				paginator="true" rows="10" style="margin-bottom:20px">
+				value="#{contaController.getlistaExtrato()}" paginator="true"
+				rows="10" style="margin-bottom:20px">
 				<f:facet name="footer">
-					<h:commandLink value="link">
+					<h:commandLink value="extrato">
 						<p:dataExporter type="pdf" target="tbl" fileName="extrato" />
+
 					</h:commandLink>
 				</f:facet>
 				<p:column headerText="Data">
@@ -61,8 +67,8 @@
 				</p:column>
 				<p:column>
 					<f:facet name="header">
-		                <h:outputText value="A&#231;&#227;o" />
-		            </f:facet>
+						<h:outputText value="A&#231;&#227;o" />
+					</f:facet>
 					<h:outputText value="#{extrato.acao}" />
 				</p:column>
 			</p:dataTable>

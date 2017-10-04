@@ -32,7 +32,7 @@ public class Extrato {
 	private Double valor;
 	
 	@Column(name = "acao")
-	private char acao;
+	private String acao;
 
 	public long getId() {
 		return id;
@@ -50,11 +50,11 @@ public class Extrato {
 		this.data = data;
 	}
 
-	public char getAcao() {
+	public String getAcao() {
 		return acao;
 	}
 
-	public void setAcao(char acao) {
+	public void setAcao(String acao) {
 		this.acao = acao;
 	}
 

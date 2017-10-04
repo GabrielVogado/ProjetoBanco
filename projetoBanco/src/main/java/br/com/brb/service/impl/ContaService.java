@@ -25,11 +25,16 @@ public class ContaService implements IContaService {
 	}
 
 	public Conta saca(Conta valor) {
+
+		Usuario user = usuarioService.getUsuarioById(valor.getUsuario().getId());
+		valor.setUsuario(user);
 		return contadao.inserirSaldo(valor);
 
 	}
 
 	public Conta transfere(Conta valor) {
+		Usuario user = usuarioService.getUsuarioById(valor.getUsuario().getId());
+		valor.setUsuario(user);
 		return contadao.inserirSaldo(valor);
 
 	}

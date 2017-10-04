@@ -37,17 +37,13 @@ public class ContaController implements Serializable {
 	private double vlrTransferencia;
 	private double saldo;
 	private String idUsuarioDestino;
-	
-	private List<Extrato> listExtrato;
-	
+
 	public List<Extrato> getlistaExtrato() {
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuarioLogado");
 		Conta conta = usuario.getConta();
-		
-		setListExtrato(extractService.getExtrato(conta.getId()));
-		
-		return getListExtrato();
+
+		return extractService.getExtrato(conta.getId());
 
 	}
 
@@ -71,7 +67,7 @@ public class ContaController implements Serializable {
 
 		usuario.setConta(contaService.deposita(conta));
 
-		gravaExtrato(conta.getId(), this.vlrDeposito, 'C');
+		gravaExtrato(conta.getId(), this.vlrDeposito, "Credito");
 
 	}
 
@@ -91,7 +87,7 @@ public class ContaController implements Serializable {
 
 		usuario.setConta(contaService.saca(conta));
 
-		gravaExtrato(conta.getId(), this.vlrSaque * (-1), 'D');
+		gravaExtrato(conta.getId(), this.vlrSaque * (-1), "Debito");
 
 		return true;
 	}
@@ -131,8 +127,8 @@ public class ContaController implements Serializable {
 		usuarioOrigem.setConta(contaService.saca(contaOrigem));
 		usuarioDestino.setConta(contaService.deposita(contaDestino));
 
-		gravaExtrato(contaOrigem.getId(), this.vlrTransferencia * (-1), 'D');
-		gravaExtrato(contaDestino.getId(), this.vlrTransferencia, 'C');
+		gravaExtrato(contaOrigem.getId(), this.vlrTransferencia * (-1), "Debito");
+		gravaExtrato(contaDestino.getId(), this.vlrTransferencia, "Credito");
 
 		return true;
 	}
@@ -169,7 +165,7 @@ public class ContaController implements Serializable {
 		return this.idUsuarioDestino;
 	}
 
-	private void gravaExtrato(long contaId, Double valor, char acao) {
+	private void gravaExtrato(long contaId, Double valor, String acao) {
 		Extrato extrato = new Extrato();
 		extrato.setAcao(acao);
 		extrato.setData(new Date());
@@ -185,14 +181,6 @@ public class ContaController implements Serializable {
 
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
-	}
-
-	public List<Extrato> getListExtrato() {
-		return listExtrato;
-	}
-
-	public void setListExtrato(List<Extrato> listExtrato) {
-		this.listExtrato = listExtrato;
 	}
 
 }

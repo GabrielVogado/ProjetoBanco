@@ -6,6 +6,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import br.com.brb.entity.Usuario;
 import br.com.brb.service.ILoginService;
@@ -38,6 +39,11 @@ public class LoginController {
 
 		return "/index.xhtml";
 	}
+	public String logout() {
+	      HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+	      sessao.invalidate();
+	      return "index.xhtml"; //AQUI EU PASSO O NOME DA MINHA TELA INICIAL.
+	    }
 
 	public String getLogin() {
 		return Login;
