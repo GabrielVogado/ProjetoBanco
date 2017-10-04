@@ -17,6 +17,10 @@ public class LoginController {
 
 	@Inject
 	private ILoginService loginService;
+	
+	@Inject
+	private ContaController contaControler;
+
 
 	private String Login = "gabriel@email.com";
 	private String Senha = "123";
@@ -36,7 +40,9 @@ public class LoginController {
 		}else {
 			FacesContext.getCurrentInstance().addMessage("loginError",new FacesMessage(FacesMessage.SEVERITY_ERROR,"Conta Invalida ou não existe",null));
 		}
-
+		
+		contaControler.init();
+		
 		return "/index.xhtml";
 	}
 	public String logout() {

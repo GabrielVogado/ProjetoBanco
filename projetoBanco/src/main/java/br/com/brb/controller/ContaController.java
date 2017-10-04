@@ -37,7 +37,14 @@ public class ContaController implements Serializable {
 	private double vlrTransferencia;
 	private double saldo;
 	private String idUsuarioDestino;
-
+	
+	public void init() {
+		setSaldo(new Double(0));
+		setVlrDeposito(new Double(0));
+		setVlrSaque(new Double(0));
+		setVlrTransferencia(new Double(0));
+	}
+	
 	public List<Extrato> getlistaExtrato() {
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuarioLogado");
