@@ -22,15 +22,13 @@
 				<p:password value="#{loginController.senha}" />
 				<br />
 				&nbsp;
-				<p:commandButton value="Logar"
+				<p:commandButton value="Logar" update="@form" 
 					action="#{loginController.realizarLogin()}" icon=" ui-icon-locked" />
-					<h:message for="loginError"/>
 				<br />
 			</p:panel>
 		</h:panelGrid>
 		<center>
-			<p:link outcome="/cadastro.xhtml"
-				value="Não tem conta? Cadastre-se Aqui!" />
+			<p:commandLink value="Não tem conta? Cadastre-se Aqui!" action="cadastro.xhtml?faces-redirect=true" actionListener="#{cadastroController.init()}" immediate="true"/>
 		</center>
 	</h:form>
 </h:body>

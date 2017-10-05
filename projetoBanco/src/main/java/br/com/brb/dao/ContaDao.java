@@ -11,8 +11,11 @@ public class ContaDao extends AbstractDAO {
 	public Conta inserirSaldo(Conta conta) {
 
 		try {
-
-			conta = getEm().merge(conta);
+			if (conta.getId() == null) {
+				getEm().persist(conta);
+			}else {
+				conta = getEm().merge(conta);
+			}
 			getEm().flush();
 
 		} catch (Exception e) {
@@ -21,6 +24,17 @@ public class ContaDao extends AbstractDAO {
 
 		return conta;
 
+	}
+	
+	@Transactional
+	public Conta gravar(Conta conta) {
+		try {
+			conta = getEm().merge(conta);
+			getEm().flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return conta;
 	}
 
 }

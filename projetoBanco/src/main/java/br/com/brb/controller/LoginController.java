@@ -38,7 +38,7 @@ public class LoginController {
 					isUsuarioLogado);
 			return "/caixa.xhtml";
 		}else {
-			FacesContext.getCurrentInstance().addMessage("loginError",new FacesMessage(FacesMessage.SEVERITY_ERROR,"Conta Invalida ou não existe",null));
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR,"Conta Invalida ou não existe",null));
 		}
 		
 		contaControler.init();
@@ -48,7 +48,7 @@ public class LoginController {
 	public String logout() {
 	      HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 	      sessao.invalidate();
-	      return "index.xhtml"; //AQUI EU PASSO O NOME DA MINHA TELA INICIAL.
+	      return "index.xhtml"; 
 	    }
 
 	public String getLogin() {

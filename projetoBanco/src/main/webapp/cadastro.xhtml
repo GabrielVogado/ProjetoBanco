@@ -11,9 +11,9 @@
 
 <h:body>
 	<h:form>
+		<p:growl/>
 		<p:panel header="Cadastro de Cliente">
-			<p:messages autoUpdate="true" />
-			<h:panelGrid id="grid" columns="1" cellpadding="5">
+			<h:panelGrid id="grid" columns="2" cellpadding="5">
 
 				<h:outputText value="Nome:" />
 				<p:inputText id="nome" value="#{cadastroController.cadastro.nome}"
@@ -33,23 +33,23 @@
 					value="#{cadastroController.cadastro.endereco}" required="true"
 					label="Endereco" requiredMessage="'Endereço' é Obrigatorio" />
 
-				<h:outputText value="Email" />
+				<h:outputText value="Email:" />
 				<p:inputText id="email" value="#{cadastroController.cadastro.email}"
 					required="true" label="Email"
 					requiredMessage="'Email' é Obrigatorio" />
 
-				<h:outputText value="Senha" />
+				<h:outputText value="Senha:" />
 				<p:password id="feedback"
 					value="#{cadastroController.cadastro.senha}" feedback="true"
 					required="true" label="Senha"
 					requiredMessage="'Senha' é Obrigatorio" />
-				<br />
 
 			</h:panelGrid>
-			<p:commandButton value="Cadastrar"
-				action="#{cadastroController.gravarUsuario()}"  />
+			
+			<p:commandButton value="Cadastrar" update="@form" action="#{cadastroController.gravarUsuario()}"  />
 				
 		</p:panel>
+			
 	</h:form>
 </h:body>
 

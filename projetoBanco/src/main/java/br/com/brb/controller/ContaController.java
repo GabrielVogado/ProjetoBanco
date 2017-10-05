@@ -37,14 +37,14 @@ public class ContaController implements Serializable {
 	private double vlrTransferencia;
 	private double saldo;
 	private String idUsuarioDestino;
-	
+
 	public void init() {
 		setSaldo(new Double(0));
 		setVlrDeposito(new Double(0));
 		setVlrSaque(new Double(0));
 		setVlrTransferencia(new Double(0));
 	}
-	
+
 	public List<Extrato> getlistaExtrato() {
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuarioLogado");
@@ -86,7 +86,8 @@ public class ContaController implements Serializable {
 		if (conta == null || conta.getSaldo() < this.vlrSaque) {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Impossivel realizar saque.", null));
 			return false;
-		}
+		}else {
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Saque realizado com exito.", null));
 
 		conta.setSaldo(conta.getSaldo() - this.vlrSaque);
 
@@ -96,6 +97,7 @@ public class ContaController implements Serializable {
 
 		gravaExtrato(conta.getId(), this.vlrSaque * (-1), "Debito");
 
+		}
 		return true;
 	}
 
@@ -120,8 +122,10 @@ public class ContaController implements Serializable {
 		Usuario usuarioDestino = usuarioService.getUsuarioById(Long.parseLong(idUsuarioDestino));
 		System.out.println(usuarioDestino.getEmail());
 
-		if (usuarioDestino == null || usuarioDestino.getConta() == null)
+		if (usuarioDestino == null || usuarioDestino.getConta() == null) {
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Usuário/conta destino não encontrado!", null));
 			return false;
+		}
 
 		Conta contaDestino = usuarioDestino.getConta();
 
@@ -138,6 +142,16 @@ public class ContaController implements Serializable {
 		gravaExtrato(contaDestino.getId(), this.vlrTransferencia, "Credito");
 
 		return true;
+	}
+
+	private void gravaExtrato(long contaId, Double valor, String acao) {
+		Extrato extrato = new Extrato();
+		extrato.setAcao(acao);
+		extrato.setData(new Date());
+		extrato.setValor(valor);
+		extrato.setContaId(contaId);
+
+		extractService.gravarDados(extrato);
 	}
 
 	public double getVlrDeposito() {
@@ -170,16 +184,6 @@ public class ContaController implements Serializable {
 
 	public String getIdUsuarioDestino() {
 		return this.idUsuarioDestino;
-	}
-
-	private void gravaExtrato(long contaId, Double valor, String acao) {
-		Extrato extrato = new Extrato();
-		extrato.setAcao(acao);
-		extrato.setData(new Date());
-		extrato.setValor(valor);
-		extrato.setContaId(contaId);
-
-		extractService.gravarDados(extrato);
 	}
 
 	public double getSaldo() {

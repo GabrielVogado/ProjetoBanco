@@ -5,7 +5,6 @@ import javax.ejb.Stateless;
 
 import br.com.brb.dao.ContaDao;
 import br.com.brb.entity.Conta;
-import br.com.brb.entity.Usuario;
 import br.com.brb.service.IContaService;
 import br.com.brb.service.IUsuarioService;
 
@@ -18,23 +17,22 @@ public class ContaService implements IContaService {
 	IUsuarioService usuarioService;
 
 	public Conta deposita(Conta valor) {
-		Usuario user = usuarioService.getUsuarioById(valor.getUsuario().getId());
-		valor.setUsuario(user);
+		/*Usuario user = usuarioService.getUsuarioById(valor.getUsuario().getId());
+		valor.setUsuario(user);*/
 		return contadao.inserirSaldo(valor);
 
 	}
 
 	public Conta saca(Conta valor) {
 
-		Usuario user = usuarioService.getUsuarioById(valor.getUsuario().getId());
-		valor.setUsuario(user);
+		/*Usuario user = usuarioService.getUsuarioById(valor.getUsuario().getId());
+		valor.setUsuario(user);*/
 		return contadao.inserirSaldo(valor);
 
 	}
 
 	public Conta transfere(Conta valor) {
-		Usuario user = usuarioService.getUsuarioById(valor.getUsuario().getId());
-		valor.setUsuario(user);
+
 		return contadao.inserirSaldo(valor);
 
 	}

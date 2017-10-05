@@ -24,7 +24,7 @@ public class Cadastro implements Serializable {
 	private String nome;
 
 	@Column(name = "telefone")
-	private String telefone;
+	private Integer telefone;
 
 	@Column(name = "endereco")
 	private String endereco;
@@ -36,13 +36,12 @@ public class Cadastro implements Serializable {
 	private String senha;
 	
 	public Cadastro() {
-		
 	}
 
 	public Cadastro(Boolean prePreenchido) {
 		if(prePreenchido) {
 			this.nome = "Gabriel";
-			this.telefone = "95384753";
+			this.telefone = 95384753;
 			this.endereco = "Qd 1 Casa 1";
 			this.email = "abc.def@gmail.com";
 		}
@@ -65,11 +64,11 @@ public class Cadastro implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getTelefone() {
+	public Integer getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(String telefone) {
+	public void setTelefone(Integer telefone) {
 		this.telefone = telefone;
 	}
 

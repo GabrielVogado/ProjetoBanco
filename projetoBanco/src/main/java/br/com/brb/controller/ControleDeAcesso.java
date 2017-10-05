@@ -23,6 +23,7 @@ public class ControleDeAcesso implements Filter {
 
 		if ((session.getAttribute("usuarioLogado") != null) || (req.getRequestURI().endsWith("index.xhtml"))
 				|| (req.getRequestURI().contains("home.xhtml"))
+				|| (req.getRequestURI().contains("cadastro.xhtml"))
 				|| (req.getRequestURI().contains("javax.faces.resource/"))) {
 
 			// redireciona("/Logado.xhtml", response);

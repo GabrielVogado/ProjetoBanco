@@ -7,17 +7,16 @@ import br.com.brb.entity.Cadastro;
 @Stateless
 public class CadastroDao extends AbstractDAO {
 	
-	public boolean insertCadastro(Cadastro cadastro) {
+	public Cadastro insertCadastro(Cadastro cadastro) {
 
 		try {
-			getEm().persist(cadastro);
+			cadastro = getEm().merge(cadastro);
 			getEm().flush();
-
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return null;
 		}
-		return true;
+		return cadastro;
 	}
 
 }
