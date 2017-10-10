@@ -7,6 +7,7 @@
 
 <h:head>
 	<title>AppBanco</title>
+
 </h:head>
 <h:body style="display:flex;">
 	<h:form style=" margin:auto;">
@@ -22,13 +23,15 @@
 				<p:password value="#{loginController.senha}" />
 				<br />
 				&nbsp;
-				<p:commandButton value="Logar" update="@form" 
+				<p:commandButton value="Logar" update="@form"
 					action="#{loginController.realizarLogin()}" icon=" ui-icon-locked" />
 				<br />
 			</p:panel>
 		</h:panelGrid>
 		<center>
-			<p:commandLink value="Não tem conta? Cadastre-se Aqui!" action="cadastro.xhtml?faces-redirect=true" actionListener="#{cadastroController.init()}" immediate="true"/>
+			<p:commandLink value="Não tem conta? Cadastre-se Aqui!"
+				action="cadastro.xhtml?faces-redirect=true"
+				actionListener="#{cadastroController.init()}" immediate="true" />
 		</center>
 	</h:form>
 </h:body>

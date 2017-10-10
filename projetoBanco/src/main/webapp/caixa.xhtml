@@ -1,83 +1,116 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
+
 <h:head>
-	<title>Caixa</title>
+	<title>AppBanco</title>
 </h:head>
-<h:body style="display:flex;">
-	<h:form style=" margin:auto;">
 
-		<!--Logout -->
-		<p:commandButton id="lnkLogout" style="color: black; font-size: 14px"
-			value="Sair" action="#{loginController.logout()}" ajax="false">
-		</p:commandButton>
+<h:body>
+	<h:form>
+		<p:menubar>
+			<p:menuitem id="lnkLogout" value="Sair"
+				action="#{loginController.logout()}" ajax="false" />
+			<p:menuitem value="Crie uma conta" url="/cadastro.xhtml" />
+			<p:menuitem value="Codigo de defesa do consumidor"
+				url="http://www.planalto.gov.br/ccivil_03/Leis/L8078compilado.htm" />
+			<p:menuitem value="Taxas de Juros Operações de Credito"
+				url="http://www.bcb.gov.br/pt-br/#!/c/TXJUROS/" />
+			<p:menuitem value="Comparativos de Tarifas"
+				url="http://www.febraban-star.org.br/CompararTarifaPasso1.asp" />
+			<p:menuitem value="Consumidor.gov.br"
+				url="https://www.consumidor.gov.br/pages/principal/?1507311125529" />
+		</p:menubar>
+		<div align="center">
+			<p:panel>
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:commandButton value="Deposito" type="button"
+						onclick="PF('dlg1').show();" />
+					<p:commandButton value="Saque" type="button"
+						onclick="PF('dlg2').show();" />
 
-		<!-- 		<p:commandButton oncomplete="#{contaController.listaExtrato}" -->
-		<!-- 			style="visibility: hidden;" /> -->
+					<p:commandButton value="Transferencia" type="button"
+						onclick="PF('dlg3').show();" />
 
-		<p:growl />
-		<p:panel header="Caixa">
-			<h:panelGrid columns="0" cellpadding="1">
-				<!--Depositar-->
-				<p:inputText value="#{contaController.vlrDeposito}" />
-				<p:commandButton action="#{contaController.depositaConta()}"
-					value="Depositar" icon=" ui-icon-arrowthick-1-n" update="@form" />
-				<br />
-				<!-- Sacar-->
-				<p:inputText value="#{contaController.vlrSaque}" />
-				<p:commandButton action="#{contaController.saqueConta()}"
-					value="Sacar" icon="ui-icon-arrowthick-1-s" update="@form" />
-				<br />
+					<p:commandButton value="Extrato" type="button"
+						onclick="PF('dlg4').show();" />
 
-				<!-- 			Transferencia -->
-				<h:outputLabel for="vlrTrans" value="Valor à transferir:" />
-				<p:inputText id="vlrTrans"
-					value="#{contaController.vlrTransferencia}" />
+					<p:commandButton value="Saldo" type="button"
+						onclick="PF('dlg5').show();" />
+				</h:panelGrid>
+			</p:panel>
+		</div>
+		<div align="center">
+			<p:growl>
+				<p:dialog header="Saldo" widgetVar="dlg5" minHeight="40"
+					modal="true">
+					<h:outputText value="Saldo Atual: " />
+					<h:outputText value="#{contaController.mostraSaldo()}" />
 
-				<br />
-				<h:outputLabel for="usrDest" value="Id Usuário Destino:" />
-				<p:inputText id="usrDest"
-					value="#{contaController.idUsuarioDestino}" />
+				</p:dialog>
+				<p:dialog header="Deposito" widgetVar="dlg1" minHeight="40"
+					modal="true">
+					<p:inputText value="#{contaController.vlrDeposito}" />
+					<p:commandButton action="#{contaController.depositaConta()}"
+						value="Depositar" icon=" ui-icon-arrowthick-1-n" update="@form" />
+					<h:outputText value="Saldo Atual: " />
+					<h:outputText value="#{contaController.mostraSaldo()}" />
+				</p:dialog>
+				<p:dialog header="Saque" widgetVar="dlg2" minHeight="40"
+					modal="true">
+					<p:inputText value="#{contaController.vlrSaque}" />
+					<p:commandButton action="#{contaController.saqueConta()}"
+						value="Sacar" icon="ui-icon-arrowthick-1-s" update="@form" />
+					<h:outputText value="Saldo Atual: " />
+					<h:outputText value="#{contaController.mostraSaldo()}" />
+				</p:dialog>
+				<p:dialog header="Transferencia" widgetVar="dlg3" minHeight="40"
+					modal="true">
+					<h:outputLabel for="vlrTrans" value="Valor à transferir:" />
+					<p:inputText id="vlrTrans"
+						value="#{contaController.vlrTransferencia}" />
 
-				<br />
-				<p:commandButton value="TRANSFERIR"
-					action="#{contaController.transferenciaConta()}"
-					icon="ui-icon-transferthick-e-w" update="@form" />
-
-			</h:panelGrid>
-			<p:dataTable id="tbl" var="extrato"
-				value="#{contaController.getlistaExtrato()}" paginator="true"
-				rows="10" style="margin-bottom:20px">
-				<f:facet name="footer">
-					<h:commandLink value="extrato">
-						<p:dataExporter type="pdf" target="tbl" fileName="extrato" />
-
-					</h:commandLink>
-				</f:facet>
-				<p:column headerText="Data">
-					<h:outputText value="#{extrato.data}" />
-				</p:column>
-				<p:column headerText="Valor" style="text-align: right">
-					<h:outputText value="#{extrato.valor}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="A&#231;&#227;o" />
-					</f:facet>
-					<h:outputText value="#{extrato.acao}" />
-				</p:column>
-			</p:dataTable>
-			<br />
-			<h:outputText value="Saldo Atual: " />
-			<h:outputText value="#{contaController.mostraSaldo()}" />
-			<br />
-			<br />
-		</p:panel>
+					<br />
+					<h:outputLabel for="usrDest" value="Id Usuário Destino:" />
+					<p:inputText id="usrDest"
+						value="#{contaController.idUsuarioDestino}" />
+					<br />
+					<p:commandButton value="TRANSFERIR"
+						action="#{contaController.transferenciaConta()}"
+						icon="ui-icon-transferthick-e-w" update="@form" />
+					<h:outputText value="Saldo Atual: " />
+					<h:outputText value="#{contaController.mostraSaldo()}" />
+				</p:dialog>
+				<p:dialog header="Extrato" widgetVar="dlg4" minHeight="40"
+					modal="true">
+					<p:dataTable id="tbl" var="extrato"
+						value="#{contaController.getlistaExtrato()}" paginator="true"
+						rows="10" style="margin-bottom:20px">
+						<f:facet name="footer">
+							<h:commandLink value="Imprimir extrato">
+								<p:dataExporter type="pdf" target="tbl" fileName="extrato" />
+							</h:commandLink>
+						</f:facet>
+						<p:column headerText="Data">
+							<h:outputText value="#{extrato.data}" />
+						</p:column>
+						<p:column headerText="Valor" style="text-align: right">
+							<h:outputText value="#{extrato.valor}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="A&#231;&#227;o" />
+							</f:facet>
+							<h:outputText value="#{extrato.acao}" />
+						</p:column>
+					</p:dataTable>
+				</p:dialog>
+			</p:growl>
+		</div>
 	</h:form>
 </h:body>
 </html>

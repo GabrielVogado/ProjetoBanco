@@ -4,34 +4,27 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-
 <h:head>
-
 </h:head>
-
 <h:body>
 	<h:form>
-		<p:growl/>
+		<p:growl />
 		<p:panel header="Cadastro de Cliente">
 			<h:panelGrid id="grid" columns="2" cellpadding="5">
-
 				<h:outputText value="Nome:" />
 				<p:inputText id="nome" value="#{cadastroController.cadastro.nome}"
 					required="true" label="Nome" requiredMessage="'Nome' é Obrigatorio" />
-
-
 
 				<h:outputText value="Telefone:" />
 				<p:inputText id="telefone"
 					value="#{cadastroController.cadastro.telefone}" required="true"
 					label="Telefone" requiredMessage="'Telefone' é Obrigatorio" />
 
-
-
 				<h:outputText value="Endereço:" />
 				<p:inputText id="endereco"
 					value="#{cadastroController.cadastro.endereco}" required="true"
 					label="Endereco" requiredMessage="'Endereço' é Obrigatorio" />
+
 
 				<h:outputText value="Email:" />
 				<p:inputText id="email" value="#{cadastroController.cadastro.email}"
@@ -45,12 +38,11 @@
 					requiredMessage="'Senha' é Obrigatorio" />
 
 			</h:panelGrid>
-			
-			<p:commandButton value="Cadastrar" update="@form" action="#{cadastroController.gravarUsuario()}"  />
-				
+			<p:commandButton value="Cadastrar" update="@form"
+				actionListener="#{cadastroController.gravarUsuario()}"
+				action="index.xhtml?faces-redirect=true" />
+
 		</p:panel>
-			
 	</h:form>
 </h:body>
-
 </html>

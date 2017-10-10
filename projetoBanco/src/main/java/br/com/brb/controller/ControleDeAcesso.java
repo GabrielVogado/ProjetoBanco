@@ -22,7 +22,6 @@ public class ControleDeAcesso implements Filter {
 		HttpSession session = req.getSession();
 
 		if ((session.getAttribute("usuarioLogado") != null) || (req.getRequestURI().endsWith("index.xhtml"))
-				|| (req.getRequestURI().contains("home.xhtml"))
 				|| (req.getRequestURI().contains("cadastro.xhtml"))
 				|| (req.getRequestURI().contains("javax.faces.resource/"))) {
 
