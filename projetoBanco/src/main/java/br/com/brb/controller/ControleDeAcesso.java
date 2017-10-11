@@ -33,9 +33,13 @@ public class ControleDeAcesso implements Filter {
 		else {
 			redireciona("/banco/index.xhtml", response);
 		}
+		if((session.getAttribute("usuarioLogado") != "cliente")) {
+				
+} else {
 
+}
 	}
-
+			
 	public void init(FilterConfig filterConfig) throws ServletException {
 	}
 

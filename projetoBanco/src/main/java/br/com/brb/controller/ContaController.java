@@ -138,8 +138,8 @@ public class ContaController implements Serializable {
 		usuarioOrigem.setConta(contaService.saca(contaOrigem));
 		usuarioDestino.setConta(contaService.deposita(contaDestino));
 
-		gravaExtrato(contaOrigem.getId(), this.vlrTransferencia * (-1), "Debito");
-		gravaExtrato(contaDestino.getId(), this.vlrTransferencia, "Credito");
+		gravaExtrato(contaOrigem.getId(), this.vlrTransferencia * (-1), " Transferencia Debito");
+		gravaExtrato(contaDestino.getId(), this.vlrTransferencia, "Transferencia Credito");
 
 		return true;
 	}

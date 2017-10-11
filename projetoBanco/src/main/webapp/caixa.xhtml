@@ -46,14 +46,8 @@
 		</div>
 		<div align="center">
 			<p:growl>
-				<p:dialog header="Saldo" widgetVar="dlg5" minHeight="40"
-					modal="true">
-					<h:outputText value="Saldo Atual: " />
-					<h:outputText value="#{contaController.mostraSaldo()}" />
-
-				</p:dialog>
 				<p:dialog header="Deposito" widgetVar="dlg1" minHeight="40"
-					modal="true">
+					modal="true" position="center" draggable="false">
 					<p:inputText value="#{contaController.vlrDeposito}" />
 					<p:commandButton action="#{contaController.depositaConta()}"
 						value="Depositar" icon=" ui-icon-arrowthick-1-n" update="@form" />
@@ -61,7 +55,7 @@
 					<h:outputText value="#{contaController.mostraSaldo()}" />
 				</p:dialog>
 				<p:dialog header="Saque" widgetVar="dlg2" minHeight="40"
-					modal="true">
+					modal="true" position="center" draggable="false" >
 					<p:inputText value="#{contaController.vlrSaque}" />
 					<p:commandButton action="#{contaController.saqueConta()}"
 						value="Sacar" icon="ui-icon-arrowthick-1-s" update="@form" />
@@ -69,7 +63,7 @@
 					<h:outputText value="#{contaController.mostraSaldo()}" />
 				</p:dialog>
 				<p:dialog header="Transferencia" widgetVar="dlg3" minHeight="40"
-					modal="true">
+					modal="true" position="center" draggable="false">
 					<h:outputLabel for="vlrTrans" value="Valor à transferir:" />
 					<p:inputText id="vlrTrans"
 						value="#{contaController.vlrTransferencia}" />
@@ -86,7 +80,7 @@
 					<h:outputText value="#{contaController.mostraSaldo()}" />
 				</p:dialog>
 				<p:dialog header="Extrato" widgetVar="dlg4" minHeight="40"
-					modal="true">
+					modal="true" position="center" draggable="false">
 					<p:dataTable id="tbl" var="extrato"
 						value="#{contaController.getlistaExtrato()}" paginator="true"
 						rows="10" style="margin-bottom:20px">
@@ -108,6 +102,11 @@
 							<h:outputText value="#{extrato.acao}" />
 						</p:column>
 					</p:dataTable>
+				</p:dialog>
+				<p:dialog header="Saldo" widgetVar="dlg5" minHeight="30"
+					modal="true" position="center" draggable="false">
+					<h:outputText value="Saldo Atual: " />
+					<h:outputText value="#{contaController.mostraSaldo()}" />
 				</p:dialog>
 			</p:growl>
 		</div>
