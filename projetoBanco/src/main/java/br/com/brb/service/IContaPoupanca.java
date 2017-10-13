@@ -1,10 +1,12 @@
 package br.com.brb.service;
 
-import br.com.brb.controller.ContaPoupancaController;
+import javax.ejb.Local;
+
 import br.com.brb.entity.Conta;
 
+@Local
 public interface IContaPoupanca {
 	
-	public Conta taxaRendimento(ContaPoupancaController poupanca);
+	public Conta taxaRendimento(Conta conta);
 
 }

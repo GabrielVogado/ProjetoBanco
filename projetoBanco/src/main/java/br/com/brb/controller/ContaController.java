@@ -13,6 +13,8 @@ import javax.inject.Inject;
 import br.com.brb.entity.Conta;
 import br.com.brb.entity.Extrato;
 import br.com.brb.entity.Usuario;
+import br.com.brb.service.IContaEspecial;
+import br.com.brb.service.IContaPoupanca;
 import br.com.brb.service.IContaService;
 import br.com.brb.service.IExtratoService;
 import br.com.brb.service.IUsuarioService;
@@ -32,11 +34,19 @@ public class ContaController implements Serializable {
 	@Inject
 	private IContaService contaService;
 
+	@Inject
+	private IContaPoupanca contaPoupancaService;
+
+	@Inject
+	private IContaEspecial contaEspecialService;
+
 	private double vlrDeposito;
 	private double vlrSaque;
 	private double vlrTransferencia;
 	private double saldo;
 	private String idUsuarioDestino;
+	private Double rendimento = 0.005;
+	private Double limite = 200.00;
 
 	public void init() {
 		setSaldo(new Double(0));
@@ -86,16 +96,16 @@ public class ContaController implements Serializable {
 		if (conta == null || conta.getSaldo() < this.vlrSaque) {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Impossivel realizar saque.", null));
 			return false;
-		}else {
+		} else {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Saque realizado com exito.", null));
 
-		conta.setSaldo(conta.getSaldo() - this.vlrSaque);
+			conta.setSaldo(conta.getSaldo() - this.vlrSaque);
 
-		conta.setUsuario(usuario);
+			conta.setUsuario(usuario);
 
-		usuario.setConta(contaService.saca(conta));
+			usuario.setConta(contaService.saca(conta));
 
-		gravaExtrato(conta.getId(), this.vlrSaque * (-1), "Debito");
+			gravaExtrato(conta.getId(), this.vlrSaque * (-1), "Debito");
 
 		}
 		return true;
@@ -123,7 +133,8 @@ public class ContaController implements Serializable {
 		System.out.println(usuarioDestino.getEmail());
 
 		if (usuarioDestino == null || usuarioDestino.getConta() == null) {
-			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN,"Usuário/conta destino não encontrado!", null));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuário/conta destino não encontrado!", null));
 			return false;
 		}
 
@@ -152,6 +163,32 @@ public class ContaController implements Serializable {
 		extrato.setContaId(contaId);
 
 		extractService.gravarDados(extrato);
+	}
+
+	public void contaPoupança() {
+
+		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.get("usuarioLogado");
+
+		Conta conta = usuario.getConta();
+
+		conta.setSaldo(conta.getSaldo() * this.rendimento);
+
+		usuario.setConta(contaPoupancaService.taxaRendimento(conta));
+
+	}
+
+	public void contaEspecial() {
+
+		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.get("usuarioLogado");
+
+		Conta conta = usuario.getConta();
+
+		conta.setSaldo(conta.getSaldo() + limite);
+
+		usuario.setConta(contaEspecialService.limiteEspecial(conta));
+
 	}
 
 	public double getVlrDeposito() {
@@ -192,6 +229,22 @@ public class ContaController implements Serializable {
 
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
+	}
+
+	public Double getRendimento() {
+		return rendimento;
+	}
+
+	public void setRendimento(Double rendimento) {
+		this.rendimento = rendimento;
+	}
+
+	public Double getLimite() {
+		return limite;
+	}
+
+	public void setLimite(Double limite) {
+		this.limite = limite;
 	}
 
 }

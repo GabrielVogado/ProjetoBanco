@@ -10,8 +10,14 @@ public class EspecialDAO extends AbstractDAO {
 
 	@Transactional
 	public Conta limiteEspecial(Conta conta) {
+		try {
+			conta = getEm().merge(conta);
+			getEm().flush();
 
-		return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return conta;
 
 	}
 }

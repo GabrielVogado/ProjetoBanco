@@ -3,23 +3,22 @@ package br.com.brb.dao;
 import javax.ejb.Stateless;
 import javax.transaction.Transactional;
 
-import br.com.brb.controller.ContaPoupancaController;
 import br.com.brb.entity.Conta;
 
 @Stateless
 public class PoupancaDAO extends AbstractDAO {
 
 	@Transactional
-	public Conta rendimentoPoupanca(ContaPoupancaController poupanca) {
+	public Conta rendimentoPoupanca(Conta conta) {
 
 		try {
-			poupanca = getEm().merge(poupanca);
+			conta = getEm().merge(conta);
 			getEm().flush();
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 
-		return null;
+		return conta;
 	}
 }
