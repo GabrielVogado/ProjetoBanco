@@ -5,16 +5,20 @@ import javax.inject.Inject;
 
 import br.com.brb.entity.Conta;
 import br.com.brb.entity.Usuario;
+import br.com.brb.service.IContaPoupanca;
 import br.com.brb.service.IContaService;
 
-public class ContaPoupanca extends Conta {
+public class ContaPoupancaController extends Conta {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private IContaService contaService;
 
-	private Double rendimento = 0.5;
+	private Double rendimento = 0.500;
+	
+	@Inject
+	private IContaPoupanca contaPoupanca;
 
 	public void rendimentoPoupança() {
 		
@@ -26,7 +30,7 @@ public class ContaPoupanca extends Conta {
 		
 		conta.setSaldo(conta.getSaldo() * this.rendimento);
 		
-		usuario.setConta(contaService.deposita(conta));
+		usuario.setConta(contaPoupanca.taxaRendimento((ContaPoupancaController) conta));
 
 	}
 

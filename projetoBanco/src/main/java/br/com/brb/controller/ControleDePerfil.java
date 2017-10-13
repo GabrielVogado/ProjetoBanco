@@ -23,13 +23,13 @@ public class ControleDePerfil implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpSession session = req.getSession();
 		
-		if () {
-			
-			
-			
-		} else {
-
-		}
+//		if () {
+//			
+//			
+//			
+//		} else {
+//
+//		}
 	
 		
 	
