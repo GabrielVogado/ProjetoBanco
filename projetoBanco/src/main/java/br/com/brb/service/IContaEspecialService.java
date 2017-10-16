@@ -5,7 +5,7 @@ import javax.ejb.Local;
 import br.com.brb.entity.Conta;
 
 @Local
-public interface IContaEspecial {
+public interface IContaEspecialService {
 	
 	public Conta limiteEspecial(Conta conta);
 

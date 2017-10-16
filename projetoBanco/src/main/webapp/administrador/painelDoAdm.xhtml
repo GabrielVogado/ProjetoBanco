@@ -1,7 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -10,17 +9,8 @@
 	<title>Not present in rendered output</title>
 </h:head>
 <h:body>
-
 	<h:form>
-		<h:panelGrid>
-			<h:outputText value="Conta Poupança " />
-			<p:selectBooleanCheckbox value="#{contaController.contaPoupança()}" />
-			<p:commandButton value="Submit" icon="ui-icon-check" update="@form"></p:commandButton>
-			
-
-		</h:panelGrid>
-
+		
 	</h:form>
-
 </h:body>
 </html>

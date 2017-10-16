@@ -37,6 +37,12 @@
 					required="true" label="Senha"
 					requiredMessage="'Senha' é Obrigatorio" />
 
+				<h:outputText value="Conta Poupança " />
+				<p:selectBooleanCheckbox value="#{contaController.contaPoupança()}" />
+
+				<h:outputText value="Conta Especial " />
+				<p:selectBooleanCheckbox value="#{contaController.contaEspecial()}" />
+
 			</h:panelGrid>
 			<p:commandButton value="Cadastrar" update="@form"
 				actionListener="#{cadastroController.gravarUsuario()}"

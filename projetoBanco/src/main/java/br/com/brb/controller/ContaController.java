@@ -13,8 +13,8 @@ import javax.inject.Inject;
 import br.com.brb.entity.Conta;
 import br.com.brb.entity.Extrato;
 import br.com.brb.entity.Usuario;
-import br.com.brb.service.IContaEspecial;
-import br.com.brb.service.IContaPoupanca;
+import br.com.brb.service.IContaEspecialService;
+import br.com.brb.service.IContaPoupancaService;
 import br.com.brb.service.IContaService;
 import br.com.brb.service.IExtratoService;
 import br.com.brb.service.IUsuarioService;
@@ -25,6 +25,7 @@ public class ContaController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	
 	@Inject
 	private IExtratoService extractService;
 
@@ -35,10 +36,10 @@ public class ContaController implements Serializable {
 	private IContaService contaService;
 
 	@Inject
-	private IContaPoupanca contaPoupancaService;
+	private IContaPoupancaService contaPoupancaService;
 
 	@Inject
-	private IContaEspecial contaEspecialService;
+	private IContaEspecialService contaEspecialService;
 
 	private double vlrDeposito;
 	private double vlrSaque;
@@ -246,5 +247,7 @@ public class ContaController implements Serializable {
 	public void setLimite(Double limite) {
 		this.limite = limite;
 	}
+
+	
 
 }

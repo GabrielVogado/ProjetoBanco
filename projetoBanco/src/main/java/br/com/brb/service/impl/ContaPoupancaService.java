@@ -6,10 +6,10 @@ import javax.ejb.Stateless;
 
 import br.com.brb.dao.PoupancaDAO;
 import br.com.brb.entity.Conta;
-import br.com.brb.service.IContaPoupanca;
+import br.com.brb.service.IContaPoupancaService;
 
 @Stateless
-public class ContaPoupancaService implements IContaPoupanca {
+public class ContaPoupancaService implements IContaPoupancaService {
 
 	@EJB
 	PoupancaDAO poupancaDao;

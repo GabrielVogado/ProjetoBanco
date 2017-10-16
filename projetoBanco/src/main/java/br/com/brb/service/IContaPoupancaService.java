@@ -5,7 +5,7 @@ import javax.ejb.Local;
 import br.com.brb.entity.Conta;
 
 @Local
-public interface IContaPoupanca {
+public interface IContaPoupancaService {
 	
 	public Conta taxaRendimento(Conta conta);
 
