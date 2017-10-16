@@ -34,12 +34,15 @@ public class Cadastro implements Serializable {
 
 	@Column(name = "senha")
 	private String senha;
-	
+
+	@Column(name = "TIPO_CONTA")
+	private String t_conta;
+
 	public Cadastro() {
 	}
 
 	public Cadastro(Boolean prePreenchido) {
-		if(prePreenchido) {
+		if (prePreenchido) {
 			this.nome = "Gabriel";
 			this.telefone = 95384753;
 			this.endereco = "Qd 1 Casa 1";
@@ -47,7 +50,6 @@ public class Cadastro implements Serializable {
 		}
 	}
 
-	
 	public Long getId() {
 		return id;
 	}
@@ -94,6 +96,14 @@ public class Cadastro implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getT_conta() {
+		return t_conta;
+	}
+
+	public void setT_conta(String t_conta) {
+		this.t_conta = t_conta;
 	}
 
 }
