@@ -13,8 +13,6 @@ import javax.inject.Inject;
 import br.com.brb.entity.Conta;
 import br.com.brb.entity.Extrato;
 import br.com.brb.entity.Usuario;
-import br.com.brb.service.IContaEspecialService;
-import br.com.brb.service.IContaPoupancaService;
 import br.com.brb.service.IContaService;
 import br.com.brb.service.IExtratoService;
 import br.com.brb.service.IUsuarioService;
@@ -35,12 +33,7 @@ public class ContaController implements Serializable {
 	@Inject
 	private IContaService contaService;
 
-	@Inject
-	private IContaPoupancaService contaPoupancaService;
-
-	@Inject
-	private IContaEspecialService contaEspecialService;
-
+	
 	private double vlrDeposito;
 	private double vlrSaque;
 	private double vlrTransferencia;
@@ -174,8 +167,9 @@ public class ContaController implements Serializable {
 		Conta conta = usuario.getConta();
 
 		conta.setSaldo(conta.getSaldo() * this.rendimento);
+		usuario.setConta(contaService.deposita(conta));
 
-		usuario.setConta(contaPoupancaService.taxaRendimento(conta));
+	
 
 	}
 
@@ -188,7 +182,7 @@ public class ContaController implements Serializable {
 
 		conta.setSaldo(conta.getSaldo() + limite);
 
-		usuario.setConta(contaEspecialService.limiteEspecial(conta));
+		usuario.setConta(contaService.deposita(conta));
 
 	}
 

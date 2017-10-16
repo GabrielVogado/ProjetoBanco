@@ -9,8 +9,19 @@
 	<title>Not present in rendered output</title>
 </h:head>
 <h:body>
+
 	<h:form>
+		<p:menubar>
 		
+			<p:menuitem id="lnkLogout" value="Sair"
+				action="#{loginController.logout()}" ajax="false" />
+			<p:menuitem  value="Criar Conta"
+			action="cadastro.xhtml?faces-redirect=true"
+			actionListener="#{cadastroController.init()}" immediate="true" />
+			<p:menuitem value="Codigo de defesa do consumidor"/>
+			
+		</p:menubar>
+
 	</h:form>
 </h:body>
 </html>

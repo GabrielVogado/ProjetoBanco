@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import br.com.brb.entity.Usuario;
-
 @WebFilter(servletNames = { "Faces Servlet" })
 public class ControleDeAcesso implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -24,10 +22,8 @@ public class ControleDeAcesso implements Filter {
 		HttpSession session = req.getSession();
 
 		if ((session.getAttribute("usuarioLogado") != null) || (req.getRequestURI().endsWith("index.xhtml"))
-				
-				|| (req.getRequestURI().contains("javax.faces.resource/"))) {
 
-			
+				|| (req.getRequestURI().contains("javax.faces.resource/"))) {
 
 			chain.doFilter(request, response);
 		}
@@ -35,15 +31,9 @@ public class ControleDeAcesso implements Filter {
 		else {
 			redireciona("/banco/index.xhtml", response);
 		}
-		
-		Usuario user = new Usuario();
-		if (user.getSenha() != "admin" && user.getEmail() != "admin") {
-			
-		}
 
-		
 	}
-			
+
 	public void init(FilterConfig filterConfig) throws ServletException {
 	}
 
