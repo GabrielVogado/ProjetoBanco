@@ -15,7 +15,7 @@
 		<p:growl />
 		<h:panelGrid columns="2" cellpadding="10">
 			<p:graphicImage url="/image/locked.png" />
-			<p:panel id="panel-login-principal" header="Login">
+			<p:panel id="panel-login-principal" header="Aréa do Administrador">
 				<h:outputText value="Login:" />
 				<p:inputText value="#{loginController.login}" />
 				<br />
@@ -24,15 +24,15 @@
 				<br />
 				&nbsp;
 				<p:commandButton value="Logar" update="@form"
-					action="#{loginController.realizarLogin()}" icon=" ui-icon-locked" />
+					action="#{loginController.realizaLoginAdm()}" icon=" ui-icon-locked" />
 				<br />
 			</p:panel>
 		</h:panelGrid>
-		<center>
-			<p:commandLink value="Aréa Administrativa"
-				action="/admin/loginAdm.xhtml?faces-redirect=true"/>
+<!-- 		<center> -->
+<!-- 			<p:commandLink value="Não tem conta? Cadastre-se Aqui!" -->
+<!-- 				action="cadastro.xhtml?faces-redirect=true" -->
 <!-- 				actionListener="#{cadastroController.init()}" immediate="true" /> -->
-		</center>
+<!-- 		</center> -->
 	</h:form>
 </h:body>
 </html>

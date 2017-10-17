@@ -34,9 +34,10 @@ public class Cadastro implements Serializable {
 
 	@Column(name = "senha")
 	private String senha;
-
-	@Column(name = "TIPO_CONTA")
-	private String t_conta;
+	
+	@Column (name = "papel")
+	private String papel;
+	
 
 	public Cadastro() {
 	}
@@ -98,12 +99,12 @@ public class Cadastro implements Serializable {
 		this.senha = senha;
 	}
 
-	public String getT_conta() {
-		return t_conta;
+	public String getPapel() {
+		return papel;
 	}
 
-	public void setT_conta(String t_conta) {
-		this.t_conta = t_conta;
+	public void setPapel(String papel) {
+		this.papel = papel;
 	}
 
 }

@@ -27,7 +27,10 @@ public class Usuario implements Serializable {
 
 	@Column(name = "senha")
 	private String senha;
-
+	
+	@Column (name ="papel")
+	private String papel;
+	
 	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private Conta conta;
 
@@ -68,6 +71,14 @@ public class Usuario implements Serializable {
 
 	public void setConta(Conta conta) {
 		this.conta = conta;
+	}
+
+	public String getPapel() {
+		return papel;
+	}
+
+	public void setPapel(String papel) {
+		this.papel = papel;
 	}
 
 }

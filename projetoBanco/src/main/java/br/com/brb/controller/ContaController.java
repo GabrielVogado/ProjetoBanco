@@ -23,7 +23,6 @@ public class ContaController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	
 	@Inject
 	private IExtratoService extractService;
 
@@ -33,7 +32,6 @@ public class ContaController implements Serializable {
 	@Inject
 	private IContaService contaService;
 
-	
 	private double vlrDeposito;
 	private double vlrSaque;
 	private double vlrTransferencia;
@@ -49,6 +47,7 @@ public class ContaController implements Serializable {
 		setVlrTransferencia(new Double(0));
 	}
 
+	
 	public List<Extrato> getlistaExtrato() {
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuarioLogado");
@@ -159,7 +158,7 @@ public class ContaController implements Serializable {
 		extractService.gravarDados(extrato);
 	}
 
-	public void contaPoupança() {
+	public Boolean contaPoupança() {
 
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuarioLogado");
@@ -168,12 +167,11 @@ public class ContaController implements Serializable {
 
 		conta.setSaldo(conta.getSaldo() * this.rendimento);
 		usuario.setConta(contaService.deposita(conta));
-
-	
+		return null;
 
 	}
 
-	public void contaEspecial() {
+	public Boolean contaEspecial() {
 
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuarioLogado");
@@ -183,6 +181,7 @@ public class ContaController implements Serializable {
 		conta.setSaldo(conta.getSaldo() + limite);
 
 		usuario.setConta(contaService.deposita(conta));
+		return null;
 
 	}
 
@@ -241,7 +240,5 @@ public class ContaController implements Serializable {
 	public void setLimite(Double limite) {
 		this.limite = limite;
 	}
-
-	
 
 }

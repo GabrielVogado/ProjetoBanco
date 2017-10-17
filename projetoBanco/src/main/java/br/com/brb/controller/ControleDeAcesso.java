@@ -22,8 +22,10 @@ public class ControleDeAcesso implements Filter {
 		HttpSession session = req.getSession();
 
 		if ((session.getAttribute("usuarioLogado") != null) || (req.getRequestURI().endsWith("index.xhtml"))
-
+				|| (req.getRequestURI().endsWith("loginAdm.xhtml"))
 				|| (req.getRequestURI().contains("javax.faces.resource/"))) {
+
+//			redireciona("/banco/admin/painelDoAdm.xhtml", response);
 
 			chain.doFilter(request, response);
 		}

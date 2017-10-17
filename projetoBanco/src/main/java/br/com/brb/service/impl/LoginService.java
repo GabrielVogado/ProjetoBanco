@@ -20,4 +20,9 @@ public class LoginService implements ILoginService {
 		return user;
 	}
 
+	@Override
+	public Usuario verificaAdmLogado(Usuario usuario) {
+		Usuario user = usuarioDAO.consultarAdmPorFiltro(usuario);
+		return user;
+	}
 }

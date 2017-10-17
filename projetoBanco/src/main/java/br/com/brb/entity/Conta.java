@@ -20,7 +20,7 @@ public class Conta implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idconta")
-	private Long id;
+	private Long num_conta;
 
 	@Column(name = "saldo")
 	private double saldo;
@@ -29,12 +29,16 @@ public class Conta implements Serializable {
 	@JoinColumn(name = "idusuario")
 	private Usuario usuario;
 
+
+	@Column(name = "TIPO_CONTA")
+	private String t_conta;
+
 	public Long getId() {
-		return id;
+		return num_conta;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.num_conta = id;
 	}
 
 	public double getSaldo() {
@@ -51,6 +55,14 @@ public class Conta implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public Long getNum_conta() {
+		return num_conta;
+	}
+
+	public void setNum_conta(Long num_conta) {
+		this.num_conta = num_conta;
 	}
 
 }

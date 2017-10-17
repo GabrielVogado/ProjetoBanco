@@ -25,6 +25,10 @@
 					value="#{cadastroController.cadastro.endereco}" required="true"
 					label="Endereco" requiredMessage="'Endereço' é Obrigatorio" />
 
+				<h:outputText value="Papel" />
+				<p:inputText id="papel" value="#{cadastroController.cadastro.papel}"
+					required="true" label="Papel"
+					requiredMessage="'Função' é Obrigatorio" />
 
 				<h:outputText value="Email:" />
 				<p:inputText id="email" value="#{cadastroController.cadastro.email}"
@@ -36,12 +40,6 @@
 					value="#{cadastroController.cadastro.senha}" feedback="true"
 					required="true" label="Senha"
 					requiredMessage="'Senha' é Obrigatorio" />
-
-				<h:outputText value="Conta Poupança " />
-				<p:selectBooleanCheckbox value="#{contaController.contaPoupança()}" />
-
-				<h:outputText value="Conta Especial " />
-				<p:selectBooleanCheckbox value="#{contaController.contaEspecial()}" />
 
 			</h:panelGrid>
 			<p:commandButton value="Cadastrar" update="@form"

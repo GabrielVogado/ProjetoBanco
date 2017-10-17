@@ -12,8 +12,7 @@ public class ContaService implements IContaService {
 
 	@EJB
 	ContaDao contadao = new ContaDao();
-//	@EJB
-//	IUsuarioService usuarioService;
+	
 
 	public Conta deposita(Conta valor) {
 

@@ -36,5 +36,10 @@ public class ContaDao extends AbstractDAO {
 		}
 		return conta;
 	}
-	
+	public Conta gravaNConta() {
+		
+		
+		return null;
+		
+	}
 }

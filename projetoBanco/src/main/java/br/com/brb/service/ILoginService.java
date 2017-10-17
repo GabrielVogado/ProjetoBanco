@@ -8,5 +8,7 @@ import br.com.brb.entity.Usuario;
 public interface ILoginService {
 
 	public Usuario verificarUsuarioLogado(Usuario usuario);
+	
+	public Usuario verificaAdmLogado(Usuario usuario);
 
 }
