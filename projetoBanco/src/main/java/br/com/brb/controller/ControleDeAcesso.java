@@ -23,6 +23,7 @@ public class ControleDeAcesso implements Filter {
 
 		if ((session.getAttribute("usuarioLogado") != null) || (req.getRequestURI().endsWith("index.xhtml"))
 				|| (req.getRequestURI().endsWith("loginAdm.xhtml"))
+//				|| (req.getRequestURI().endsWith("cadastro.xhtml"))
 				|| (req.getRequestURI().contains("javax.faces.resource/"))) {
 
 //			redireciona("/banco/admin/painelDoAdm.xhtml", response);

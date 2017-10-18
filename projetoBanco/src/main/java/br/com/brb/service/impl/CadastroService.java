@@ -19,7 +19,7 @@ public class CadastroService implements ICadastroService {
 	@Inject
 	ContaDao contaDao;
 
-	public boolean gravarUsuario(Cadastro cadastro) {
+	public boolean gravarUsuario(Cadastro cadastro, String tipoConta) {
 		cadastro = cdao.insertCadastro(cadastro);
 		if (cadastro ==  null) {
 			return false;
@@ -29,6 +29,7 @@ public class CadastroService implements ICadastroService {
 		
 		Conta conta = new Conta();
 		conta.setUsuario(usuario);
+		conta.setTipoConta(tipoConta);
 		
 		contaDao.gravar(conta);
 		

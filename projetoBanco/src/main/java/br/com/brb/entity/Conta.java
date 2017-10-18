@@ -31,7 +31,7 @@ public class Conta implements Serializable {
 
 
 	@Column(name = "TIPO_CONTA")
-	private String t_conta;
+	private String tipoConta;
 
 	public Long getId() {
 		return num_conta;
@@ -63,6 +63,14 @@ public class Conta implements Serializable {
 
 	public void setNum_conta(Long num_conta) {
 		this.num_conta = num_conta;
+	}
+
+	public String getTipoConta() {
+		return tipoConta;
+	}
+
+	public void setTipoConta(String tipoConta) {
+		this.tipoConta = tipoConta;
 	}
 
 }

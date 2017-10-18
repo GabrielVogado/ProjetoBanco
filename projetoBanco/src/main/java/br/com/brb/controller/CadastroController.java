@@ -28,7 +28,7 @@ public class CadastroController {
 
 		FacesContext context = FacesContext.getCurrentInstance();
 
-		Boolean isCadastrado = cadastroService.gravarUsuario(cadastro);
+		Boolean isCadastrado = cadastroService.gravarUsuario(cadastro, tipoConta);
 
 		if (isCadastrado) {
 			context.addMessage(null, new FacesMessage("Cliente gravado com sucesso"));

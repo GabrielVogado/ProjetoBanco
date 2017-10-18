@@ -58,7 +58,7 @@
 					<h:outputText value="#{contaController.mostraSaldo()}" />
 				</p:dialog>
 				<p:dialog header="Saque" widgetVar="dlg2" minHeight="40"
-					modal="true" position="center" draggable="false" >
+					modal="true" position="center" draggable="false">
 					<p:inputText value="#{contaController.vlrSaque}" />
 					<p:commandButton action="#{contaController.saqueConta()}"
 						value="Sacar" icon="ui-icon-arrowthick-1-s" update="@form" />
@@ -72,7 +72,7 @@
 						value="#{contaController.vlrTransferencia}" />
 
 					<br />
-					<h:outputLabel for="usrDest" value="Id Usuário Destino:" />
+					<h:outputLabel for="usrDest" value="Conta de Destino" />
 					<p:inputText id="usrDest"
 						value="#{contaController.idUsuarioDestino}" />
 					<br />

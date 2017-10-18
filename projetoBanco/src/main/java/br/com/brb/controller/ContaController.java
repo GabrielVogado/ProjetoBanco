@@ -47,10 +47,10 @@ public class ContaController implements Serializable {
 		setVlrTransferencia(new Double(0));
 	}
 
-	public List<Conta> getlistConta(){
+	public List<Conta> getlistConta() {
 		return contaService.getList();
 	}
-	
+
 	public List<Extrato> getlistaExtrato() {
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuarioLogado");
@@ -121,18 +121,31 @@ public class ContaController implements Serializable {
 				.get("usuarioLogado");
 
 		Conta contaOrigem = usuarioOrigem.getConta();
-
-		if (contaOrigem.getSaldo() < this.vlrTransferencia)
-			return false;
-
+		
 		Usuario usuarioDestino = usuarioService.getUsuarioById(Long.parseLong(idUsuarioDestino));
-		System.out.println(usuarioDestino.getEmail());
-
+		
 		if (usuarioDestino == null || usuarioDestino.getConta() == null) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuário/conta destino não encontrado!", null));
 			return false;
 		}
+		
+		
+
+		if ((contaOrigem.getSaldo() < this.vlrTransferencia)) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Saldo Insuficiente para Transação!", null));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Transação realizada com sucesso!", null));
+		}
+
+		if (contaOrigem.getSaldo() < this.vlrTransferencia)
+			
+			return false;
+		System.out.println(usuarioDestino.getEmail());
+
+		
 
 		Conta contaDestino = usuarioDestino.getConta();
 
@@ -149,6 +162,7 @@ public class ContaController implements Serializable {
 		gravaExtrato(contaDestino.getId(), this.vlrTransferencia, "Transferencia Credito");
 
 		return true;
+
 	}
 
 	private void gravaExtrato(long contaId, Double valor, String acao) {

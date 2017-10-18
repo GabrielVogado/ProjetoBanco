@@ -12,8 +12,7 @@ public class UsuarioDAO extends AbstractDAO {
 	public Usuario consultarUsuarioPorFiltro(Usuario usuario) {
 		try {
 			StringBuilder hql = new StringBuilder();
-			hql.append("SELECT u FROM Usuario u "
-					+ "WHERE u.senha=:senha AND u.conta.num_conta =:idconta");
+			hql.append("SELECT u FROM Usuario u " + "WHERE u.senha=:senha AND u.conta.num_conta =:idconta");
 
 			Query query = getEm().createQuery(hql.toString());
 
@@ -22,7 +21,7 @@ public class UsuarioDAO extends AbstractDAO {
 
 			return (Usuario) query.getSingleResult();
 		} catch (NoResultException nre) {
-			//nre.printStackTrace();
+			// nre.printStackTrace();
 			return null;
 		}
 	}
@@ -42,7 +41,6 @@ public class UsuarioDAO extends AbstractDAO {
 
 			query.setParameter("email", usuario.getEmail());
 			query.setParameter("senha", usuario.getSenha());
-		
 
 			return (Usuario) query.getSingleResult();
 		} catch (NoResultException nre) {
