@@ -8,6 +8,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import br.com.brb.entity.Conta;
 import br.com.brb.entity.Usuario;
 import br.com.brb.service.ILoginService;
 
@@ -21,7 +22,8 @@ public class LoginController {
 	@Inject
 	private ContaController contaControler;
 
-	private String Login ;
+	private String Login;
+	private String NumConta = "0";
 	private String Senha ; 
 
 	public String realizaLoginAdm() {
@@ -48,7 +50,10 @@ public class LoginController {
 	public String realizarLogin() {
 
 		Usuario usuario = new Usuario();
-		usuario.setEmail(this.Login);
+		
+		usuario.setConta(new Conta() );
+		usuario.getConta().setNum_conta( Long.parseLong(NumConta) );
+		
 		usuario.setSenha(this.Senha);
 
 		Usuario isUsuarioLogado = loginService.verificarUsuarioLogado(usuario);
@@ -73,12 +78,12 @@ public class LoginController {
 		return "index.xhtml";
 	}
 
-	public String getLogin() {
-		return Login;
+	public String getNumConta() {
+		return NumConta;
 	}
 
-	public void setLogin(String login) {
-		Login = login;
+	public void setNumConta(String NumConta) {
+		this.NumConta = NumConta;
 	}
 
 	public String getSenha() {
@@ -87,5 +92,13 @@ public class LoginController {
 
 	public void setSenha(String senha) {
 		Senha = senha;
+	}
+
+	public String getLogin() {
+		return Login;
+	}
+
+	public void setLogin(String login) {
+		Login = login;
 	}
 }

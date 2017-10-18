@@ -40,10 +40,18 @@
 					value="#{cadastroController.cadastro.senha}" feedback="true"
 					required="true" label="Senha"
 					requiredMessage="'Senha' é Obrigatorio" />
+					
+				<p:outputLabel for="tipoConta" value="Tipo Conta:" />
+		        <p:selectOneMenu id="tipoConta" value="#{cadastroController.tipoConta}" style="width:200px">
+		            <f:selectItem itemLabel="Selecione Conta" itemValue="" />
+		            <f:selectItem itemLabel="Conta Corrente" itemValue="C" />
+		            <f:selectItem itemLabel="Conta Poupanca" itemValue="P" />
+		            <f:selectItem itemLabel="Conta Especial" itemValue="E" />
+		        </p:selectOneMenu>
 
 			</h:panelGrid>
 			<p:commandButton value="Cadastrar" update="@form"
-				actionListener="#{cadastroController.gravarUsuario()}" />
+				actionListener="#{cadastroController.gravarUsuario()}" action="/admin/painelDoAdm.xhtml?faces-redirect=true"/>
 
 		</p:panel>
 	</h:form>

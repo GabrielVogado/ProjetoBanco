@@ -17,6 +17,8 @@ public class CadastroController {
 	private ICadastroService cadastroService;
 
 	private Cadastro cadastro;
+	
+	private String tipoConta;
 
 	public void init() {
 		setCadastro(new Cadastro());
@@ -44,6 +46,14 @@ public class CadastroController {
 
 	public void setCadastro(Cadastro cadastro) {
 		this.cadastro = cadastro;
+	}
+
+	public String getTipoConta() {
+		return tipoConta;
+	}
+
+	public void setTipoConta(String tipoConta) {
+		this.tipoConta = tipoConta;
 	}
 
 }

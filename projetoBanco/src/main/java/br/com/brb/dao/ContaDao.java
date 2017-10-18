@@ -1,5 +1,7 @@
 package br.com.brb.dao;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.transaction.Transactional;
 
@@ -13,7 +15,7 @@ public class ContaDao extends AbstractDAO {
 		try {
 			if (conta.getId() == null) {
 				getEm().persist(conta);
-			}else {
+			} else {
 				conta = getEm().merge(conta);
 			}
 			getEm().flush();
@@ -25,7 +27,7 @@ public class ContaDao extends AbstractDAO {
 		return conta;
 
 	}
-	
+
 	@Transactional
 	public Conta gravar(Conta conta) {
 		try {
@@ -36,10 +38,11 @@ public class ContaDao extends AbstractDAO {
 		}
 		return conta;
 	}
-	public Conta gravaNConta() {
+
+	@SuppressWarnings("unchecked")
+	public List<Conta> finAll() {
+		List<Conta> contas =  getEm().createQuery("from Conta").getResultList();
 		
-		
-		return null;
-		
+		return contas;
 	}
 }

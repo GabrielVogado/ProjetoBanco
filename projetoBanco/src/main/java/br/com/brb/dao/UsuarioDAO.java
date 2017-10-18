@@ -4,28 +4,25 @@ import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import br.com.brb.entity.Conta;
 import br.com.brb.entity.Usuario;
 
 @Stateless
 public class UsuarioDAO extends AbstractDAO {
 
-	Conta conta;
-
 	public Usuario consultarUsuarioPorFiltro(Usuario usuario) {
 		try {
 			StringBuilder hql = new StringBuilder();
-			hql.append("SELECT u FROM Usuario u WHERE  u.senha=:senha"
-					+ "INNER JOIN SELECT c FROM Conta u WHERE c.num_conta =:num_conta");
+			hql.append("SELECT u FROM Usuario u "
+					+ "WHERE u.senha=:senha AND u.conta.num_conta =:idconta");
 
 			Query query = getEm().createQuery(hql.toString());
 
-			query.setParameter("num_conta", conta.getNum_conta());
+			query.setParameter("idconta", usuario.getConta().getNum_conta());
 			query.setParameter("senha", usuario.getSenha());
 
 			return (Usuario) query.getSingleResult();
 		} catch (NoResultException nre) {
-			nre.printStackTrace();
+			//nre.printStackTrace();
 			return null;
 		}
 	}

@@ -1,5 +1,7 @@
 package br.com.brb.service.impl;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -30,6 +32,11 @@ public class ContaService implements IContaService {
 
 		return contadao.inserirSaldo(valor);
 
+	}
+
+	@Override
+	public List<Conta> getList() {
+		return contadao.finAll();
 	}
 
 }

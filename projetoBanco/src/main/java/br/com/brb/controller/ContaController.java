@@ -47,6 +47,9 @@ public class ContaController implements Serializable {
 		setVlrTransferencia(new Double(0));
 	}
 
+	public List<Conta> getlistConta(){
+		return contaService.getList();
+	}
 	
 	public List<Extrato> getlistaExtrato() {
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()

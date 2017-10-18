@@ -9,17 +9,36 @@
 	<title>Administrador</title>
 </h:head>
 <h:body>
+
 	<h:form>
 		<p:menubar>
-		
+
 			<p:menuitem id="lnkLogout" value="Sair"
 				action="#{loginController.logout()}" ajax="false" />
-			<p:menuitem  value="Criar Conta"
-			action="cadastro.xhtml?faces-redirect=true"
-			actionListener="#{cadastroController.init()}" immediate="true" />
-			<p:menuitem value="Codigo de defesa do consumidor"/>
-			
+				
+			<p:menuitem value="Criar Conta"
+				action="cadastro.xhtml?faces-redirect=true"
+				actionListener="#{cadastroController.init()}" immediate="true" />
+
 		</p:menubar>
+
+		<br />
+		<br />
+
+		<p:dataTable var="conta" value="#{contaController.getlistConta()}">
+		    <p:column headerText="Conta">
+		        <h:outputText value="#{conta.id}" />
+		    </p:column>
+		    <p:column headerText="Saldo">
+		        <h:outputText value="#{conta.saldo}" />
+		    </p:column>
+		    <p:column headerText="Usuario">
+		        <h:outputText value="#{conta.usuario.email}" />
+		    </p:column>
+		</p:dataTable>	
+
+		
 	</h:form>
+
 </h:body>
 </html>
