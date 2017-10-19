@@ -8,5 +8,7 @@ import br.com.brb.entity.Cadastro;
 public interface ICadastroService {
 
 	public boolean gravarUsuario(Cadastro cadastro, String tipoConta);
+	
+	public void remove(Long Id);
 
 }

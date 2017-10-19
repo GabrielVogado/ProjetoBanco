@@ -41,8 +41,9 @@ public class ContaDao extends AbstractDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Conta> finAll() {
-		List<Conta> contas =  getEm().createQuery("from Conta").getResultList();
-		
+		List<Conta> contas = getEm().createQuery("from Conta").getResultList();
+
 		return contas;
 	}
+
 }

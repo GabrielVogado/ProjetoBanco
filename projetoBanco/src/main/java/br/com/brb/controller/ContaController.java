@@ -52,112 +52,79 @@ public class ContaController implements Serializable {
 	}
 
 	public List<Extrato> getlistaExtrato() {
-		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-				.get("usuarioLogado");
+		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
 		Conta conta = usuario.getConta();
-
 		return extractService.getExtrato(conta.getId());
 
 	}
 
 	public void depositaConta() {
 
-		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-				.get("usuarioLogado");
-
+		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
 		Conta conta = usuario.getConta();
 		FacesContext context = FacesContext.getCurrentInstance();
-
 		if (vlrDeposito != 0) {
-			context.addMessage(null, new FacesMessage("Deposito realizado com sucesso. "));
+		context.addMessage(null, new FacesMessage("Deposito realizado com sucesso. "));
 		} else {
-			context.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Desculpe,falha ao depositar, valor invalido", null));
+		context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "Desculpe,falha ao depositar, valor invalido", null));
 		}
 		conta.setSaldo(conta.getSaldo() + this.vlrDeposito);
-
 		conta.setUsuario(usuario);
-
 		usuario.setConta(contaService.deposita(conta));
-
 		gravaExtrato(conta.getId(), this.vlrDeposito, "Credito");
 
 	}
 
 	public boolean saqueConta() {
-		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-				.get("usuarioLogado");
+		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
 		Conta conta = usuario.getConta();
 		FacesContext context = FacesContext.getCurrentInstance();
 		if (conta == null || conta.getSaldo() < this.vlrSaque) {
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Impossivel realizar saque.", null));
-			return false;
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Impossivel realizar saque.", null));
+		return false;
 		} else {
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Saque realizado com exito.", null));
-
-			conta.setSaldo(conta.getSaldo() - this.vlrSaque);
-
-			conta.setUsuario(usuario);
-
-			usuario.setConta(contaService.saca(conta));
-
-			gravaExtrato(conta.getId(), this.vlrSaque * (-1), "Debito");
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Saque realizado com exito.", null));
+		conta.setSaldo(conta.getSaldo() - this.vlrSaque);
+		conta.setUsuario(usuario);
+		usuario.setConta(contaService.saca(conta));
+		gravaExtrato(conta.getId(), this.vlrSaque * (-1), "Debito");
 
 		}
 		return true;
 	}
 
 	public double mostraSaldo() {
-		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-				.get("usuarioLogado");
+		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
 		Conta conta = usuario.getConta();
-
 		return conta.getSaldo();
 
 	}
 
 	public boolean transferenciaConta() {
-		Usuario usuarioOrigem = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-				.get("usuarioLogado");
-
+		Usuario usuarioOrigem = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
 		Conta contaOrigem = usuarioOrigem.getConta();
-		
 		Usuario usuarioDestino = usuarioService.getUsuarioById(Long.parseLong(idUsuarioDestino));
-		
 		if (usuarioDestino == null || usuarioDestino.getConta() == null) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuário/conta destino não encontrado!", null));
-			return false;
+		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuário/conta destino não encontrado!", null));
+		return false;
 		}
-		
-		
 
 		if ((contaOrigem.getSaldo() < this.vlrTransferencia)) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Saldo Insuficiente para Transação!", null));
+		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "Saldo Insuficiente para Transação!", null));
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Transação realizada com sucesso!", null));
+		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Transação realizada com sucesso!", null));
 		}
 
 		if (contaOrigem.getSaldo() < this.vlrTransferencia)
-			
-			return false;
+		return false;
 		System.out.println(usuarioDestino.getEmail());
-
-		
-
 		Conta contaDestino = usuarioDestino.getConta();
-
 		contaDestino.setSaldo(contaDestino.getSaldo() + this.vlrTransferencia);
 		contaDestino.setUsuario(usuarioDestino);
-
 		contaOrigem.setSaldo(contaOrigem.getSaldo() - this.vlrTransferencia);
 		contaOrigem.setUsuario(usuarioOrigem);
-
 		usuarioOrigem.setConta(contaService.saca(contaOrigem));
 		usuarioDestino.setConta(contaService.deposita(contaDestino));
-
 		gravaExtrato(contaOrigem.getId(), this.vlrTransferencia * (-1), " Transferencia Debito");
 		gravaExtrato(contaDestino.getId(), this.vlrTransferencia, "Transferencia Credito");
 
@@ -173,33 +140,6 @@ public class ContaController implements Serializable {
 		extrato.setContaId(contaId);
 
 		extractService.gravarDados(extrato);
-	}
-
-	public Boolean contaPoupança() {
-
-		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-				.get("usuarioLogado");
-
-		Conta conta = usuario.getConta();
-
-		conta.setSaldo(conta.getSaldo() * this.rendimento);
-		usuario.setConta(contaService.deposita(conta));
-		return null;
-
-	}
-
-	public Boolean contaEspecial() {
-
-		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-				.get("usuarioLogado");
-
-		Conta conta = usuario.getConta();
-
-		conta.setSaldo(conta.getSaldo() + limite);
-
-		usuario.setConta(contaService.deposita(conta));
-		return null;
-
 	}
 
 	public double getVlrDeposito() {

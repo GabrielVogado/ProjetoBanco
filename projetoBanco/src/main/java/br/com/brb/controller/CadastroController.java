@@ -17,7 +17,7 @@ public class CadastroController {
 	private ICadastroService cadastroService;
 
 	private Cadastro cadastro;
-	
+
 	private String tipoConta;
 
 	public void init() {
@@ -25,19 +25,18 @@ public class CadastroController {
 	}
 
 	public void gravarUsuario() {
-
 		FacesContext context = FacesContext.getCurrentInstance();
-
 		Boolean isCadastrado = cadastroService.gravarUsuario(cadastro, tipoConta);
-
 		if (isCadastrado) {
-			context.addMessage(null, new FacesMessage("Cliente gravado com sucesso"));
-			init();
-			
+		context.addMessage(null, new FacesMessage("Cliente gravado com sucesso"));
+		init();
 		} else {
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"Não foi possivel realizar seu cadastro.Tente novamente", null));
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Não foi possivel realizar seu cadastro.Tente novamente", null));
 		}
+	}
+
+	public void remove() {
+		cadastroService.remove(cadastro.getId());
 	}
 
 	public Cadastro getCadastro() {
