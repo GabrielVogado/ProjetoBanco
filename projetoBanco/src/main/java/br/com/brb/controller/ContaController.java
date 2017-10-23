@@ -53,7 +53,8 @@ public class ContaController implements Serializable {
 	}
 
 	public List<Extrato> getlistaExtrato() {
-		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.get("usuarioLogado");
 		Conta conta = usuario.getConta();
 		return extractService.getExtrato(conta.getId());
 
@@ -61,13 +62,15 @@ public class ContaController implements Serializable {
 
 	public void depositaConta() {
 
-		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.get("usuarioLogado");
 		Conta conta = usuario.getConta();
 		FacesContext context = FacesContext.getCurrentInstance();
 		if (vlrDeposito != 0) {
-		context.addMessage(null, new FacesMessage("Deposito realizado com sucesso. "));
+			context.addMessage(null, new FacesMessage("Deposito realizado com sucesso. "));
 		} else {
-		context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "Desculpe,falha ao depositar, valor invalido", null));
+			context.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Desculpe,falha ao depositar, valor invalido", null));
 		}
 		conta.setSaldo(conta.getSaldo() + this.vlrDeposito);
 		conta.setUsuario(usuario);
@@ -77,47 +80,53 @@ public class ContaController implements Serializable {
 	}
 
 	public boolean saqueConta() {
-		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.get("usuarioLogado");
 		Conta conta = usuario.getConta();
 		FacesContext context = FacesContext.getCurrentInstance();
 		if (conta == null || conta.getSaldo() < this.vlrSaque) {
-		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Impossivel realizar saque.", null));
-		return false;
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Impossivel realizar saque.", null));
+			return false;
 		} else {
-		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Saque realizado com exito.", null));
-		conta.setSaldo(conta.getSaldo() - this.vlrSaque);
-		conta.setUsuario(usuario);
-		usuario.setConta(contaService.saca(conta));
-		gravaExtrato(conta.getId(), this.vlrSaque * (-1), "Debito");
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Saque realizado com exito.", null));
+			conta.setSaldo(conta.getSaldo() - this.vlrSaque);
+			conta.setUsuario(usuario);
+			usuario.setConta(contaService.saca(conta));
+			gravaExtrato(conta.getId(), this.vlrSaque * (-1), "Debito");
 
 		}
 		return true;
 	}
 
 	public double mostraSaldo() {
-		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.get("usuarioLogado");
 		Conta conta = usuario.getConta();
 		return conta.getSaldo();
 
 	}
 
 	public boolean transferenciaConta() {
-		Usuario usuarioOrigem = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+		Usuario usuarioOrigem = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.get("usuarioLogado");
 		Conta contaOrigem = usuarioOrigem.getConta();
 		Usuario usuarioDestino = usuarioService.getUsuarioById(Long.parseLong(idUsuarioDestino));
 		if (usuarioDestino == null || usuarioDestino.getConta() == null) {
-		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuário/conta destino não encontrado!", null));
-		return false;
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuário/conta destino não encontrado!", null));
+			return false;
 		}
 
 		if ((contaOrigem.getSaldo() < this.vlrTransferencia)) {
-		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "Saldo Insuficiente para Transação!", null));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Saldo Insuficiente para Transação!", null));
 		} else {
-		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Transação realizada com sucesso!", null));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Transação realizada com sucesso!", null));
 		}
 
 		if (contaOrigem.getSaldo() < this.vlrTransferencia)
-		return false;
+			return false;
 		System.out.println(usuarioDestino.getEmail());
 		Conta contaDestino = usuarioDestino.getConta();
 		contaDestino.setSaldo(contaDestino.getSaldo() + this.vlrTransferencia);
