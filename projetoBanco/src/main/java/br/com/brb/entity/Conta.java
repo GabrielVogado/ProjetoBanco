@@ -16,6 +16,11 @@ import javax.persistence.Table;
 public class Conta implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	public static final String POUPANCA = "POUPANCA";
+	public static final String CORRENTE = "CORRENTE";
+	public static final String ESPECIAL = "ESPECIAL";
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

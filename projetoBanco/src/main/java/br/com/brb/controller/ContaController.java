@@ -39,6 +39,7 @@ public class ContaController implements Serializable {
 	private String idUsuarioDestino;
 	private Double rendimento = 0.005;
 	private Double limite = 200.00;
+	private Usuario usuario;
 
 	public void init() {
 		setSaldo(new Double(0));
@@ -196,6 +197,14 @@ public class ContaController implements Serializable {
 
 	public void setLimite(Double limite) {
 		this.limite = limite;
+	}
+
+	public Usuario getUsuario() {
+		return (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

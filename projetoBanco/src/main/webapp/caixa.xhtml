@@ -4,7 +4,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
+
 
 <h:head>
 	<title>AppBanco</title>
@@ -24,6 +26,7 @@
 			<p:menuitem value="Consumidor.gov.br"
 				url="https://www.consumidor.gov.br/pages/principal/?1507311125529" />
 		</p:menubar>
+
 		<br />
 		<br />
 		<br />
@@ -32,18 +35,21 @@
 			<p:panel>
 				<h:panelGrid columns="2" cellpadding="5">
 					<p:commandButton value="Deposito" type="button"
-						onclick="PF('dlg1').show();" />
+						onclick="PF('dlg1').show();" style="width: 150px; height: 50px" />
+						
 					<p:commandButton value="Saque" type="button"
-						onclick="PF('dlg2').show();" />
+						onclick="PF('dlg2').show();" style="width: 150px; height: 50px" />
 
 					<p:commandButton value="Transferencia" type="button"
-						onclick="PF('dlg3').show();" />
+						onclick="PF('dlg3').show();" style="width: 150px; height: 50px" 
+						rendered="#{contaController.usuario.conta.tipoConta != 'POUPANCA' }" />
 
 					<p:commandButton value="Extrato" type="button"
-						onclick="PF('dlg4').show();" />
+						onclick="PF('dlg4').show();" style="width: 150px; height: 50px" />
 
 					<p:commandButton value="Saldo" type="button"
-						onclick="PF('dlg5').show();" />
+						onclick="PF('dlg5').show();" style="width: 150px; height: 50px"/>
+						
 				</h:panelGrid>
 			</p:panel>
 		</div>
