@@ -13,6 +13,8 @@ import javax.inject.Inject;
 import br.com.brb.entity.Conta;
 import br.com.brb.entity.Extrato;
 import br.com.brb.entity.Usuario;
+import br.com.brb.exception.ValorSaqueMaiorQueSaldoException;
+import br.com.brb.exception.ValorSaqueMenorQueZeroException;
 import br.com.brb.service.IContaService;
 import br.com.brb.service.IExtratoService;
 import br.com.brb.service.IUsuarioService;
@@ -40,6 +42,7 @@ public class ContaController implements Serializable {
 	private Double rendimento = 0.005;
 	private Double limite = 200.00;
 	private Usuario usuario;
+	private Double ZERO = 0.0;
 
 	public void init() {
 		setSaldo(new Double(0));
@@ -53,8 +56,7 @@ public class ContaController implements Serializable {
 	}
 
 	public List<Extrato> getlistaExtrato() {
-		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-				.get("usuarioLogado");
+		Usuario usuario = getUsuarioSessao();
 		Conta conta = usuario.getConta();
 		return extractService.getExtrato(conta.getId());
 
@@ -62,11 +64,12 @@ public class ContaController implements Serializable {
 
 	public void depositaConta() {
 
-		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-				.get("usuarioLogado");
+		
+
+		Usuario usuario = getUsuarioSessao();
 		Conta conta = usuario.getConta();
 		FacesContext context = FacesContext.getCurrentInstance();
-		if (vlrDeposito != 0) {
+		if (vlrDeposito != 0 && vlrDeposito < 0) {
 			context.addMessage(null, new FacesMessage("Deposito realizado com sucesso. "));
 		} else {
 			context.addMessage(null,
@@ -79,36 +82,65 @@ public class ContaController implements Serializable {
 
 	}
 
-	public boolean saqueConta() {
-		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-				.get("usuarioLogado");
+	public void realizarSaque() {
+
+		Usuario usuario = getUsuarioSessao();
 		Conta conta = usuario.getConta();
-		FacesContext context = FacesContext.getCurrentInstance();
-		if (conta == null || conta.getSaldo() < this.vlrSaque) {
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Impossivel realizar saque.", null));
-			return false;
-		} else {
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Saque realizado com exito.", null));
-			conta.setSaldo(conta.getSaldo() - this.vlrSaque);
+
+		try {
+			validarValorSaqueMaiorQueSaldo(conta);
+			validarValorSaqueMenorQueZero(getVlrSaque());
+
+			conta.setSaldo(conta.getSaldo() - vlrSaque);
 			conta.setUsuario(usuario);
 			usuario.setConta(contaService.saca(conta));
-			gravaExtrato(conta.getId(), this.vlrSaque * (-1), "Debito");
+			gravaExtrato(conta.getId(), vlrSaque * (-1), "Debito");
 
+			addInfoMensage("Saque realizado com exito.");
+
+		} catch (ValorSaqueMenorQueZeroException e) {
+			addErroMensage("O valor informado é menor que 0.");
+
+		} catch (ValorSaqueMaiorQueSaldoException e) {
+			addErroMensage("O valor informado para o saque é menor que o valor de saldo atual.");
 		}
-		return true;
+	}
+
+	private void validarValorSaqueMaiorQueSaldo(Conta conta) throws ValorSaqueMaiorQueSaldoException {
+		if (conta.getSaldo() < this.vlrSaque) {
+			throw new ValorSaqueMaiorQueSaldoException();
+		}
+	}
+
+	private void validarValorSaqueMenorQueZero(double vlrSaque) throws ValorSaqueMenorQueZeroException {
+		if (vlrSaque < ZERO) {
+			throw new ValorSaqueMenorQueZeroException();
+		}
+	}
+
+	private void addInfoMensage(String mensagem) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem, null));
+	}
+
+	private void addErroMensage(String mensagem) {
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_WARN, mensagem, null));
+	}
+
+	private Usuario getUsuarioSessao() {
+		return (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
 	}
 
 	public double mostraSaldo() {
-		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-				.get("usuarioLogado");
+		Usuario usuario = getUsuarioSessao();
 		Conta conta = usuario.getConta();
 		return conta.getSaldo();
 
 	}
 
 	public boolean transferenciaConta() {
-		Usuario usuarioOrigem = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-				.get("usuarioLogado");
+		Usuario usuarioOrigem = getUsuarioSessao();
 		Conta contaOrigem = usuarioOrigem.getConta();
 		Usuario usuarioDestino = usuarioService.getUsuarioById(Long.parseLong(idUsuarioDestino));
 		if (usuarioDestino == null || usuarioDestino.getConta() == null) {
@@ -117,7 +149,7 @@ public class ContaController implements Serializable {
 			return false;
 		}
 
-		if ((contaOrigem.getSaldo() < this.vlrTransferencia)) {
+		if ((contaOrigem.getSaldo() < this.vlrTransferencia && vlrTransferencia <= 0)) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN, "Saldo Insuficiente para Transação!", null));
 		} else {
@@ -125,7 +157,7 @@ public class ContaController implements Serializable {
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Transação realizada com sucesso!", null));
 		}
 
-		if (contaOrigem.getSaldo() < this.vlrTransferencia)
+		if (contaOrigem.getSaldo() < this.vlrTransferencia && vlrTransferencia <= 0)
 			return false;
 		System.out.println(usuarioDestino.getEmail());
 		Conta contaDestino = usuarioDestino.getConta();
@@ -209,7 +241,7 @@ public class ContaController implements Serializable {
 	}
 
 	public Usuario getUsuario() {
-		return (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+		return getUsuarioSessao();
 	}
 
 	public void setUsuario(Usuario usuario) {

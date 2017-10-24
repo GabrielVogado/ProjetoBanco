@@ -41,8 +41,8 @@
 						onclick="PF('dlg2').show();" style="width: 150px; height: 50px" />
 
 					<p:commandButton value="Transferencia" type="button"
-						onclick="PF('dlg3').show();" style="width: 150px; height: 50px" 
-						rendered="#{contaController.usuario.conta.tipoConta != 'POUPANCA' }" />
+						onclick="PF('dlg3').show();" style="width: 150px; height: 50px" />
+<!-- 						rendered="#{contaController.usuario.conta.tipoConta != 'POUPANCA' }" /> --> 
 
 					<p:commandButton value="Extrato" type="button"
 						onclick="PF('dlg4').show();" style="width: 150px; height: 50px" />
@@ -66,7 +66,7 @@
 				<p:dialog header="Saque" widgetVar="dlg2" minHeight="40"
 					modal="true" position="center" draggable="false">
 					<p:inputText value="#{contaController.vlrSaque}" />
-					<p:commandButton action="#{contaController.saqueConta()}"
+					<p:commandButton action="#{contaController.realizarSaque()}"
 						value="Sacar" icon="ui-icon-arrowthick-1-s" update="@form" />
 					<h:outputText value="Saldo Atual: " />
 					<h:outputText value="#{contaController.mostraSaldo()}" />
