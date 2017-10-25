@@ -13,8 +13,14 @@ import javax.inject.Inject;
 import br.com.brb.entity.Conta;
 import br.com.brb.entity.Extrato;
 import br.com.brb.entity.Usuario;
+import br.com.brb.exception.ContaNaoPodeSerNulaException;
+import br.com.brb.exception.UsuarioNaoPodeNuloException;
+import br.com.brb.exception.ValorDepositoMenorQueZeroException;
+import br.com.brb.exception.ValorDepositoNaoPodeZeroException;
 import br.com.brb.exception.ValorSaqueMaiorQueSaldoException;
 import br.com.brb.exception.ValorSaqueMenorQueZeroException;
+import br.com.brb.exception.ValorTransferenciaMaiorQueSaldoException;
+import br.com.brb.exception.ValorTransferenciaNaoPodeZeroException;
 import br.com.brb.service.IContaService;
 import br.com.brb.service.IExtratoService;
 import br.com.brb.service.IUsuarioService;
@@ -63,23 +69,43 @@ public class ContaController implements Serializable {
 	}
 
 	public void depositaConta() {
-
 		
-
 		Usuario usuario = getUsuarioSessao();
 		Conta conta = usuario.getConta();
-		FacesContext context = FacesContext.getCurrentInstance();
-		if (vlrDeposito != 0 && vlrDeposito < 0) {
-			context.addMessage(null, new FacesMessage("Deposito realizado com sucesso. "));
-		} else {
-			context.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Desculpe,falha ao depositar, valor invalido", null));
-		}
+		try {
+			
+		ValorDepositoNaoPodeZeroExceptio(getVlrDeposito());
+		validarValorDepositoMenorQueZero(getVlrDeposito());
+		
 		conta.setSaldo(conta.getSaldo() + this.vlrDeposito);
 		conta.setUsuario(usuario);
 		usuario.setConta(contaService.deposita(conta));
 		gravaExtrato(conta.getId(), this.vlrDeposito, "Credito");
+		
+		addInfoMensage("Deposito Realizado Com Sucesso =)");
+		
+		}catch (ValorDepositoNaoPodeZeroException e) {
+			addErroMensage("Por Favor,Insira um Valor Maior Que Zero");
+			
+		}catch (ValorDepositoMenorQueZeroException e) {
+			addErroMensage("Por favor,Insira Um Valor Positivo");
+		}
+	}
 
+	
+	private void ValorDepositoNaoPodeZeroExceptio(double vlrDeposito)throws ValorDepositoNaoPodeZeroException {
+		if (vlrDeposito == ZERO) {
+		
+		throw new ValorDepositoNaoPodeZeroException();
+		}
+		
+	}
+
+	private void validarValorDepositoMenorQueZero(double vlrDeposito) throws ValorDepositoMenorQueZeroException {
+		if (vlrDeposito < ZERO) {
+		
+		throw new ValorDepositoMenorQueZeroException();
+		}
 	}
 
 	public void realizarSaque() {
@@ -99,7 +125,7 @@ public class ContaController implements Serializable {
 			addInfoMensage("Saque realizado com exito.");
 
 		} catch (ValorSaqueMenorQueZeroException e) {
-			addErroMensage("O valor informado é menor que 0.");
+			addErroMensage("O valor informado é menor ou igual a 0 .");
 
 		} catch (ValorSaqueMaiorQueSaldoException e) {
 			addErroMensage("O valor informado para o saque é menor que o valor de saldo atual.");
@@ -113,7 +139,7 @@ public class ContaController implements Serializable {
 	}
 
 	private void validarValorSaqueMenorQueZero(double vlrSaque) throws ValorSaqueMenorQueZeroException {
-		if (vlrSaque < ZERO) {
+		if (vlrSaque < ZERO || vlrSaque == ZERO) {
 			throw new ValorSaqueMenorQueZeroException();
 		}
 	}
@@ -139,26 +165,16 @@ public class ContaController implements Serializable {
 
 	}
 
-	public boolean transferenciaConta() {
+	public void transferenciaConta() {
 		Usuario usuarioOrigem = getUsuarioSessao();
 		Conta contaOrigem = usuarioOrigem.getConta();
 		Usuario usuarioDestino = usuarioService.getUsuarioById(Long.parseLong(idUsuarioDestino));
-		if (usuarioDestino == null || usuarioDestino.getConta() == null) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuário/conta destino não encontrado!", null));
-			return false;
-		}
-
-		if ((contaOrigem.getSaldo() < this.vlrTransferencia && vlrTransferencia <= 0)) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Saldo Insuficiente para Transação!", null));
-		} else {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Transação realizada com sucesso!", null));
-		}
-
-		if (contaOrigem.getSaldo() < this.vlrTransferencia && vlrTransferencia <= 0)
-			return false;
+		try {
+		ContaNaoPodeSerNula(usuarioDestino);
+		UsuarioNaoPodeNulo(usuarioDestino);
+		ValorTranseferenciaMaiorQueSaldo(contaOrigem);
+		ValorTransferenciaNaoPodeZero();
+		
 		System.out.println(usuarioDestino.getEmail());
 		Conta contaDestino = usuarioDestino.getConta();
 		contaDestino.setSaldo(contaDestino.getSaldo() + this.vlrTransferencia);
@@ -169,9 +185,51 @@ public class ContaController implements Serializable {
 		usuarioDestino.setConta(contaService.deposita(contaDestino));
 		gravaExtrato(contaOrigem.getId(), this.vlrTransferencia * (-1), " Transferencia Debito");
 		gravaExtrato(contaDestino.getId(), this.vlrTransferencia, "Transferencia Credito");
+		
+		addInfoMensage("Transferencia realizada com Sucesso ");
 
-		return true;
+		}catch (ContaNaoPodeSerNulaException e) {
+			addErroMensage("Conta não encontrada ou não existe,verifique se Conta é válida");
+		}catch (UsuarioNaoPodeNuloException e) {
+			addErroMensage("Usuario Não Encontrado,ou Não existe,Verifique se Usuario esta correto..");
+		} catch (ValorTransferenciaNaoPodeZeroException e) {
+			addErroMensage("Valor de Transferencia é igual a Zero ou Valor é Negativo ,por favor,insira um valor maior que zero");
+		}catch (ValorTransferenciaMaiorQueSaldoException e) {
+			addErroMensage("Saldo Insuficiente para Transferencia,insira um Valor menor ou entre em contato com o Gerente do seu banco");		}
 
+	}
+
+	private void ValorTransferenciaNaoPodeZero() throws ValorTransferenciaNaoPodeZeroException {
+		if ( vlrTransferencia < ZERO || vlrTransferencia == ZERO) {
+			
+			throw new ValorTransferenciaNaoPodeZeroException();
+			
+		}
+		
+	}
+
+	private void ValorTranseferenciaMaiorQueSaldo(Conta contaOrigem) throws ValorTransferenciaMaiorQueSaldoException {
+		if ((contaOrigem.getSaldo() < this.vlrTransferencia)){
+			
+			throw new ValorTransferenciaMaiorQueSaldoException();
+		}
+		
+	}
+
+	private void UsuarioNaoPodeNulo( Usuario usuarioDestino) throws UsuarioNaoPodeNuloException {
+		if (usuarioDestino == null ) {
+			
+			throw new UsuarioNaoPodeNuloException();
+		}
+		
+	}
+
+	private void ContaNaoPodeSerNula(Usuario usuarioDestino) throws ContaNaoPodeSerNulaException {
+		if ( usuarioDestino.getConta() == null) {
+			
+			throw new ContaNaoPodeSerNulaException();
+		}
+		
 	}
 
 	private void gravaExtrato(long contaId, Double valor, String acao) {
