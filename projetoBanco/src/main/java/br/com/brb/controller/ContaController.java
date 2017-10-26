@@ -44,9 +44,10 @@ public class ContaController implements Serializable {
 	private double vlrSaque;
 	private double vlrTransferencia;
 	private double saldo;
-	private String idUsuarioDestino;
+	private Long idUsuarioDestino;
 	private Double rendimento = 0.005;
 	private Double limite = 200.00;
+	@SuppressWarnings("unused")
 	private Usuario usuario;
 	private Double ZERO = 0.0;
 
@@ -168,15 +169,15 @@ public class ContaController implements Serializable {
 	public void transferenciaConta() {
 		Usuario usuarioOrigem = getUsuarioSessao();
 		Conta contaOrigem = usuarioOrigem.getConta();
-		Usuario usuarioDestino = usuarioService.getUsuarioById(Long.parseLong(idUsuarioDestino));
+		Usuario usuarioDestino = usuarioService.getUsuarioById((idUsuarioDestino));
+		Conta contaDestino = usuarioDestino.getConta();//valor null
 		try {
 		ContaNaoPodeSerNula(usuarioDestino);
 		UsuarioNaoPodeNulo(usuarioDestino);
 		ValorTranseferenciaMaiorQueSaldo(contaOrigem);
 		ValorTransferenciaNaoPodeZero();
 		
-		System.out.println(usuarioDestino.getEmail());
-		Conta contaDestino = usuarioDestino.getConta();
+//		System.out.println(usuarioDestino.getEmail());
 		contaDestino.setSaldo(contaDestino.getSaldo() + this.vlrTransferencia);
 		contaDestino.setUsuario(usuarioDestino);
 		contaOrigem.setSaldo(contaOrigem.getSaldo() - this.vlrTransferencia);
@@ -266,11 +267,11 @@ public class ContaController implements Serializable {
 		this.vlrTransferencia = vlrTransferencia;
 	}
 
-	public void setIdUsuarioDestino(String usuarioId) {
+	public void setIdUsuarioDestino(Long usuarioId) {
 		this.idUsuarioDestino = usuarioId;
 	}
 
-	public String getIdUsuarioDestino() {
+	public Long getIdUsuarioDestino() {
 		return this.idUsuarioDestino;
 	}
 

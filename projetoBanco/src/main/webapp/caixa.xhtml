@@ -57,7 +57,7 @@
 			<p:growl>
 				<p:dialog header="Deposito" widgetVar="dlg1" minHeight="40"
 					modal="true" position="center" draggable="false">
-					<p:inputText value="#{contaController.vlrDeposito}" />
+					<p:inputText value="#{contaController.vlrDeposito}"  label="Deposito" />
 					<p:commandButton action="#{contaController.depositaConta()}"
 						value="Depositar" icon=" ui-icon-arrowthick-1-n" update="@form" />
 					<h:outputText value="Saldo Atual: " />
@@ -65,7 +65,7 @@
 				</p:dialog>
 				<p:dialog header="Saque" widgetVar="dlg2" minHeight="40"
 					modal="true" position="center" draggable="false">
-					<p:inputText value="#{contaController.vlrSaque}" />
+					<p:inputText value="#{contaController.vlrSaque}" label="Saque"/>
 					<p:commandButton action="#{contaController.realizarSaque()}"
 						value="Sacar" icon="ui-icon-arrowthick-1-s" update="@form" />
 					<h:outputText value="Saldo Atual: " />
@@ -75,12 +75,12 @@
 					modal="true" position="center" draggable="false">
 					<h:outputLabel for="vlrTrans" value="Valor à transferir:" />
 					<p:inputText id="vlrTrans"
-						value="#{contaController.vlrTransferencia}" />
+						value="#{contaController.vlrTransferencia}" label="Valor de Transferencia"/>
 
 					<br />
 					<h:outputLabel for="usrDest" value="Conta de Destino" />
 					<p:inputText id="usrDest"
-						value="#{contaController.idUsuarioDestino}" />
+						value="#{contaController.idUsuarioDestino}" label="Conta"/>
 					<br />
 					<p:commandButton value="TRANSFERIR"
 						action="#{contaController.transferenciaConta()}"
