@@ -15,16 +15,11 @@
 <h:body>
 	<h:form>
 		<p:menubar>
-			<p:menuitem id="lnkLogout" value="Sair"
-				action="#{loginController.logout()}" ajax="false" />
-			<p:menuitem value="Codigo de defesa do consumidor"
-				url="http://www.planalto.gov.br/ccivil_03/Leis/L8078compilado.htm" />
-			<p:menuitem value="Taxas de Juros Operações de Credito"
-				url="http://www.bcb.gov.br/pt-br/#!/c/TXJUROS/" />
-			<p:menuitem value="Comparativos de Tarifas"
-				url="http://www.febraban-star.org.br/CompararTarifaPasso1.asp" />
-			<p:menuitem value="Consumidor.gov.br"
-				url="https://www.consumidor.gov.br/pages/principal/?1507311125529" />
+			<p:menuitem id="lnkLogout" value="Sair" action="#{loginController.logout()}" ajax="false" />
+			<p:menuitem value="Codigo de defesa do consumidor" url="http://www.planalto.gov.br/ccivil_03/Leis/L8078compilado.htm" />
+			<p:menuitem value="Taxas de Juros Operações de Credito" url="http://www.bcb.gov.br/pt-br/#!/c/TXJUROS/" />
+			<p:menuitem value="Comparativos de Tarifas" url="http://www.febraban-star.org.br/CompararTarifaPasso1.asp" />
+			<p:menuitem value="Consumidor.gov.br" url="https://www.consumidor.gov.br/pages/principal/?1507311125529" />
 		</p:menubar>
 
 		<br />
@@ -34,30 +29,23 @@
 		<div align="center">
 			<p:panel>
 				<h:panelGrid columns="2" cellpadding="5">
-					<p:commandButton value="Deposito" type="button"
-						onclick="PF('dlg1').show();" style="width: 150px; height: 50px" />
+					<p:commandButton value="Deposito" type="button" onclick="PF('dlg1').show();" style="width: 150px; height: 50px" />
 
-					<p:commandButton value="Saque" type="button"
-						onclick="PF('dlg2').show();" style="width: 150px; height: 50px" />
+					<p:commandButton value="Saque" type="button" onclick="PF('dlg2').show();" style="width: 150px; height: 50px" />
 
-					<p:commandButton value="Transferencia" type="button"
-						onclick="PF('dlg3').show();" style="width: 150px; height: 50px" />
+					<p:commandButton value="Transferencia" type="button" onclick="PF('dlg3').show();" style="width: 150px; height: 50px" />
 					<!-- rendered="#{contaController.usuario.conta.tipoConta != 'POUPANCA' }" /> -->
 
-					<p:commandButton value="Extrato" type="button"
-						onclick="PF('dlg4').show();" style="width: 150px; height: 50px" />
+					<p:commandButton value="Extrato" type="button" onclick="PF('dlg4').show();" style="width: 150px; height: 50px" />
 
-					<p:commandButton value="Saldo" type="button"
-						onclick="PF('dlg5').show();" style="width: 150px; height: 50px" />
-
+					<p:commandButton value="Saldo" type="button" onclick="PF('dlg5').show();" style="width: 150px; height: 50px" />
 				</h:panelGrid>
 			</p:panel>
 		</div>
 		<div align="center">
 			<p:growl>
-
-				<p:dialog header="Deposito" widgetVar="dlg1" minHeight="40"
-					modal="true" position="center" draggable="false">
+			
+				<p:dialog header="Deposito" widgetVar="dlg1" minHeight="40" modal="true" position="center" draggable="false">
 					<p:inputText value="#{contaController.vlrDeposito}" label="Deposito" />
 					<p:commandButton action="#{contaController.depositaConta()}" value="Depositar" icon=" ui-icon-arrowthick-1-n" update="@form" />
 					<h:outputText value="Saldo Atual: " />
@@ -105,6 +93,7 @@
 						</p:column>
 					</p:dataTable>
 				</p:dialog>
+				
 				<p:dialog header="Saldo" widgetVar="dlg5" minHeight="30" modal="true" position="center" draggable="false">
 					<h:outputText value="Saldo Atual: " />
 					<h:outputText value="#{contaController.mostraSaldo()}" />
