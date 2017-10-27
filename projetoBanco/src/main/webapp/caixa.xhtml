@@ -36,63 +36,56 @@
 				<h:panelGrid columns="2" cellpadding="5">
 					<p:commandButton value="Deposito" type="button"
 						onclick="PF('dlg1').show();" style="width: 150px; height: 50px" />
-						
+
 					<p:commandButton value="Saque" type="button"
 						onclick="PF('dlg2').show();" style="width: 150px; height: 50px" />
 
 					<p:commandButton value="Transferencia" type="button"
 						onclick="PF('dlg3').show();" style="width: 150px; height: 50px" />
-<!-- 						rendered="#{contaController.usuario.conta.tipoConta != 'POUPANCA' }" /> --> 
+					<!-- rendered="#{contaController.usuario.conta.tipoConta != 'POUPANCA' }" /> -->
 
 					<p:commandButton value="Extrato" type="button"
 						onclick="PF('dlg4').show();" style="width: 150px; height: 50px" />
 
 					<p:commandButton value="Saldo" type="button"
-						onclick="PF('dlg5').show();" style="width: 150px; height: 50px"/>
-						
+						onclick="PF('dlg5').show();" style="width: 150px; height: 50px" />
+
 				</h:panelGrid>
 			</p:panel>
 		</div>
 		<div align="center">
 			<p:growl>
+
 				<p:dialog header="Deposito" widgetVar="dlg1" minHeight="40"
 					modal="true" position="center" draggable="false">
-					<p:inputText value="#{contaController.vlrDeposito}"  label="Deposito" />
-					<p:commandButton action="#{contaController.depositaConta()}"
-						value="Depositar" icon=" ui-icon-arrowthick-1-n" update="@form" />
+					<p:inputText value="#{contaController.vlrDeposito}" label="Deposito" />
+					<p:commandButton action="#{contaController.depositaConta()}" value="Depositar" icon=" ui-icon-arrowthick-1-n" update="@form" />
 					<h:outputText value="Saldo Atual: " />
 					<h:outputText value="#{contaController.mostraSaldo()}" />
 				</p:dialog>
-				<p:dialog header="Saque" widgetVar="dlg2" minHeight="40"
-					modal="true" position="center" draggable="false">
-					<p:inputText value="#{contaController.vlrSaque}" label="Saque"/>
-					<p:commandButton action="#{contaController.realizarSaque()}"
-						value="Sacar" icon="ui-icon-arrowthick-1-s" update="@form" />
-					<h:outputText value="Saldo Atual: " />
-					<h:outputText value="#{contaController.mostraSaldo()}" />
-				</p:dialog>
-				<p:dialog header="Transferencia" widgetVar="dlg3" minHeight="40"
-					modal="true" position="center" draggable="false">
-					<h:outputLabel for="vlrTrans" value="Valor à transferir:" />
-					<p:inputText id="vlrTrans"
-						value="#{contaController.vlrTransferencia}" label="Valor de Transferencia"/>
 
+				<p:dialog header="Saque" widgetVar="dlg2" minHeight="40" modal="true" position="center" draggable="false">
+					<p:inputText value="#{contaController.vlrSaque}" label="Saque" />
+					<p:commandButton action="#{contaController.realizarSaque()}" value="Sacar" icon="ui-icon-arrowthick-1-s" update="@form" />
+					<h:outputText value="Saldo Atual: " />
+					<h:outputText value="#{contaController.mostraSaldo()}" />
+				</p:dialog>
+
+
+				<p:dialog header="Transferencia" widgetVar="dlg3" minHeight="40" modal="true" position="center" draggable="false">
+					<h:outputLabel for="vlrTrans" value="Valor à transferir:" />
+					<p:inputText id="vlrTrans" value="#{contaController.vlrTransferencia}" label="Valor de Transferencia" />
 					<br />
 					<h:outputLabel for="usrDest" value="Conta de Destino" />
-					<p:inputText id="usrDest"
-						value="#{contaController.idUsuarioDestino}" label="Conta"/>
+					<p:inputText id="usrDest" value="#{contaController.idUsuarioDestino}" label="Conta" />
 					<br />
-					<p:commandButton value="TRANSFERIR"
-						action="#{contaController.transferenciaConta()}"
-						icon="ui-icon-transferthick-e-w" update="@form" />
+					<p:commandButton value="TRANSFERIR" action="#{contaController.transferenciaConta()}" icon="ui-icon-transferthick-e-w" update="@form" />
 					<h:outputText value="Saldo Atual: " />
 					<h:outputText value="#{contaController.mostraSaldo()}" />
 				</p:dialog>
-				<p:dialog header="Extrato" widgetVar="dlg4" minHeight="40"
-					modal="true" position="center" draggable="false">
-					<p:dataTable id="tbl" var="extrato"
-						value="#{contaController.getlistaExtrato()}" paginator="true"
-						rows="10" style="margin-bottom:20px">
+
+				<p:dialog header="Extrato" widgetVar="dlg4" minHeight="40" modal="true" position="center" draggable="false">
+					<p:dataTable id="tbl" var="extrato" value="#{contaController.getlistaExtrato()}" paginator="true" rows="10" style="margin-bottom:20px">
 						<f:facet name="footer">
 							<h:commandLink value="Imprimir extrato">
 								<p:dataExporter type="pdf" target="tbl" fileName="extrato" />
@@ -112,8 +105,7 @@
 						</p:column>
 					</p:dataTable>
 				</p:dialog>
-				<p:dialog header="Saldo" widgetVar="dlg5" minHeight="30"
-					modal="true" position="center" draggable="false">
+				<p:dialog header="Saldo" widgetVar="dlg5" minHeight="30" modal="true" position="center" draggable="false">
 					<h:outputText value="Saldo Atual: " />
 					<h:outputText value="#{contaController.mostraSaldo()}" />
 				</p:dialog>

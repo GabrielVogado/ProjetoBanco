@@ -23,7 +23,7 @@ public class SchedulerController {
 	private Double RENDIMENTO = 0.005;
 	private Double TAXA_MANUTENCAO = 34.0;
 
-	@Schedule(hour = "*", minute = "*/10", persistent = false)
+	@Schedule(dayOfMonth="30",  hour = "*", minute = "*", persistent = false)
 	public void tempoRendimento() {
 		try {
 
@@ -49,7 +49,6 @@ public class SchedulerController {
 
 	}
 
-	@SuppressWarnings("unused")
 	private void gravaExtrato(long contaId, Double valor, String acao) {
 		Extrato extrato = new Extrato();
 		extrato.setAcao(acao);
