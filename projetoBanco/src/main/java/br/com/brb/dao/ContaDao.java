@@ -3,12 +3,21 @@ package br.com.brb.dao;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import br.com.brb.entity.Conta;
 
 @Stateless
 public class ContaDao extends AbstractDAO {
+
+	@Transactional
+	public void altearSaldoConta(Conta conta) {
+		conta = getEm().merge(conta);
+		getEm().flush();
+	}
+
 	@Transactional
 	public Conta inserirSaldo(Conta conta) {
 
@@ -46,4 +55,15 @@ public class ContaDao extends AbstractDAO {
 		return contas;
 	}
 
+	public Conta consultarContaPorId(Conta conta) throws NoResultException {
+
+		StringBuilder hql = new StringBuilder();
+		hql.append("SELECT c FROM Conta c WHERE c.num_conta =:idconta");
+
+		Query query = getEm().createQuery(hql.toString());
+
+		query.setParameter("idconta", conta.getId());
+
+		return (Conta) query.getSingleResult();
+	}
 }

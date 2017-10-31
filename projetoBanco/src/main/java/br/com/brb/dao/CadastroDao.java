@@ -3,7 +3,6 @@ package br.com.brb.dao;
 import javax.ejb.Stateless;
 
 import br.com.brb.entity.Cadastro;
-import br.com.brb.entity.Conta;
 
 @Stateless
 public class CadastroDao extends AbstractDAO {

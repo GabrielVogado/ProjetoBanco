@@ -26,6 +26,7 @@ public class ExtratoDAO extends AbstractDAO {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Extrato> getExtrato(long contaId) {
 
 		String hql = "SELECT e FROM Extrato e WHERE e.contaId=:contaId order by e.data";

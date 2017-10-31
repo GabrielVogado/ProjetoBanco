@@ -23,30 +23,30 @@ public class SchedulerController {
 	private Double RENDIMENTO = 0.005;
 	private Double TAXA_MANUTENCAO = 34.0;
 
-	@Schedule(dayOfMonth="30",  hour = "*", minute = "*", persistent = false)
+	@Schedule(dayOfMonth="Last",  hour = "*", minute = "*", persistent = false)
 	public void tempoRendimento() {
 		try {
-
+	
 			List<Conta> contas = contaDao.finAll();
-
+	
 			for (Conta conta : contas) {
 				if (conta.getTipoConta().equalsIgnoreCase(Conta.POUPANCA)) {
 					conta.setSaldo(conta.getSaldo() + (conta.getSaldo() * RENDIMENTO));
 					contaDao.gravar(conta);
 					gravaExtrato(conta.getId(), conta.getSaldo(), "RENDIMENTO");
-
+	
 				}
 				if (conta.getTipoConta().equalsIgnoreCase(Conta.CORRENTE)) {
 					conta.setSaldo(conta.getSaldo() - TAXA_MANUTENCAO);
 					contaDao.gravar(conta);
 					gravaExtrato(conta.getId(), TAXA_MANUTENCAO * (-1), "TAXA_MANUTENCAO");
-
+	
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+	
 	}
 
 	private void gravaExtrato(long contaId, Double valor, String acao) {
