@@ -14,12 +14,12 @@ import br.com.brb.service.ICadastroService;
 public class CadastroService implements ICadastroService {
 
 	@Inject
-	CadastroDao cdao;
+	CadastroDao cadastroDAO;
 
 	@Inject
 	ContaDao contaDao;
 
-	private Double limite = 200.00;
+	private Double limite =  200.00;
 
 	public boolean gravarUsuario(Cadastro cadastro, String tipoConta) {
 
@@ -31,10 +31,9 @@ public class CadastroService implements ICadastroService {
 
 			conta = usuario.getConta();
 			conta.setSaldo(conta.getSaldo() + limite);
-
 		}
 
-		cadastro = cdao.insertCadastro(cadastro);
+		cadastro = cadastroDAO.insertCadastro(cadastro);
 		if (cadastro == null) {
 			return false;
 		}
@@ -49,7 +48,7 @@ public class CadastroService implements ICadastroService {
 
 	@Override
 	public void remove(Long Id) {
-		cdao.remove(Id);
+		cadastroDAO.remove(Id);
 
 	}
 }

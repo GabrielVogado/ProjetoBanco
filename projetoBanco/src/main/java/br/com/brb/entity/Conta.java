@@ -34,7 +34,6 @@ public class Conta implements Serializable {
 	@JoinColumn(name = "idusuario")
 	private Usuario usuario;
 
-
 	@Column(name = "TIPO_CONTA")
 	private String tipoConta;
 
@@ -77,5 +76,6 @@ public class Conta implements Serializable {
 	public void setTipoConta(String tipoConta) {
 		this.tipoConta = tipoConta;
 	}
+
 
 }

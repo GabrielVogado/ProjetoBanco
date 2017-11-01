@@ -62,7 +62,9 @@
 					<p:commandButton action="#{contaController.depositaConta()}"
 						value="Depositar" icon=" ui-icon-arrowthick-1-n" update="@form" />
 					<h:outputText value="Saldo Atual: " />
-					<h:outputText value="#{contaController.mostraSaldo()}" />
+					<h:outputText value="#{contaController.mostraSaldo()}">
+						<f:convertNumber maxFractionDigits="2" currencySymbol="$" type="currency"/>
+					</h:outputText>
 				</p:dialog>
 
 				<p:dialog header="Saque" widgetVar="dlg2" minHeight="40"
@@ -71,12 +73,15 @@
 					<p:commandButton action="#{contaController.realizarSaque()}"
 						value="Sacar" icon="ui-icon-arrowthick-1-s" update="@form" />
 					<h:outputText value="Saldo Atual: " />
-					<h:outputText value="#{contaController.mostraSaldo()}" />
+					<h:outputText value="#{contaController.mostraSaldo()}" >
+					<f:convertNumber maxFractionDigits="2"/>
+					</h:outputText>
 				</p:dialog>
 
 				<p:dialog header="Transferencia" widgetVar="dlg3" minHeight="40"
 					modal="true" position="center" draggable="false">
-					<h:outputLabel for="vlrTrans" value="Valor à transferir:" />
+					<h:outputLabel for="vlrTrans" value="Valor à transferir:" >
+					</h:outputLabel>
 					<p:inputText id="vlrTrans"
 						value="#{contaController.vlrTransferencia}"
 						label="Valor de Transferencia" />
@@ -89,7 +94,9 @@
 						action="#{contaController.realizarTransferencia()}"
 						icon="ui-icon-transferthick-e-w" update="@form" />
 					<h:outputText value="Saldo Atual: " />
-					<h:outputText value="#{contaController.mostraSaldo()}" />
+					<h:outputText value="#{contaController.mostraSaldo()}" >
+					<f:convertNumber maxFractionDigits="2" currencySymbol="$" type="currency"/>
+					</h:outputText>
 				</p:dialog>
 
 				<p:dialog header="Extrato" widgetVar="dlg4" minHeight="40"
@@ -105,8 +112,13 @@
 						<p:column headerText="Data">
 							<h:outputText value="#{extrato.data}" />
 						</p:column>
+						<p:column headerText="IdConta" style="text-align: right">
+							<h:outputText value="#{extrato.contaId}" />
+						</p:column>
 						<p:column headerText="Valor" style="text-align: right">
-							<h:outputText value="#{extrato.valor}" />
+							<h:outputText value="#{extrato.valor}" >
+							<f:convertNumber minFractionDigits="2" currencySymbol="$" type="currency"/>
+							</h:outputText>
 						</p:column>
 						<p:column>
 							<f:facet name="header">
@@ -120,7 +132,9 @@
 				<p:dialog header="Saldo" widgetVar="dlg5" minHeight="30"
 					modal="true" position="center" draggable="false">
 					<h:outputText value="Saldo Atual: " />
-					<h:outputText value="#{contaController.mostraSaldo()}" />
+					<h:outputText value="#{contaController.mostraSaldo()}" >
+					<f:convertNumber maxFractionDigits="2"/>
+					</h:outputText>
 				</p:dialog>
 			</p:growl>
 		</div>

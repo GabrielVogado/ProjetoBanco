@@ -14,6 +14,7 @@
 		<p:menubar>
 			<p:menuitem id="lnkLogout" value="Sair"
 				action="#{loginController.logout()}" ajax="false" />
+				
 			<p:menuitem value="Criar Conta"
 				action="cadastro.xhtml?faces-redirect=true"
 				actionListener="#{cadastroController.init()}" immediate="true" />
@@ -25,7 +26,9 @@
 				<h:outputText value="#{conta.id}" />
 			</p:column>
 			<p:column headerText="Saldo">
-				<h:outputText value="#{conta.saldo}" />
+				<h:outputText value="#{conta.saldo}" >
+				<f:convertNumber maxFractionDigits="2" currencySymbol="$" type="currency"/>
+				</h:outputText>
 			</p:column>
 			<p:column headerText="Usuario">
 				<h:outputText value="#{conta.usuario.email}" />
@@ -35,7 +38,7 @@
 			</p:column>
 
 			<p:column headerText="Extrato">
- 				<p:commandButton value="Extrato" id="extrato" ajax="true" update="form:tblExtrato" actionListener="#{contaController.getExtratoConta(conta)}" />
+ 				<p:commandButton value="Extrato" id="extrato" ajax="false" update="form:tblExtrato" actionListener="#{contaController.getExtratoConta(conta)}" />
 			</p:column>
 		</p:dataTable>
 		
@@ -54,7 +57,9 @@
 				<h:outputText value="#{extrato.data}" />
 			</p:column>
 			<p:column headerText="Valor" style="text-align: right">
-				<h:outputText value="#{extrato.valor}" />
+				<h:outputText value="#{extrato.valor}" >
+				<f:convertNumber minFractionDigits="2" currencySymbol="$" type="currency"/>
+				</h:outputText>
 			</p:column>
 			<p:column>
 				<f:facet name="header">
@@ -63,7 +68,6 @@
 				<h:outputText value="#{extrato.acao}" />
 			</p:column>
 		</p:dataTable>
-
 		
 	</h:form>
 </h:body>

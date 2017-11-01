@@ -36,24 +36,25 @@ public class ContaService implements IContaService {
 	@EJB
 	ContaDao contaDAO;
 
-	public Conta realizarDeposito(Usuario usuario,  double vlrDeposito) throws NegocioException {
-		
+	public Conta realizarDeposito(Usuario usuario, double vlrDeposito) throws NegocioException {
+
 		Conta conta = usuario.getConta();
-		
+
 		validarValorDeposito(vlrDeposito);
-		
+
 		conta.setSaldo(conta.getSaldo() + vlrDeposito);
 		conta.setUsuario(usuario);
 		contaDAO.alterarSaldoConta(conta);
 		gravarExtratoConta(conta, vlrDeposito, TipoTransacao.CREDITO);
-		
+
 		return conta;
-		
+
 	}
+
 	private void validarValorDeposito(double vlrDeposito) throws ValorDepositoNaoPodeZeroException {
 
 		if (vlrDeposito <= ValorConstante.ZERO) {
-			
+
 			throw new ValorDepositoNaoPodeZeroException("Valor de deposito não é valido");
 		}
 	}
@@ -63,25 +64,28 @@ public class ContaService implements IContaService {
 		Conta conta = usuario.getConta();
 
 		validarValorSaque(conta, vlrSaque);
-		
+
 		conta.setSaldo(conta.getSaldo() - vlrSaque);
 		conta.setUsuario(usuario);
 		contaDAO.alterarSaldoConta(conta);
 		gravarExtratoConta(conta, vlrSaque * (-1), TipoTransacao.DEBITO);
-		
-		return conta;
 
+		return conta;
 	}
-	private void validarValorSaque(Conta conta, double vlrSaque) throws ValorSaqueMaiorQueSaldoException, ValorSaqueMenorQueZeroException {
-		
+
+	
+	private void validarValorSaque(Conta conta, double vlrSaque)
+			throws ValorSaqueMaiorQueSaldoException, ValorSaqueMenorQueZeroException {
+
 		if (conta.getSaldo() < vlrSaque) {
-			
+
 			throw new ValorSaqueMaiorQueSaldoException("Seu saldo é insuficiente para realizar esta operação!");
 		}
-		if ( vlrSaque <= ValorConstante.ZERO) {
-			
+		if (vlrSaque <= ValorConstante.ZERO) {
+
 			throw new ValorSaqueMenorQueZeroException("Valor inserido deve ser maior que zero");
 		}
+
 	}
 
 	public Conta realizarTransferencia(Usuario usuarioOrigem, Long idUsuarioDestino, double valorTransferencia)
@@ -103,10 +107,9 @@ public class ContaService implements IContaService {
 		contaDestino.setSaldo(contaDestino.getSaldo() + valorTransferencia);
 		contaDAO.alterarSaldoConta(contaDestino);
 		gravarExtratoConta(contaDestino, valorTransferencia, TipoTransacao.CREDITO);
-		
+
 		return contaOrigem;
 	}
-
 
 	private Usuario getUsuarioExistente(Long idUsuario) throws UsuarioNaoPodeNuloException {
 

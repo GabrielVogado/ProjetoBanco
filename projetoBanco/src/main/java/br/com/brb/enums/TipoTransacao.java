@@ -2,8 +2,8 @@ package br.com.brb.enums;
 
 public enum TipoTransacao {
 	
-	DEBITO("Débito"),
-	CREDITO("Crédito");
+	DEBITO(" Débito"),
+	CREDITO(" Crédito");
 	
 	private String descricao;
 	

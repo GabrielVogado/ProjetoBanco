@@ -22,14 +22,14 @@ public class LoginController {
 	@Inject
 	private ContaController contaControler;
 
-	private String Login;
-	private String NumConta = "0";
-	private String Senha ; 
+	private String login;
+	private String numConta;
+	private String senha ; 
 
 	public String realizaLoginAdm() {
 		Usuario usuario = new Usuario();
-		usuario.setEmail(this.Login);
-		usuario.setSenha(this.Senha);
+		usuario.setEmail(this.login);
+		usuario.setSenha(this.senha);
 
 		Usuario isAdmLogado = loginService.verificaAdmLogado(usuario);
 
@@ -52,9 +52,9 @@ public class LoginController {
 		Usuario usuario = new Usuario();
 		
 		usuario.setConta(new Conta() );
-		usuario.getConta().setNum_conta( Long.parseLong(NumConta) );
+		usuario.getConta().setNum_conta( Long.parseLong(numConta) );
 		
-		usuario.setSenha(this.Senha);
+		usuario.setSenha(senha);
 
 		Usuario isUsuarioLogado = loginService.verificarUsuarioLogado(usuario);
 
@@ -75,30 +75,30 @@ public class LoginController {
 	public String logout() {
 		HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		sessao.invalidate();
-		return "index.xhtml";
+		return "/index.xhtml";
 	}
 
 	public String getNumConta() {
-		return NumConta;
+		return numConta;
 	}
 
-	public void setNumConta(String NumConta) {
-		this.NumConta = NumConta;
+	public void setNumConta(String numConta) {
+		this.numConta = numConta;
 	}
 
 	public String getSenha() {
-		return Senha;
+		return senha;
 	}
 
 	public void setSenha(String senha) {
-		Senha = senha;
+		this.senha = senha;
 	}
 
 	public String getLogin() {
-		return Login;
+		return login;
 	}
 
 	public void setLogin(String login) {
-		Login = login;
+		this.login = login;
 	}
 }

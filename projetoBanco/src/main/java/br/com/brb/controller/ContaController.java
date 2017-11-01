@@ -1,6 +1,7 @@
 package br.com.brb.controller;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -71,16 +72,19 @@ public class ContaController implements Serializable {
 		} catch (NegocioException e) {
 			addErroMensage(e.getMessage());
 		}
+		this.vlrTransferencia = 0;
+		this.idUsuarioDestino = 0L;
 	}
 
-//	private void gravaExtrato(long contaId, Double valor, String acao) {
-//		Extrato extrato = new Extrato();
-//		extrato.setAcao(acao);
-//		extrato.setData(new Date());
-//		extrato.setValor(valor);
-//		extrato.setContaId(contaId);
-//		extractService.gravarDados(extrato);
-//	}
+	@SuppressWarnings("unused")
+	private void gravaExtrato(long contaId, Double valor, String acao) {
+		Extrato extrato = new Extrato();
+		extrato.setAcao(acao);
+		extrato.setData(new Date());
+		extrato.setValor(valor);
+		extrato.setContaId(contaId);
+		extractService.gravarDados(extrato);
+	}
 
 	public void getExtratoConta(Conta conta) {
 		setExtratoConta(extractService.getExtrato(conta.getId()) );
