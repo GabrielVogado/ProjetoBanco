@@ -11,11 +11,11 @@ import br.com.brb.exception.NegocioException;
 @Local
 public interface IContaService {
 
-	public Conta deposita(Conta valor) throws NegocioException;
+	public Conta realizarDeposito(Usuario usuario,  double vlrDeposito) throws NegocioException;
 
-	public void realizarSaque(Usuario usuario ,double vlrSaque) throws NegocioException;
+	public Conta realizarSaque(Usuario usuario ,double vlrSaque) throws NegocioException;
 
-	public void realizarTransferencia(Usuario origem, Long destino, double valor) throws NegocioException;
+	public Conta realizarTransferencia(Usuario origem, Long destino, double valor) throws NegocioException;
 	
 	public List<Conta> getList() throws NegocioException;
 	

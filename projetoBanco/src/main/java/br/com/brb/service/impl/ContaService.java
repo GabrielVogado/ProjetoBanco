@@ -16,7 +16,9 @@ import br.com.brb.entity.Usuario;
 import br.com.brb.enums.TipoTransacao;
 import br.com.brb.exception.NegocioException;
 import br.com.brb.exception.UsuarioNaoPodeNuloException;
+import br.com.brb.exception.ValorDepositoNaoPodeZeroException;
 import br.com.brb.exception.ValorSaqueMaiorQueSaldoException;
+import br.com.brb.exception.ValorSaqueMenorQueZeroException;
 import br.com.brb.exception.ValorTransferenciaMaiorQueSaldoException;
 import br.com.brb.service.IContaService;
 import br.com.brb.service.IExtratoService;
@@ -34,11 +36,29 @@ public class ContaService implements IContaService {
 	@EJB
 	ContaDao contaDAO;
 
-	public Conta deposita(Conta valor) {
-		return contaDAO.inserirSaldo(valor);
+	public Conta realizarDeposito(Usuario usuario,  double vlrDeposito) throws NegocioException {
+		
+		Conta conta = usuario.getConta();
+		
+		validarValorDeposito(vlrDeposito);
+		
+		conta.setSaldo(conta.getSaldo() + vlrDeposito);
+		conta.setUsuario(usuario);
+		contaDAO.alterarSaldoConta(conta);
+		gravarExtratoConta(conta, vlrDeposito, TipoTransacao.CREDITO);
+		
+		return conta;
+		
+	}
+	private void validarValorDeposito(double vlrDeposito) throws ValorDepositoNaoPodeZeroException {
+
+		if (vlrDeposito <= ValorConstante.ZERO) {
+			
+			throw new ValorDepositoNaoPodeZeroException("Valor de deposito não é valido");
+		}
 	}
 
-	public void realizarSaque(Usuario usuario, double vlrSaque) throws NegocioException {
+	public Conta realizarSaque(Usuario usuario, double vlrSaque) throws NegocioException {
 
 		Conta conta = usuario.getConta();
 
@@ -46,19 +66,25 @@ public class ContaService implements IContaService {
 		
 		conta.setSaldo(conta.getSaldo() - vlrSaque);
 		conta.setUsuario(usuario);
-		contaDAO.altearSaldoConta(conta);
+		contaDAO.alterarSaldoConta(conta);
 		gravarExtratoConta(conta, vlrSaque * (-1), TipoTransacao.DEBITO);
+		
+		return conta;
 
 	}
-	private void validarValorSaque(Conta conta, double vlrSaque) throws ValorSaqueMaiorQueSaldoException {
+	private void validarValorSaque(Conta conta, double vlrSaque) throws ValorSaqueMaiorQueSaldoException, ValorSaqueMenorQueZeroException {
 		
-		if (conta.getSaldo() < vlrSaque || vlrSaque <= ValorConstante.ZERO) {
+		if (conta.getSaldo() < vlrSaque) {
 			
 			throw new ValorSaqueMaiorQueSaldoException("Seu saldo é insuficiente para realizar esta operação!");
 		}
+		if ( vlrSaque <= ValorConstante.ZERO) {
+			
+			throw new ValorSaqueMenorQueZeroException("Valor inserido deve ser maior que zero");
+		}
 	}
 
-	public void realizarTransferencia(Usuario usuarioOrigem, Long idUsuarioDestino, double valorTransferencia)
+	public Conta realizarTransferencia(Usuario usuarioOrigem, Long idUsuarioDestino, double valorTransferencia)
 			throws NegocioException {
 
 		Conta contaOrigem = usuarioOrigem.getConta();
@@ -70,13 +96,15 @@ public class ContaService implements IContaService {
 
 		// Atualizando o saldo da conta de origem
 		contaOrigem.setSaldo(contaOrigem.getSaldo() - valorTransferencia);
-		contaDAO.altearSaldoConta(contaOrigem);
+		contaDAO.alterarSaldoConta(contaOrigem);
 		gravarExtratoConta(contaOrigem, valorTransferencia * (-1), TipoTransacao.DEBITO);
 
 		// Atualizando o saldo da conta de destino
 		contaDestino.setSaldo(contaDestino.getSaldo() + valorTransferencia);
-		contaDAO.altearSaldoConta(contaDestino);
+		contaDAO.alterarSaldoConta(contaDestino);
 		gravarExtratoConta(contaDestino, valorTransferencia, TipoTransacao.CREDITO);
+		
+		return contaOrigem;
 	}
 
 

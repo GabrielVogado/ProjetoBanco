@@ -12,18 +12,18 @@ import br.com.brb.service.IExtratoService;
 @Stateless
 public class ExtratoService implements IExtratoService {
 	@EJB
-	ExtratoDAO extractd = new ExtratoDAO();
+	ExtratoDAO extractDAO = new ExtratoDAO();
 
 	@Override
 	public boolean gravarDados(Extrato extrato) {
-		extractd.gravarDados(extrato);
+		extractDAO.gravarDados(extrato);
 		return false;
 	}
 
 	@Override
 	public List<Extrato> getExtrato(long id) {
 
-		return extractd.getExtrato(id);
+		return extractDAO.getExtrato(id);
 
 	}
 

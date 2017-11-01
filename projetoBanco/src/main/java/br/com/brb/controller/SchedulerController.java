@@ -23,7 +23,7 @@ public class SchedulerController {
 	private Double RENDIMENTO = 0.005;
 	private Double TAXA_MANUTENCAO = 34.0;
 
-	@Schedule(dayOfMonth="Last",  hour = "*", minute = "*", persistent = false)
+	@Schedule(hour = "*", minute = "*/10", persistent = false)
 	public void tempoRendimento() {
 		try {
 	

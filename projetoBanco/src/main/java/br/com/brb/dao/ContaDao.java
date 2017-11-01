@@ -13,29 +13,34 @@ import br.com.brb.entity.Conta;
 public class ContaDao extends AbstractDAO {
 
 	@Transactional
-	public void altearSaldoConta(Conta conta) {
-		conta = getEm().merge(conta);
-		getEm().flush();
-	}
-
-	@Transactional
-	public Conta inserirSaldo(Conta conta) {
-
+	public Conta alterarSaldoConta(Conta conta) {
 		try {
-			if (conta.getId() == null) {
-				getEm().persist(conta);
-			} else {
-				conta = getEm().merge(conta);
-			}
-			getEm().flush();
-
+		conta = getEm().merge(conta); //para nessa linha
+		getEm().flush(); //não faz o flush
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return conta;
-
 	}
+
+//	@Transactional
+//	public Conta inserirSaldo(Conta conta) {
+//
+//		try {
+//			if (conta.getId() == null) {
+//				getEm().persist(conta);
+//			} else {
+//				conta = getEm().merge(conta);
+//			}
+//			getEm().flush();
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		return conta;
+//
+//	}
 
 	@Transactional
 	public Conta gravar(Conta conta) {

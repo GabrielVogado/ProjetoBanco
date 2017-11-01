@@ -10,38 +10,61 @@
 </h:head>
 <h:body>
 
-	<h:form>
+	<h:form id="form">
 		<p:menubar>
-
 			<p:menuitem id="lnkLogout" value="Sair"
 				action="#{loginController.logout()}" ajax="false" />
-				
 			<p:menuitem value="Criar Conta"
 				action="cadastro.xhtml?faces-redirect=true"
 				actionListener="#{cadastroController.init()}" immediate="true" />
-
 		</p:menubar>
-
 		<br />
 		<br />
-
 		<p:dataTable var="conta" value="#{contaController.getlistConta()}">
-		    <p:column headerText="Conta">
-		        <h:outputText value="#{conta.id}" />
-		    </p:column>
-		    <p:column headerText="Saldo">
-		        <h:outputText value="#{conta.saldo}" />
-		    </p:column>
-		    <p:column headerText="Usuario">
-		        <h:outputText value="#{conta.usuario.email}" />
-		    </p:column>
-		    <p:column headerText="Tipo Conta">
-		    <h:outputText value="#{conta.tipoConta}" />
-		    </p:column>
-		</p:dataTable>	
+			<p:column headerText="Conta">
+				<h:outputText value="#{conta.id}" />
+			</p:column>
+			<p:column headerText="Saldo">
+				<h:outputText value="#{conta.saldo}" />
+			</p:column>
+			<p:column headerText="Usuario">
+				<h:outputText value="#{conta.usuario.email}" />
+			</p:column>
+			<p:column headerText="Tipo Conta">
+				<h:outputText value="#{conta.tipoConta}" />
+			</p:column>
+
+			<p:column headerText="Extrato">
+ 				<p:commandButton value="Extrato" id="extrato" ajax="true" update="form:tblExtrato" actionListener="#{contaController.getExtratoConta(conta)}" />
+			</p:column>
+		</p:dataTable>
+		
+		<br />
+		<br />
+
+		<p:dataTable id="tblExtrato" var="extrato"
+			value="#{contaController.getExtratoConta()}" paginator="true"
+			rows="10" style="margin-bottom:20px">
+			<f:facet name="footer">
+				<h:commandLink value="Imprimir extrato">
+					<p:dataExporter type="pdf" target="tbl" fileName="extrato" />
+				</h:commandLink>
+			</f:facet>
+			<p:column headerText="Data">
+				<h:outputText value="#{extrato.data}" />
+			</p:column>
+			<p:column headerText="Valor" style="text-align: right">
+				<h:outputText value="#{extrato.valor}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="A&#231;&#227;o" />
+				</f:facet>
+				<h:outputText value="#{extrato.acao}" />
+			</p:column>
+		</p:dataTable>
 
 		
 	</h:form>
-
 </h:body>
 </html>
